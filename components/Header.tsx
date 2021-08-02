@@ -1,8 +1,8 @@
 export default function Header() {
   return (
-    <div className="bg-sky-600">
+    <div className="font-bold bg-sky-600">
       <div className="container">
-        <p>Comics Log</p>
+        <h1 className="text-gray-200 text-xl">Comics Log</h1>
       </div>
     </div>
   );
