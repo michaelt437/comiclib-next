@@ -3,7 +3,7 @@ import ComicsList from "../components/ComicsList/ComicsList";
 
 export default function Home() {
   return (
-    <Layout height="500px">
+    <Layout height="100%">
       <ComicsList />
     </Layout>
   );

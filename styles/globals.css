@@ -6,7 +6,7 @@
 
 html,
 body {
-  @apply bg-gray-100 text-gray-600;
+  @apply bg-gray-100 text-gray-500;
   font-family: "Poppins", "sans-serif";
   font-size: 16px;
 }
@@ -17,7 +17,28 @@ h3,
 h4,
 h5,
 h6 {
-  @apply text-sky-800;
+  @apply text-sky-800 font-bold;
+}
+
+h1,
+.h1 {
+  @apply text-4xl;
+}
+h2,
+.h2 {
+  @apply text-2xl;
+}
+h3,
+.h3 {
+  @apply text-lg;
+}
+
+table thead tr th {
+  @apply font-normal text-left text-gray-400;
+}
+
+table tbody td {
+  @apply py-2;
 }
 
 .container {

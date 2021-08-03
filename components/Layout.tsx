@@ -6,7 +6,7 @@ export default function Layout({
   height = "inherit"
 }: {
   children: ReactNode;
-  height: string;
+  height?: string;
 }) {
   return (
     <div className="app">
