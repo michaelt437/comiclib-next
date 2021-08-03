@@ -1,3 +1,5 @@
+const colors = require("tailwindcss/colors");
+
 module.exports = {
   purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   darkMode: false, // or 'media' or 'class'
@@ -15,7 +17,8 @@ module.exports = {
           700: "#0369a1",
           800: "#075985",
           900: "#0c4a6e"
-        }
+        },
+        marvel: "#EF4444"
       }
     }
   },

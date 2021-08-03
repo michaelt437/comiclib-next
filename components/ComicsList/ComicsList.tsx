@@ -15,9 +15,9 @@ function ComicsList ({ items }: { items: IComic[] }) {
     }
   };
   return (
-    <div className="row-span-1 col-span-full md:col-span-2">
+    <div className="rounded-md p-6 row-span-1 col-span-full md:col-span-2">
       <div className="flex justify-between items-center flex-wrap mb-5 md:flex-nowrap">
-        <h2 className="flex-shrink-0">Comics List</h2>
+        <h2 className="flex-shrink-0">Book List</h2>
         <div className="flex-grow w-full md:max-w-lg md:ml-5">
           <input
             className="px-3 py-2 rounded-md w-full"
@@ -25,18 +25,6 @@ function ComicsList ({ items }: { items: IComic[] }) {
             placeholder="Search..."
           />
         </div>
-      </div>
-      <div className="flex flex-auto items-stretch mb-5">
-        <span className="cursor-pointer px-3 py-2 bg-gray-200 rounded-tl-md">
-          All
-        </span>
-        <span className="cursor-pointer px-3 py-2 bg-gray-200">Marvel</span>
-        <span className="cursor-pointer px-3 py-2 bg-gray-200">DC</span>
-        <span className="cursor-pointer px-3 py-2 bg-sky-300">Vertigo</span>
-        <span className="cursor-pointer px-3 py-2 bg-gray-200">Dark Horse</span>
-        <span className="cursor-pointer px-3 py-2 bg-gray-200 rounded-tr-md">
-          IDW
-        </span>
       </div>
       <table className="w-full">
         <thead>
@@ -52,10 +40,10 @@ function ComicsList ({ items }: { items: IComic[] }) {
           {items.map((comic) => {
             return (
               <tr key={comic.title}>
-                <td>{comic.title}</td>
-                <td>{comic.publisher}</td>
+                <td className="text-gray-800">{comic.title}</td>
+                <td className={`text-${comic.publisher.toLowerCase()}`}>{comic.publisher}</td>
                 <td>{comic.notes}</td>
-                <td className="text-center">{comic.score}</td>
+                <td className="text-center text-sky-600">{comic.score}</td>
                 <td className="text-center">{statusIcon(comic.status)}</td>
               </tr>
             );
