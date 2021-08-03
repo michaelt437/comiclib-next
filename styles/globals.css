@@ -8,7 +8,7 @@ html,
 body {
   @apply bg-gray-100 text-gray-500;
   font-family: "Poppins", "sans-serif";
-  font-size: 16px;
+  font-size: 14px;
 }
 
 h1,
@@ -38,7 +38,7 @@ table thead tr th {
 }
 
 table tbody td {
-  @apply py-2;
+  @apply py-3;
 }
 
 .container {
