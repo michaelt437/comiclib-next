@@ -3,7 +3,7 @@ import { IComic, Publishers, ReadStatus } from "../types";
 import Layout from "../components/Layout";
 import ComicsList from "../components/ComicsList/ComicsList";
 
-export default function Home() {
+export default function Home () {
   const [library, setComics] = useState<IComic[]>([
     {
       publisher: Publishers.MARVEL,

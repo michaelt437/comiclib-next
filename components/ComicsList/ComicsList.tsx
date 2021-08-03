@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { IComic } from "../../types";
 
-function ComicsList({ items }: { items: IComic[] }) {
+function ComicsList ({ items }: { items: IComic[] }) {
   const statusIcon = function (status: number): string {
     switch (status) {
       case 0:

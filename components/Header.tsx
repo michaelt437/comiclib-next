@@ -1,4 +1,4 @@
-export default function Header() {
+export default function Header () {
   return (
     <div className="font-bold bg-sky-600">
       <div className="container">
