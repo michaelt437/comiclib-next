@@ -47,6 +47,20 @@ export default function Home() {
           <p>Total</p>
         </div>
       </div>
+      <div className="flex flex-col rounded-md p-6 col-span-auto">
+        <h2 className="mb-5">Stats</h2>
+        <div className="flex flex-col flex-grow justify-center items-center">
+          <p className="text-5xl">142</p>
+          <p>Total</p>
+        </div>
+      </div>
+      <div className="flex flex-col rounded-md p-6 col-span-auto">
+        <h2 className="mb-5">Stats</h2>
+        <div className="flex flex-col flex-grow justify-center items-center">
+          <p className="text-5xl">142</p>
+          <p>Total</p>
+        </div>
+      </div>
     </Layout>
   );
 }

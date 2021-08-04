@@ -14,7 +14,7 @@ export default function ComicsList({ items }: { items: IComic[] }) {
     }
   };
   return (
-    <div className="rounded-md p-6 row-span-1 col-span-full md:col-span-2">
+    <div className="rounded-md p-6 row-start-2 col-span-full">
       <div className="flex justify-between items-center flex-wrap mb-5 md:flex-nowrap">
         <h2 className="flex-shrink-0">Book List</h2>
         <div className="flex-grow w-full rounded-md md:max-w-lg md:ml-5">
