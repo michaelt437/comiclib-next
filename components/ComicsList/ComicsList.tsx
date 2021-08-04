@@ -1,7 +1,6 @@
-import PropTypes from "prop-types";
 import { IComic } from "../../types";
 
-function ComicsList ({ items }: { items: IComic[] }) {
+export default function ComicsList({ items }: { items: IComic[] }) {
   const statusIcon = function (status: number): string {
     switch (status) {
       case 0:
@@ -30,8 +29,8 @@ function ComicsList ({ items }: { items: IComic[] }) {
         <thead>
           <tr>
             <th>Title</th>
+            <th>Writer</th>
             <th>Publisher</th>
-            <th>Notes</th>
             <th className="text-center">Score</th>
             <th className="text-center">Status</th>
           </tr>
@@ -39,10 +38,11 @@ function ComicsList ({ items }: { items: IComic[] }) {
         <tbody>
           {items.map((comic) => {
             return (
-              <tr key={comic.title}>
-                <td className="text-gray-800">{comic.title}</td>
-                <td className={`text-${comic.publisher.toLowerCase()}`}>{comic.publisher}</td>
-                <td>{comic.notes}</td>
+              <tr key={comic.title} className="hover:bg-blueGray-50">
+                <td className="text-sky-700">{comic.title}</td>
+                <td>{comic.writer}</td>
+                {/* <td className={`text-${comic.publisher.toLowerCase()}`}> */}
+                <td>{comic.publisher}</td>
                 <td className="text-center text-sky-600">{comic.score}</td>
                 <td className="text-center">{statusIcon(comic.status)}</td>
               </tr>
@@ -53,9 +53,3 @@ function ComicsList ({ items }: { items: IComic[] }) {
     </div>
   );
 }
-
-ComicsList.propTypes = {
-  items: PropTypes.array
-};
-
-export default ComicsList;

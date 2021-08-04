@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        sky: {
+        "sky": {
           50: "#f0f9ff",
           100: "#e0f2fe",
           200: "#bae6fd",
@@ -18,7 +18,24 @@ module.exports = {
           800: "#075985",
           900: "#0c4a6e"
         },
-        marvel: "#EF4444"
+        "blueGray": {
+          50: colors.blueGray[50],
+          100: colors.blueGray[100],
+          200: colors.blueGray[200],
+          300: colors.blueGray[300],
+          400: colors.blueGray[400],
+          500: colors.blueGray[500],
+          600: colors.blueGray[600],
+          700: colors.blueGray[700],
+          800: colors.blueGray[800],
+          900: colors.blueGray[900]
+        },
+        "marvel": colors.red[500],
+        "dc": colors.blue[500],
+        "dc-black": colors.blue[800],
+        "vertigo": colors.gray[700],
+        "image": colors.gray[800],
+        "dark-horse": colors.orange[800]
       }
     }
   },
