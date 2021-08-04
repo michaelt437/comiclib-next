@@ -3,12 +3,11 @@ import { IComic } from "../../types";
 export default function ComicsList({ items }: { items: IComic[] }) {
   const statusIcon = function (status: number): string {
     switch (status) {
-      case 0:
-        return "😅";
       case 1:
         return "📖";
       case 2:
         return "✔";
+      case 0:
       default:
         return "";
     }
@@ -27,9 +26,9 @@ export default function ComicsList({ items }: { items: IComic[] }) {
       </div>
       <div className="grid-table">
         <div className="grid-table_thead">
-          <div className="grid-table_row grid grid-cols-8">
+          <div className="grid-table_row grid grid-cols-9">
             <div className="grid-table_col col-span-4">Title</div>
-            <div className="grid-table_col">Writer</div>
+            <div className="grid-table_col col-span-2">Writer</div>
             <div className="grid-table_col">Publisher</div>
             <div className="grid-table_col text-center">Score</div>
             <div className="grid-table_col text-center">Status</div>
@@ -39,13 +38,13 @@ export default function ComicsList({ items }: { items: IComic[] }) {
           {items.map((comic) => {
             return (
               <div
-                className="grid-table_row grid grid-cols-8 hover:bg-blueGray-50"
+                className="grid-table_row grid grid-cols-9 hover:bg-blueGray-50"
                 key={comic.title}
               >
                 <div className="grid-table_col col-span-4 text-sky-700">
                   {comic.title}
                 </div>
-                <div className="grid-table_col">{comic.writer}</div>
+                <div className="grid-table_col col-span-2">{comic.writer}</div>
                 <div className="grid-table_col">{comic.publisher}</div>
                 <div className="grid-table_col text-center text-sky-600">
                   {comic.score}

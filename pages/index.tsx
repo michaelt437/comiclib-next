@@ -1,42 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IComic, Publishers, ReadStatus } from "../types";
 import Layout from "../components/Layout";
 import ComicsList from "../components/ComicsList/ComicsList";
+import { createClient } from "@supabase/supabase-js";
+const supabase = createClient("https://wwwhlgyjoggvjxbbycgn.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyODEwMDUwNCwiZXhwIjoxOTQzNjc2NTA0fQ.C2zMG2-CyTumjZPJWEKymbsYIHuCjyJpgK9lMj8euRY");
 
 export default function Home() {
-  const [library, setComics] = useState<IComic[]>([
-    {
-      publisher: Publishers.MARVEL,
-      score: 8,
-      status: ReadStatus.COMPLETE,
-      title: "Avengers vs X-Men"
-    },
-    {
-      publisher: Publishers.MARVEL,
-      score: 10,
-      status: ReadStatus.COMPLETE,
-      title: "Avengers: Disassembled"
-    },
-    {
-      publisher: Publishers.IMAGE,
-      score: null,
-      status: ReadStatus.NOTREAD,
-      title: "Black Science Vol 1"
-    },
-    {
-      writer: "Lemire",
-      publisher: Publishers.MARVEL,
-      score: null,
-      status: ReadStatus.NOTREAD,
-      title: "Thanos Vol 1"
-    },
-    {
-      publisher: Publishers.VERTIGO,
-      score: null,
-      status: ReadStatus.NOTREAD,
-      title: "The Sandman Vol 5: A Game of You"
+  const [library, setLibrary] = useState<IComic[]>([]);
+
+  useEffect(() => {
+    async function fetchBooks (): Promise<void> {
+      const { data, error } = await supabase.from("comicbooks").select("*");
+      setLibrary(data as IComic[]);
     }
-  ]);
+    fetchBooks();
+  }, []);
+  
   return (
     <Layout>
       <ComicsList items={library} />

@@ -12,7 +12,7 @@ export default function Layout ({
     <div className="app">
       <Header />
       <div
-        className="container grid grid-cols-3 grid-rows-2 gap-6"
+        className="container grid grid-cols-3 grid-rows-3 gap-6"
         style={{ height: `${height}` }}
       >
         {children}
