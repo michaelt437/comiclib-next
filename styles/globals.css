@@ -33,15 +33,15 @@ h3,
   @apply text-lg;
 }
 
-table thead tr th {
-  @apply font-normal text-left text-gray-400;
+.grid-table_thead .grid-table_col {
+  @apply font-normal text-gray-400;
 }
 
-table tbody td {
+.grid-table_row {
   @apply py-2;
 }
 
-tr > * {
+.grid-table_col {
   @apply px-2;
 }
 
