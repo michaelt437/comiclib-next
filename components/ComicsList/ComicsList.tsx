@@ -1,6 +1,6 @@
 import { IComic } from "../../types";
 
-export default function ComicsList({ items }: { items: IComic[] }) {
+export default function ComicsList({ items, changeModalState }: { items: IComic[], changeModalState: Function }) {
   const statusIcon = function (status: number): string {
     switch (status) {
       case 1:
@@ -23,7 +23,7 @@ export default function ComicsList({ items }: { items: IComic[] }) {
             placeholder="Search..."
           />
         </div>
-        <button className="btn bg-sky-500 hover:bg-sky-400 active:bg-sky-300">Add Book</button>
+        <button className="btn bg-sky-500 hover:bg-sky-400 active:bg-sky-300" onClick={() => changeModalState(true)}>Add Book</button>
       </div>
       <div className="grid-table">
         <div className="grid-table_thead sticky bg-gray-100 top-0">
