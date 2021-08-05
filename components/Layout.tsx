@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import Header from "./Header";
 
-export default function Layout ({
+export default function Layout({
   children,
   height = "inherit"
 }: {
@@ -12,7 +12,7 @@ export default function Layout ({
     <div className="app">
       <Header />
       <div
-        className="container grid grid-cols-3 grid-rows-3 gap-6"
+        className="container grid grid-cols-3 grid-rows-1 auto-cols-max gap-6"
         style={{ height: `${height}` }}
       >
         {children}
