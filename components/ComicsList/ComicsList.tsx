@@ -1,6 +1,7 @@
 import { IComic } from "../../types";
+import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 
-export default function ComicsList({
+export default function ComicsList ({
   items,
   changeModalState
 }: {
@@ -43,28 +44,32 @@ export default function ComicsList({
             <div className="grid-table_col text-center">Status</div>
           </div>
         </div>
-        <div className="grid-table_tbody">
-          {items.map((comic) => {
-            return (
-              <div
-                className="grid-table_row grid grid-cols-9 hover:bg-blueGray-50"
-                key={comic.title}
-              >
-                <div className="grid-table_col col-span-4 text-blueGray-500 font-medium">
-                  {comic.title}
+        <OverlayScrollbarsComponent>
+          <div className="grid-table_tbody max-h-96">
+            {items.map((comic) => {
+              return (
+                <div
+                  className="grid-table_row grid grid-cols-9 hover:bg-blueGray-50"
+                  key={comic.title}
+                >
+                  <div className="grid-table_col col-span-4 text-blueGray-500 font-medium">
+                    {comic.title}
+                  </div>
+                  <div className="grid-table_col col-span-2">
+                    {comic.writer}
+                  </div>
+                  <div className="grid-table_col">{comic.publisher}</div>
+                  <div className="grid-table_col text-center text-sky-600">
+                    {comic.score}
+                  </div>
+                  <div className="grid-table_col text-center">
+                    {statusIcon(comic.status)}
+                  </div>
                 </div>
-                <div className="grid-table_col col-span-2">{comic.writer}</div>
-                <div className="grid-table_col">{comic.publisher}</div>
-                <div className="grid-table_col text-center text-sky-600">
-                  {comic.score}
-                </div>
-                <div className="grid-table_col text-center">
-                  {statusIcon(comic.status)}
-                </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        </OverlayScrollbarsComponent>
       </div>
     </div>
   );

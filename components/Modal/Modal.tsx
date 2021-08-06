@@ -1,6 +1,6 @@
 import { XIcon } from "@heroicons/react/solid";
 
-export default function Modal({
+export default function Modal ({
   changeModalState
 }: {
   changeModalState: Function;

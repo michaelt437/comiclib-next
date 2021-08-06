@@ -6,12 +6,12 @@ import ComicsList from "../components/ComicsList/ComicsList";
 import { createClient } from "@supabase/supabase-js";
 const supabase = createClient("https://wwwhlgyjoggvjxbbycgn.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyODEwMDUwNCwiZXhwIjoxOTQzNjc2NTA0fQ.C2zMG2-CyTumjZPJWEKymbsYIHuCjyJpgK9lMj8euRY");
 
-export default function Home() {
+export default function Home () {
   const [library, setLibrary] = useState<IComic[]>([]);
   const [openModal, setOpenModal] = useState<boolean>(false);
 
   useEffect(() => {
-    async function fetchBooks(): Promise<void> {
+    async function fetchBooks (): Promise<void> {
       const { data, error } = await supabase.from("comicbooks").select("*");
       setLibrary(data as IComic[]);
     }
