@@ -5,6 +5,9 @@ export default function Modal ({
 }: {
   changeModalState: Function;
 }) {
+  function closeModal () {
+    changeModalState(false);
+  }
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-50 z-10">
       <div className="w-10/12 md:w-1/3 p-5 rounded-md bg-gray-100 z-30">
@@ -12,7 +15,7 @@ export default function Modal ({
           <h3 className="uppercase">Add a new comic book</h3>
           <XIcon
             className="h-6 w-6 cursor-pointer"
-            onClick={() => changeModalState(false)}
+            onClick={closeModal}
           />
         </div>
         <div className="form">
@@ -70,7 +73,7 @@ export default function Modal ({
             placeholder="0"
           />
           <div className="flex justify-end">
-            <button className="btn secondary">Cancel</button>
+            <button className="btn secondary" onClick={closeModal}>Cancel</button>
             <button className="btn primary">Submit</button>
           </div>
         </div>

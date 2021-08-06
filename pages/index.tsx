@@ -3,6 +3,7 @@ import { IComic, Publishers, ReadStatus } from "../types";
 import Layout from "../components/Layout";
 import Modal from "../components/Modal/Modal";
 import ComicsList from "../components/ComicsList/ComicsList";
+import PublisherBarGraph from "../components/PublisherBarGraph/PublisherBarGraph";
 import { createClient } from "@supabase/supabase-js";
 const supabase = createClient(
   "https://wwwhlgyjoggvjxbbycgn.supabase.co",
@@ -37,20 +38,7 @@ export default function Home() {
           <p>Total</p>
         </div>
       </div>
-      <div className="flex flex-col rounded-md p-6 col-span-auto">
-        <h2 className="mb-5">Stats</h2>
-        <div className="flex flex-col flex-grow justify-center items-center">
-          <p className="text-5xl">142</p>
-          <p>Total</p>
-        </div>
-      </div>
-      <div className="flex flex-col rounded-md p-6 col-span-auto">
-        <h2 className="mb-5">Stats</h2>
-        <div className="flex flex-col flex-grow justify-center items-center">
-          <p className="text-5xl">142</p>
-          <p>Total</p>
-        </div>
-      </div>
+      <PublisherBarGraph />
     </Layout>
   );
 }
