@@ -1,6 +1,12 @@
 import { IComic } from "../../types";
 
-export default function ComicsList({ items, changeModalState }: { items: IComic[], changeModalState: Function }) {
+export default function ComicsList({
+  items,
+  changeModalState
+}: {
+  items: IComic[];
+  changeModalState: Function;
+}) {
   const statusIcon = function (status: number): string {
     switch (status) {
       case 1:
@@ -18,12 +24,14 @@ export default function ComicsList({ items, changeModalState }: { items: IComic[
         <h2 className="flex-shrink-0">Book List</h2>
         <div className="flex-grow w-full rounded-md md:max-w-lg md:ml-auto md:mr-4">
           <input
-            className="px-3 py-2 rounded-md w-full bg-gray-200 focus:bg-blueGray-50"
+            className="form-field w-full bg-gray-200 focus:bg-blueGray-50"
             type="text"
             placeholder="Search..."
           />
         </div>
-        <button className="btn bg-sky-500 hover:bg-sky-400 active:bg-sky-300" onClick={() => changeModalState(true)}>Add Book</button>
+        <button className="btn primary" onClick={() => changeModalState(true)}>
+          Add Book
+        </button>
       </div>
       <div className="grid-table">
         <div className="grid-table_thead sticky bg-gray-100 top-0">
