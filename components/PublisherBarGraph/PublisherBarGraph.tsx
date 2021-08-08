@@ -10,6 +10,7 @@ export default function PublisherBarGraph ({ data }: { data: IComic[] }) {
       x: {
         grid: {
           display: false
+          // drawBorder: false
         },
         ticks: {
           display: false
@@ -17,10 +18,11 @@ export default function PublisherBarGraph ({ data }: { data: IComic[] }) {
       },
       y: {
         grid: {
-          display: false
+          // display: false,
+          drawBorder: false
         },
         ticks: {
-          display: false
+          // display: false
         }
       }
     },
@@ -78,6 +80,7 @@ export default function PublisherBarGraph ({ data }: { data: IComic[] }) {
 
   return (
     <div className="col-start-3 col-end-4">
+      <h2 className="mb-4">Distribution</h2>
       <Bar data={barData} options={barOptions} />
     </div>
   );

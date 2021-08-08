@@ -3,16 +3,18 @@ import Header from "./Header";
 
 export default function Layout ({
   children,
+  layoutStyles,
   height = "inherit"
 }: {
   children: ReactNode;
+  layoutStyles: string;
   height?: string;
 }) {
   return (
     <div className="app">
       <Header />
       <div
-        className="container grid grid-cols-3 grid-rows-1 auto-cols-max gap-6"
+        className={"container " + layoutStyles}
         style={{ height: `${height}` }}
       >
         {children}
