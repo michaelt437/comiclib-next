@@ -1,4 +1,4 @@
-import { Publishers } from "./EnumPublishers";
+import { Publishers, PublisherColors } from "./EnumPublishers";
 import { ReadStatus } from "./EnumReadStatus";
 
-export { Publishers, ReadStatus };
+export { Publishers, PublisherColors, ReadStatus };

@@ -7,16 +7,16 @@ module.exports = {
     extend: {
       colors: {
         "sky": {
-          50: "#f0f9ff",
-          100: "#e0f2fe",
-          200: "#bae6fd",
-          300: "#7dd3fc",
-          400: "#38bdf8",
-          500: "#0ea5e9",
-          600: "#0284c7",
-          700: "#0369a1",
-          800: "#075985",
-          900: "#0c4a6e"
+          50: colors.sky[50],
+          100: colors.sky[100],
+          200: colors.sky[200],
+          300: colors.sky[300],
+          400: colors.sky[400],
+          500: colors.sky[500],
+          600: colors.sky[600],
+          700: colors.sky[700],
+          800: colors.sky[800],
+          900: colors.sky[900]
         },
         "blueGray": {
           50: colors.blueGray[50],
@@ -32,7 +32,6 @@ module.exports = {
         },
         "marvel": colors.red[500],
         "dc": colors.blue[500],
-        "dc-black": colors.blue[800],
         "vertigo": colors.gray[700],
         "image": colors.gray[800],
         "dark-horse": colors.orange[800]

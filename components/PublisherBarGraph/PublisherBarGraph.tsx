@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
-import { IComic, ITotalCounts } from "../../types";
+import { IComic, ITotalCounts, PublisherColors } from "../../types";
 
 export default function PublisherBarGraph ({ data }: { data: IComic[] }) {
   const [totals, setTotals] = useState<ITotalCounts[]>();
@@ -51,14 +51,24 @@ export default function PublisherBarGraph ({ data }: { data: IComic[] }) {
       const totals = await getTotals();
       const chartlabels = totals.map((total) => total.publisher);
       const chartdata = totals.map((total) => total.count);
+      const colorClasses = chartlabels.map(
+        (publisher) =>
+          PublisherColors[
+            publisher
+              .replace(/\ /, "")
+              .toUpperCase() as keyof typeof PublisherColors
+          ]
+      );
+      console.log(typeof PublisherColors);
       setBarData({
         labels: chartlabels,
         datasets: [
           {
             label: "Count",
             data: chartdata,
-            backgroundColor: "blue",
-            barThickness: 5
+            backgroundColor: colorClasses,
+            barThickness: 5,
+            borderRadius: 2
           }
         ]
       });
