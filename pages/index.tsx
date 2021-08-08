@@ -6,8 +6,8 @@ import ComicsList from "../components/ComicsList/ComicsList";
 import PublisherBarGraph from "../components/PublisherBarGraph/PublisherBarGraph";
 import { createClient } from "@supabase/supabase-js";
 const supabase = createClient(
-  "https://wwwhlgyjoggvjxbbycgn.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyODEwMDUwNCwiZXhwIjoxOTQzNjc2NTA0fQ.C2zMG2-CyTumjZPJWEKymbsYIHuCjyJpgK9lMj8euRY"
+  process.env.NEXT_PUBLIC_SB_URL!,
+  process.env.NEXT_PUBLIC_SB_PUBLIC_KEY!
 );
 
 export default function Home () {

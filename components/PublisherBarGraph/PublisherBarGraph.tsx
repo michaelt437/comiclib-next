@@ -59,7 +59,6 @@ export default function PublisherBarGraph ({ data }: { data: IComic[] }) {
               .toUpperCase() as keyof typeof PublisherColors
           ]
       );
-      console.log(typeof PublisherColors);
       setBarData({
         labels: chartlabels,
         datasets: [
@@ -67,8 +66,8 @@ export default function PublisherBarGraph ({ data }: { data: IComic[] }) {
             label: "Count",
             data: chartdata,
             backgroundColor: colorClasses,
-            barThickness: 5,
-            borderRadius: 2
+            barThickness: 10,
+            borderRadius: 4
           }
         ]
       });
