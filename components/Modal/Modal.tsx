@@ -1,12 +1,33 @@
+import { useState } from "react";
 import { XIcon } from "@heroicons/react/solid";
+import { IComic, Publishers } from "../../types";
+import supabase from "../../supabase";
 
 export default function Modal ({
   changeModalState
 }: {
   changeModalState: Function;
 }) {
+  const [bookTitle, setBookTitle] = useState<string>();
+  const [bookPublisher, setBookPublisher] = useState<string>();
+  const [bookWriters, setBookWriters] = useState<string>();
+  const [bookScore, setBookScore] = useState<number>(0);
+  const [bookStatus, setBookStatus] = useState<number>(0);
+
   function closeModal () {
     changeModalState(false);
+  }
+
+  async function addBook (): Promise<void> {
+    const _newBook: IComic = {
+      title: bookTitle!,
+      publisher: bookPublisher as Publishers,
+      writer: bookWriters,
+      score: bookScore,
+      status: bookStatus
+    };
+
+    await supabase.from("comicbooks").insert([_newBook]);
   }
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-50 z-10">
@@ -34,12 +55,11 @@ export default function Modal ({
             id="publisher"
             name="publisher"
           >
-            <option selected disabled hidden>
+            <option selected disabled hidden value="">
               Select a publisher
             </option>
             <option value="marvel">Marvel</option>
             <option value="dc">DC</option>
-            <option value="dc black label">DC Black Label</option>
             <option value="vertigo">Vertigo</option>
             <option value="image">Image</option>
             <option value="dark horse">Dark Horse</option>
@@ -73,7 +93,7 @@ export default function Modal ({
             <button className="btn secondary" onClick={closeModal}>
               Cancel
             </button>
-            <button className="btn primary">Submit</button>
+            <button className="btn primary" onClick={addBook}>Submit</button>
           </div>
         </div>
       </div>

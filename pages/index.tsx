@@ -18,8 +18,8 @@ export default function Home () {
       setLibrary(data as IComic[]);
     }
     async function checkAuth (): Promise<void> {
-      const { role } = (await supabase.auth.user()) as User;
-      setAuthenticated(role === "authenticated");
+      const user = (await supabase.auth.user()) as User;
+      if (user && user.role) setAuthenticated(user.role === "authenticated");
     }
     fetchBooks();
     checkAuth();
