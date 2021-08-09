@@ -4,7 +4,7 @@ import supabase from "../supabase";
 import Layout from "../components/Layout";
 import Modal from "../components/Modal/Modal";
 import ComicsList from "../components/ComicsList/ComicsList";
-import PublisherBarGraph from "../components/PublisherBarGraph/PublisherBarGraph";
+import { MemoizedBar } from "../components/PublisherBarGraph/PublisherBarGraph";
 import { User } from "@supabase/gotrue-js";
 
 export default function Home () {
@@ -19,7 +19,7 @@ export default function Home () {
     }
     async function checkAuth (): Promise<void> {
       const { role } = (await supabase.auth.user()) as User;
-      setAuthenticated(!!role);
+      setAuthenticated(role === "authenticated");
     }
     fetchBooks();
     checkAuth();
@@ -37,7 +37,7 @@ export default function Home () {
           <p>Total</p>
         </div>
       </div>
-      <PublisherBarGraph data={library} />
+      <MemoizedBar data={library} />
       <ComicsList
         items={library}
         auth={authenticated}
