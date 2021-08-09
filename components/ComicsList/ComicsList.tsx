@@ -3,10 +3,12 @@ import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 
 export default function ComicsList ({
   items,
-  changeModalState
+  changeModalState,
+  auth
 }: {
   items: IComic[];
   changeModalState: Function;
+  auth: boolean;
 }) {
   const statusIcon = function (status: number): string {
     switch (status) {
@@ -30,9 +32,14 @@ export default function ComicsList ({
             placeholder="Search..."
           />
         </div>
-        <button className="btn primary" onClick={() => changeModalState(true)}>
-          Add Book
-        </button>
+        {auth ? (
+          <button
+            className="btn primary"
+            onClick={() => changeModalState(true)}
+          >
+            Add Book
+          </button>
+        ) : null}
       </div>
       <div className="grid-table">
         <div className="grid-table_thead sticky bg-gray-100 top-0">

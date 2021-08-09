@@ -5,18 +5,24 @@ import Layout from "../components/Layout";
 import Modal from "../components/Modal/Modal";
 import ComicsList from "../components/ComicsList/ComicsList";
 import PublisherBarGraph from "../components/PublisherBarGraph/PublisherBarGraph";
+import { User } from "@supabase/gotrue-js";
 
 export default function Home () {
   const [library, setLibrary] = useState<IComic[]>([]);
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [authenticated, setAuthenticated] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log("user", supabase.auth.user());
     async function fetchBooks (): Promise<void> {
       const { data, error } = await supabase.from("comicbooks").select("*");
       setLibrary(data as IComic[]);
     }
+    async function checkAuth (): Promise<void> {
+      const { role } = (await supabase.auth.user()) as User;
+      setAuthenticated(!!role);
+    }
     fetchBooks();
+    checkAuth();
   }, []);
 
   return (
@@ -34,6 +40,7 @@ export default function Home () {
       <PublisherBarGraph data={library} />
       <ComicsList
         items={library}
+        auth={authenticated}
         changeModalState={(val: boolean) => setOpenModal(val)}
       />
     </Layout>
