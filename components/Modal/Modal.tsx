@@ -1,19 +1,38 @@
 import { XIcon } from "@heroicons/react/solid";
 import { useState } from "react";
-import { Publishers, ReadStatus } from "../../types";
+import supabase from "../../supabase";
+import { IComic, Publishers, ReadStatus } from "../../types";
 
-export default function Modal ({
+export default function Modal({
   changeModalState
 }: {
   changeModalState: Function;
 }) {
   const [bookTitle, setBookTitle] = useState<string>("");
-  const [bookPublisher, setBookPublisher] = useState<Publishers>();
+  const [bookPublisher, setBookPublisher] = useState<Publishers | string>(
+    "default"
+  );
   const [bookWriters, setBookWriters] = useState<string>("");
-  const [bookScore, setBookScore] = useState<string>("");
-  const [bookReadStatus, setBookReadStatus] = useState<ReadStatus>(0);
+  const [bookScore, setBookScore] = useState<string>("0");
 
-  function closeModal () {
+  async function addBook(): Promise<void> {
+    const _newBook: IComic = {
+      title: bookTitle,
+      publisher: bookPublisher as Publishers,
+      writer: bookWriters,
+      score: Number(bookScore),
+      status: 0
+    };
+
+    const { data, error } = await supabase.from("comicbooks").insert([
+      {
+        ..._newBook
+      }
+    ]);
+    console.log(_newBook);
+  }
+
+  function closeModal(): void {
     changeModalState(false);
   }
   return (
@@ -48,7 +67,7 @@ export default function Modal ({
               setBookPublisher(event.target.value as Publishers)
             }
           >
-            <option selected disabled hidden>
+            <option value="default" disabled hidden>
               Select a publisher
             </option>
             <option value="Marvel">Marvel</option>
@@ -90,7 +109,9 @@ export default function Modal ({
             <button className="btn secondary" onClick={closeModal}>
               Cancel
             </button>
-            <button className="btn primary">Submit</button>
+            <button className="btn primary" onClick={() => addBook()}>
+              Submit
+            </button>
           </div>
         </div>
       </div>
