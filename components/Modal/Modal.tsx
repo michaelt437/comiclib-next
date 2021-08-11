@@ -1,9 +1,9 @@
-import { XIcon } from "@heroicons/react/solid";
 import { useState } from "react";
+import { XIcon } from "@heroicons/react/solid";
 import supabase from "../../supabase";
-import { IComic, Publishers, ReadStatus } from "../../types";
+import { IComic, Publishers } from "../../types";
 
-export default function Modal({
+export default function Modal ({
   changeModalState
 }: {
   changeModalState: Function;
@@ -15,7 +15,7 @@ export default function Modal({
   const [bookWriters, setBookWriters] = useState<string>("");
   const [bookScore, setBookScore] = useState<string>("0");
 
-  async function addBook(): Promise<void> {
+  async function addBook (): Promise<void> {
     const _newBook: IComic = {
       title: bookTitle,
       publisher: bookPublisher as Publishers,
@@ -32,9 +32,10 @@ export default function Modal({
     console.log(_newBook);
   }
 
-  function closeModal(): void {
+  function closeModal (): void {
     changeModalState(false);
   }
+
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-50 z-10">
       <div className="w-10/12 md:w-1/3 p-5 rounded-md bg-gray-100 z-30">
