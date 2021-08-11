@@ -30,6 +30,11 @@ export default function Home () {
       {openModal ? (
         <Modal changeModalState={(val: boolean) => setOpenModal(val)} />
       ) : null}
+      <ComicsList
+        items={library}
+        auth={authenticated}
+        changeModalState={(val: boolean) => setOpenModal(val)}
+      />
       <div className="flex flex-col rounded-md p-6 col-span-auto">
         <h2 className="mb-5">Stats</h2>
         <div className="flex flex-col flex-grow justify-center items-center">
@@ -38,11 +43,6 @@ export default function Home () {
         </div>
       </div>
       <MemoizedBar data={library} />
-      <ComicsList
-        items={library}
-        auth={authenticated}
-        changeModalState={(val: boolean) => setOpenModal(val)}
-      />
     </Layout>
   );
 }

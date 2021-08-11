@@ -10,7 +10,6 @@ function PublisherBarGraph ({ data }: { data: IComic[] }) {
       x: {
         grid: {
           display: false
-          // drawBorder: false
         },
         ticks: {
           display: false
@@ -18,11 +17,7 @@ function PublisherBarGraph ({ data }: { data: IComic[] }) {
       },
       y: {
         grid: {
-          // display: false,
           drawBorder: false
-        },
-        ticks: {
-          // display: false
         }
       }
     },

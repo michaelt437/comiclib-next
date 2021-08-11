@@ -1,10 +1,18 @@
 import { XIcon } from "@heroicons/react/solid";
+import { useState } from "react";
+import { Publishers, ReadStatus } from "../../types";
 
 export default function Modal ({
   changeModalState
 }: {
   changeModalState: Function;
 }) {
+  const [bookTitle, setBookTitle] = useState<string>("");
+  const [bookPublisher, setBookPublisher] = useState<Publishers>();
+  const [bookWriters, setBookWriters] = useState<string>("");
+  const [bookScore, setBookScore] = useState<string>("");
+  const [bookReadStatus, setBookReadStatus] = useState<ReadStatus>(0);
+
   function closeModal () {
     changeModalState(false);
   }
@@ -20,47 +28,55 @@ export default function Modal ({
             Title*
           </label>
           <input
+            value={bookTitle}
             className="form-field w-full mb-5"
             type="text"
             id="title"
             name="title"
             placeholder="Enter the title"
+            onChange={(event) => setBookTitle(event.target.value)}
           />
           <label htmlFor="publisher" className="block font-medium mb-1">
             Publisher*
           </label>
           <select
+            value={bookPublisher}
             className="form-field w-full mb-5"
             id="publisher"
             name="publisher"
+            onChange={(event) =>
+              setBookPublisher(event.target.value as Publishers)
+            }
           >
             <option selected disabled hidden>
               Select a publisher
             </option>
-            <option value="marvel">Marvel</option>
-            <option value="dc">DC</option>
-            <option value="dc black label">DC Black Label</option>
-            <option value="vertigo">Vertigo</option>
-            <option value="image">Image</option>
-            <option value="dark horse">Dark Horse</option>
-            <option value="idw">IDW</option>
-            <option value="boom studios">Boom Studios</option>
+            <option value="Marvel">Marvel</option>
+            <option value="DC">DC</option>
+            <option value="Vertigo">Vertigo</option>
+            <option value="Image">Image</option>
+            <option value="Dark Horse">Dark Horse</option>
+            <option value="IDW">IDW</option>
+            <option value="Boom Studios">Boom Studios</option>
           </select>
           <label htmlFor="writer" className="block font-medium mb-1">
             Writer
           </label>
           <input
+            value={bookWriters}
             className="form-field w-full mb-5"
             type="text"
             id="writer"
             name="writer"
             placeholder="Enter the writer(s)"
+            onChange={(event) => setBookWriters(event.target.value)}
           />
           <label htmlFor="score" className="block font-medium mb-1">
             Score{" "}
             <span className="text-gray-400 font-normal">(0 is no score)</span>
           </label>
           <input
+            value={bookScore}
             className="form-field mb-5"
             type="number"
             id="score"
@@ -68,6 +84,7 @@ export default function Modal ({
             min="0"
             max="10"
             placeholder="0"
+            onChange={(event) => setBookScore(event.target.value)}
           />
           <div className="flex justify-end">
             <button className="btn secondary" onClick={closeModal}>
