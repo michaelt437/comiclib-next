@@ -3,7 +3,7 @@ import { XIcon } from "@heroicons/react/solid";
 import supabase from "../../supabase";
 import { IComic, Publishers } from "../../types";
 
-export default function Modal ({
+export default function Modal({
   changeModalState
 }: {
   changeModalState: Function;
@@ -15,12 +15,12 @@ export default function Modal ({
   const [bookWriters, setBookWriters] = useState<string>("");
   const [bookScore, setBookScore] = useState<string>("0");
 
-  async function addBook (): Promise<void> {
+  async function addBook(): Promise<void> {
     const _newBook: IComic = {
       title: bookTitle,
       publisher: bookPublisher as Publishers,
       writer: bookWriters,
-      score: Number(bookScore),
+      score: Number(bookScore) > 0 ? Number(bookScore) : null,
       status: 0
     };
 
@@ -32,7 +32,7 @@ export default function Modal ({
     console.log(_newBook);
   }
 
-  function closeModal (): void {
+  function closeModal(): void {
     changeModalState(false);
   }
 

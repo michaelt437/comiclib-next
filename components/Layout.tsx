@@ -1,13 +1,13 @@
 import { ReactNode } from "react";
 import Header from "./Header";
 
-export default function Layout ({
+export default function Layout({
   children,
   layoutStyles,
   height = "inherit"
 }: {
   children: ReactNode;
-  layoutStyles: string;
+  layoutStyles?: string;
   height?: string;
 }) {
   return (

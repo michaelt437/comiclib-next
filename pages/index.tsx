@@ -7,17 +7,20 @@ import ComicsList from "../components/ComicsList/ComicsList";
 import { MemoizedBar } from "../components/PublisherBarGraph/PublisherBarGraph";
 import { User } from "@supabase/gotrue-js";
 
-export default function Home () {
+export default function Home() {
   const [library, setLibrary] = useState<IComic[]>([]);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [authenticated, setAuthenticated] = useState<boolean>(false);
 
   useEffect(() => {
-    async function fetchBooks (): Promise<void> {
-      const { data, error } = await supabase.from("comicbooks").select("*");
+    async function fetchBooks(): Promise<void> {
+      const { data, error } = await supabase
+        .from("comicbooks")
+        .select("*")
+        .order("title", { ascending: true });
       setLibrary(data as IComic[]);
     }
-    async function checkAuth (): Promise<void> {
+    async function checkAuth(): Promise<void> {
       const user = (await supabase.auth.user()) as User;
       if (user && user.role) setAuthenticated(user.role === "authenticated");
     }
@@ -35,13 +38,6 @@ export default function Home () {
         auth={authenticated}
         changeModalState={(val: boolean) => setOpenModal(val)}
       />
-      <div className="flex flex-col rounded-md p-6 col-span-auto">
-        <h2 className="mb-5">Stats</h2>
-        <div className="flex flex-col flex-grow justify-center items-center">
-          <p className="text-5xl">{library.length}</p>
-          <p>Total</p>
-        </div>
-      </div>
       <MemoizedBar data={library} />
     </Layout>
   );

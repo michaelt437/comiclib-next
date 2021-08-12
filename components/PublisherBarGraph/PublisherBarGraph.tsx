@@ -2,22 +2,27 @@ import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { IComic, ITotalCounts, PublisherColors } from "../../types";
 
-function PublisherBarGraph ({ data }: { data: IComic[] }) {
+function PublisherBarGraph({ data }: { data: IComic[] }) {
   const [totals, setTotals] = useState<ITotalCounts[]>();
   let [barData, setBarData] = useState<any>();
   let [barOptions, setBarOptions] = useState({
+    maintainAspectRatio: false,
     scales: {
       x: {
         grid: {
           display: false
         },
         ticks: {
-          display: false
+          // display: false
         }
       },
       y: {
         grid: {
+          display: false,
           drawBorder: false
+        },
+        ticks: {
+          display: false
         }
       }
     },
@@ -29,7 +34,7 @@ function PublisherBarGraph ({ data }: { data: IComic[] }) {
   });
 
   useEffect(() => {
-    async function getTotals (): Promise<ITotalCounts[]> {
+    function getTotals(): ITotalCounts[] {
       const totals: ITotalCounts[] = [];
       data.forEach((book) => {
         let _publisherTracker = totals.find(
@@ -44,39 +49,57 @@ function PublisherBarGraph ({ data }: { data: IComic[] }) {
       return totals;
     }
 
-    async function extractLabelsAndData (): Promise<void> {
-      const totals = await getTotals();
-      const chartlabels = totals.map((total) => total.publisher);
-      const chartdata = totals.map((total) => total.count);
-      const colorClasses = chartlabels.map(
-        (publisher) =>
-          PublisherColors[
-            publisher
-              .replace(/\ /, "")
-              .toUpperCase() as keyof typeof PublisherColors
-          ]
-      );
-      setBarData({
-        labels: chartlabels,
-        datasets: [
-          {
-            label: "Count",
-            data: chartdata,
-            backgroundColor: colorClasses,
-            barThickness: 10,
-            borderRadius: 4
-          }
-        ]
-      });
-    }
+    // async function extractLabelsAndData(): Promise<void> {
+    //   const totals = await getTotals();
+    //   const chartlabels = totals.map((total) => total.publisher);
+    //   const chartdata = totals.map((total) => total.count);
+    //   const colorClasses = chartlabels.map(
+    //     (publisher) =>
+    //       PublisherColors[
+    //         publisher
+    //           .replace(/\ /, "")
+    //           .toUpperCase() as keyof typeof PublisherColors
+    //       ] + "80"
+    //   );
+    //   setBarData({
+    //     labels: chartlabels,
+    //     datasets: [
+    //       {
+    //         label: "Books",
+    //         data: chartdata,
+    //         backgroundColor: colorClasses
+    //         barThickness: 10,
+    //         borderRadius: 4
+    //       }
+    //     ]
+    //   });
+    // }
 
-    extractLabelsAndData();
+    // extractLabelsAndData();
+    setTotals(getTotals());
   }, [data]);
 
   return (
-    <div className="col-start-3 col-end-4">
+    <div className="col-span-full p-6">
       <h2 className="mb-4">Distribution</h2>
-      <Bar data={barData} options={barOptions} />
+      {/* <div>
+        <Bar data={barData} options={barOptions} />
+      </div> */}
+      <div className="flex space-x-4">
+        {totals?.map((publisher) => {
+          return (
+            <div
+              className="p-6 flex-1 rounded-md border border-blueGray-300"
+              key={publisher.publisher}
+            >
+              <>
+                <h3>{publisher.publisher}</h3>
+                <p className="text-xl">{publisher.count} Books</p>
+              </>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
