@@ -93,8 +93,8 @@ function PublisherBarGraph({ data }: { data: IComic[] }) {
               key={publisher.publisher}
             >
               <>
-                <h3>{publisher.publisher}</h3>
-                <p className="text-xl">{publisher.count} Books</p>
+                <p className="mb-0 text-gray-400">{publisher.publisher}</p>
+                <h2>{publisher.count}</h2>
               </>
             </div>
           );
