@@ -1,7 +1,7 @@
 import { IComic } from "../../types";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 
-export default function ComicsList({
+export default function ComicsList ({
   items,
   changeModalState,
   auth

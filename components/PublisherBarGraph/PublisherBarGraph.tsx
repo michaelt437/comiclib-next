@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { IComic, ITotalCounts, PublisherColors } from "../../types";
 
-function PublisherBarGraph({ data }: { data: IComic[] }) {
+function PublisherBarGraph ({ data }: { data: IComic[] }) {
   const [totals, setTotals] = useState<ITotalCounts[]>();
   let [barData, setBarData] = useState<any>();
   let [barOptions, setBarOptions] = useState({
@@ -34,7 +34,7 @@ function PublisherBarGraph({ data }: { data: IComic[] }) {
   });
 
   useEffect(() => {
-    function getTotals(): ITotalCounts[] {
+    function getTotals (): ITotalCounts[] {
       const totals: ITotalCounts[] = [];
       data.forEach((book) => {
         let _publisherTracker = totals.find(
