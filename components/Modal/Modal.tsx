@@ -14,6 +14,7 @@ export default function Modal({
   );
   const [bookWriters, setBookWriters] = useState<string>("");
   const [bookScore, setBookScore] = useState<string>("0");
+  const [bookReadStatus, setBookReadStatus] = useState<boolean>(false);
 
   async function addBook(): Promise<void> {
     const _newBook: IComic = {
@@ -21,7 +22,7 @@ export default function Modal({
       publisher: bookPublisher as Publishers,
       writer: bookWriters,
       score: Number(bookScore) > 0 ? Number(bookScore) : null,
-      status: 0
+      status: bookReadStatus
     };
 
     const { data, error } = await supabase.from("comicbooks").insert([
@@ -29,7 +30,6 @@ export default function Modal({
         ..._newBook
       }
     ]);
-    console.log(_newBook);
   }
 
   function closeModal(): void {
@@ -91,21 +91,41 @@ export default function Modal({
             placeholder="Enter the writer(s)"
             onChange={(event) => setBookWriters(event.target.value)}
           />
-          <label htmlFor="score" className="block font-medium mb-1">
-            Score{" "}
-            <span className="text-gray-400 font-normal">(0 is no score)</span>
-          </label>
-          <input
-            value={bookScore}
-            className="form-field mb-5"
-            type="number"
-            id="score"
-            name="score"
-            min="0"
-            max="10"
-            placeholder="0"
-            onChange={(event) => setBookScore(event.target.value)}
-          />
+          <div className="flex">
+            <div className="mr-10">
+              <label htmlFor="readStatus" className="block font-medium mb-1">
+                <input
+                  type="checkbox"
+                  id="readStatus"
+                  name="readStatus"
+                  checked={bookReadStatus}
+                  className="mr-2 mb-2"
+                  onChange={() => setBookReadStatus(!bookReadStatus)}
+                />
+                I have read this book
+              </label>
+            </div>
+            <div className={bookReadStatus ? "" : "opacity-50"}>
+              <label htmlFor="score" className="block font-medium mb-1">
+                Score{" "}
+                <span className="text-gray-400 font-normal">
+                  (0 is no score)
+                </span>
+              </label>
+              <input
+                value={bookScore}
+                className="form-field mb-5"
+                type="number"
+                id="score"
+                name="score"
+                min="0"
+                max="10"
+                placeholder="0"
+                disabled={!bookReadStatus}
+                onChange={(event) => setBookScore(event.target.value)}
+              />
+            </div>
+          </div>
           <div className="flex justify-end">
             <button className="btn secondary" onClick={closeModal}>
               Cancel
