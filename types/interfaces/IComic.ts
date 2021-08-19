@@ -5,5 +5,5 @@ export interface IComic {
   score: number | null;
   status: boolean;
   title: string;
-  writer?: string;
+  writer: string;
 }

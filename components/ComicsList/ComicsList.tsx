@@ -1,5 +1,7 @@
 import { IComic } from "../../types";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
+import { PencilAltIcon } from "@heroicons/react/outline";
+import { useState } from "react";
 
 export default function ComicsList ({
   items,
@@ -10,6 +12,16 @@ export default function ComicsList ({
   changeModalState: Function;
   auth: boolean;
 }) {
+  const [searchText, setSearchText] = useState<string>("");
+
+  function filteredItems (): IComic[] {
+    return items.filter(book => {
+      return book.title.toLowerCase().indexOf(searchText.toLowerCase().trim()) > -1 ||
+        book.writer && book.writer.toLowerCase().indexOf(searchText.toLowerCase().trim()) > -1 ||
+        book.publisher.toLowerCase().indexOf(searchText.toLowerCase().trim()) > -1;
+    });
+  }
+
   return (
     <div className="rounded-md p-6 row-start-1 col-span-full">
       <div className="flex items-center flex-wrap mb-5 md:flex-nowrap">
@@ -19,6 +31,8 @@ export default function ComicsList ({
             className="form-field w-full bg-gray-200 focus:bg-blueGray-50"
             type="text"
             placeholder="Search..."
+            value={searchText}
+            onChange={(event) => setSearchText(event.target.value)}
           />
         </div>
         {auth ? (
@@ -43,7 +57,7 @@ export default function ComicsList ({
         </div>
         <OverlayScrollbarsComponent>
           <div className="grid-table_tbody max-h-96">
-            {items.map((comic) => {
+            {filteredItems().map((comic) => {
               return (
                 <div
                   className="grid-table_row grid grid-cols-10 hover:bg-blueGray-50"
@@ -62,7 +76,9 @@ export default function ComicsList ({
                   <div className="grid-table_col text-center text-green-400">
                     {comic.status ? "✔" : ""}
                   </div>
-                  <div className="text-center">Edit</div>
+                  <div className="text-center">
+                    <PencilAltIcon className="h-6 w-6 cursor-pointer opacity-50 hover:opacity-100" />
+                  </div>
                 </div>
               );
             })}
