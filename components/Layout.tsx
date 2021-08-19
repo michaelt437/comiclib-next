@@ -7,7 +7,7 @@ export default function Layout ({
   height = "inherit"
 }: {
   children: ReactNode;
-  layoutStyles: string;
+  layoutStyles?: string;
   height?: string;
 }) {
   return (

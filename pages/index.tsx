@@ -14,7 +14,10 @@ export default function Home () {
 
   useEffect(() => {
     async function fetchBooks (): Promise<void> {
-      const { data, error } = await supabase.from("comicbooks").select("*");
+      const { data, error } = await supabase
+        .from("comicbooks")
+        .select("*")
+        .order("title", { ascending: true });
       setLibrary(data as IComic[]);
     }
     async function checkAuth (): Promise<void> {
@@ -35,13 +38,6 @@ export default function Home () {
         auth={authenticated}
         changeModalState={(val: boolean) => setOpenModal(val)}
       />
-      <div className="flex flex-col rounded-md p-6 col-span-auto">
-        <h2 className="mb-5">Stats</h2>
-        <div className="flex flex-col flex-grow justify-center items-center">
-          <p className="text-5xl">{library.length}</p>
-          <p>Total</p>
-        </div>
-      </div>
       <MemoizedBar data={library} />
     </Layout>
   );

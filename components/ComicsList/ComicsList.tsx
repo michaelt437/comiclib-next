@@ -43,12 +43,13 @@ export default function ComicsList ({
       </div>
       <div className="grid-table">
         <div className="grid-table_thead sticky bg-gray-100 top-0">
-          <div className="grid-table_row grid grid-cols-9">
+          <div className="grid-table_row grid grid-cols-10">
             <div className="grid-table_col col-span-4">Title</div>
             <div className="grid-table_col col-span-2">Writer</div>
             <div className="grid-table_col">Publisher</div>
             <div className="grid-table_col text-center">Score</div>
             <div className="grid-table_col text-center">Status</div>
+            <div></div>
           </div>
         </div>
         <OverlayScrollbarsComponent>
@@ -56,13 +57,13 @@ export default function ComicsList ({
             {items.map((comic) => {
               return (
                 <div
-                  className="grid-table_row grid grid-cols-9 hover:bg-blueGray-50"
+                  className="grid-table_row grid grid-cols-10 hover:bg-blueGray-50"
                   key={comic.title}
                 >
                   <div className="grid-table_col col-span-4 text-sky-600 font-medium">
                     {comic.title}
                   </div>
-                  <div className="grid-table_col col-span-2">
+                  <div className="grid-table_col col-span-2" contentEditable>
                     {comic.writer}
                   </div>
                   <div className="grid-table_col">{comic.publisher}</div>
@@ -72,6 +73,7 @@ export default function ComicsList ({
                   <div className="grid-table_col text-center text-green-400">
                     {statusIcon(comic.status)}
                   </div>
+                  <div className="text-center">Edit</div>
                 </div>
               );
             })}
