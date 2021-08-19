@@ -10,17 +10,6 @@ export default function ComicsList ({
   changeModalState: Function;
   auth: boolean;
 }) {
-  const statusIcon = function (status: number): string {
-    switch (status) {
-      case 1:
-        return "📖";
-      case 2:
-        return "✔";
-      case 0:
-      default:
-        return "";
-    }
-  };
   return (
     <div className="rounded-md p-6 row-start-1 col-span-full">
       <div className="flex items-center flex-wrap mb-5 md:flex-nowrap">
@@ -71,7 +60,7 @@ export default function ComicsList ({
                     {comic.score}
                   </div>
                   <div className="grid-table_col text-center text-green-400">
-                    {statusIcon(comic.status)}
+                    {comic.status ? "✔" : ""}
                   </div>
                   <div className="text-center">Edit</div>
                 </div>

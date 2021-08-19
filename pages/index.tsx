@@ -4,7 +4,7 @@ import supabase from "../supabase";
 import Layout from "../components/Layout";
 import Modal from "../components/Modal/Modal";
 import ComicsList from "../components/ComicsList/ComicsList";
-import { MemoizedBar } from "../components/PublisherBarGraph/PublisherBarGraph";
+import { MemoizedBar } from "../components/DistributionMetrics/DistributionMetrics";
 import { User } from "@supabase/gotrue-js";
 
 export default function Home () {
