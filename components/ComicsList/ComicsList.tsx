@@ -66,7 +66,7 @@ export default function ComicsList ({
                   <div className="grid-table_col col-span-4 text-sky-600 font-medium">
                     {comic.title}
                   </div>
-                  <div className="grid-table_col col-span-2" contentEditable>
+                  <div className="grid-table_col col-span-2">
                     {comic.writer}
                   </div>
                   <div className="grid-table_col">{comic.publisher}</div>
