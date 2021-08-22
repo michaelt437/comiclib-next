@@ -6,19 +6,27 @@ import { useState } from "react";
 export default function ComicsList ({
   items,
   changeModalState,
+  changeEditModalState,
   auth
 }: {
   items: IComic[];
   changeModalState: Function;
+  changeEditModalState: Function;
   auth: boolean;
 }) {
   const [searchText, setSearchText] = useState<string>("");
 
   function filteredItems (): IComic[] {
-    return items.filter(book => {
-      return book.title.toLowerCase().indexOf(searchText.toLowerCase().trim()) > -1 ||
-        book.writer && book.writer.toLowerCase().indexOf(searchText.toLowerCase().trim()) > -1 ||
-        book.publisher.toLowerCase().indexOf(searchText.toLowerCase().trim()) > -1;
+    return items.filter((book) => {
+      return (
+        book.title.toLowerCase().indexOf(searchText.toLowerCase().trim()) >
+          -1 ||
+        (book.writer &&
+          book.writer.toLowerCase().indexOf(searchText.toLowerCase().trim()) >
+            -1) ||
+        book.publisher.toLowerCase().indexOf(searchText.toLowerCase().trim()) >
+          -1
+      );
     });
   }
 
@@ -77,7 +85,10 @@ export default function ComicsList ({
                     {comic.status ? "✔" : ""}
                   </div>
                   <div className="text-center">
-                    <PencilAltIcon className="h-6 w-6 cursor-pointer opacity-50 hover:opacity-100" />
+                    <PencilAltIcon
+                      className="h-6 w-6 cursor-pointer opacity-50 hover:opacity-100"
+                      onClick={() => changeEditModalState(true, comic)}
+                    />
                   </div>
                 </div>
               );

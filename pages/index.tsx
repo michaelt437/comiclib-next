@@ -3,14 +3,17 @@ import { IComic } from "../types";
 import supabase from "../supabase";
 import Layout from "../components/Layout";
 import Modal from "../components/Modal/Modal";
+import ModalEdit from "../components/Modal/ModalEdit";
 import ComicsList from "../components/ComicsList/ComicsList";
 import { MemoizedBar } from "../components/DistributionMetrics/DistributionMetrics";
 import { User } from "@supabase/gotrue-js";
 
 export default function Home () {
   const [library, setLibrary] = useState<IComic[]>([]);
-  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [openAddModal, setOpenAddModal] = useState<boolean>(false);
+  const [openEditModal, setOpenEditModal] = useState<boolean>(false);
   const [authenticated, setAuthenticated] = useState<boolean>(false);
+  const [editingBook, setEditingBook] = useState<IComic | null>(null);
 
   useEffect(() => {
     async function fetchBooks (): Promise<void> {
@@ -30,13 +33,26 @@ export default function Home () {
 
   return (
     <Layout layoutStyles="grid grid-cols-3 grid-rows-1 auto-cols-max gap-6">
-      {openModal ? (
-        <Modal changeModalState={(val: boolean) => setOpenModal(val)} />
+      {openAddModal ? (
+        <Modal changeModalState={(val: boolean) => setOpenAddModal(val)} />
+      ) : null}
+      {openEditModal ? (
+        <ModalEdit
+          changeEditModalState={(val: boolean) => {
+            setOpenEditModal(val);
+            setEditingBook(null);
+          }}
+          editingBook={editingBook!}
+        />
       ) : null}
       <ComicsList
         items={library}
         auth={authenticated}
-        changeModalState={(val: boolean) => setOpenModal(val)}
+        changeModalState={(val: boolean) => setOpenAddModal(val)}
+        changeEditModalState={(val: boolean, book: IComic) => {
+          setOpenEditModal(val);
+          setEditingBook(book);
+        }}
       />
       <MemoizedBar data={library} />
     </Layout>
