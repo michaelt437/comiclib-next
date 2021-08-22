@@ -30,7 +30,7 @@ function PublisherBarGraph ({ data }: { data: IComic[] }) {
         {totals?.map((publisher) => {
           return (
             <div
-              className="p-6 flex-1 rounded-md border border-blueGray-300"
+              className="p-6 w-1/5 rounded-md border border-blueGray-300"
               key={publisher.publisher}
             >
               <>
