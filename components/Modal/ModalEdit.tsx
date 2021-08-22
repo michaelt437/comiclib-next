@@ -4,19 +4,25 @@ import supabase from "../../supabase";
 import { IComic, Publishers } from "../../types";
 
 export default function Modal ({
-  changeModalState
+  changeEditModalState,
+  editingBook
 }: {
-  changeModalState: Function;
+  changeEditModalState: Function;
+  editingBook: IComic;
 }) {
-  const [bookTitle, setBookTitle] = useState<string>("");
+  const [bookTitle, setBookTitle] = useState<string>(editingBook.title);
   const [bookPublisher, setBookPublisher] = useState<Publishers | string>(
-    "default"
+    editingBook.publisher
   );
-  const [bookWriters, setBookWriters] = useState<string>("");
-  const [bookScore, setBookScore] = useState<string>("0");
-  const [bookReadStatus, setBookReadStatus] = useState<boolean>(false);
+  const [bookWriters, setBookWriters] = useState<string>(editingBook.writer);
+  const [bookScore, setBookScore] = useState<string | null>(
+    editingBook.score ? String(editingBook.score) : null
+  );
+  const [bookReadStatus, setBookReadStatus] = useState<boolean>(
+    editingBook.status
+  );
 
-  async function addBook (): Promise<void> {
+  async function saveBook (): Promise<void> {
     const _newBook: IComic = {
       title: bookTitle,
       publisher: bookPublisher as Publishers,
@@ -25,24 +31,25 @@ export default function Modal ({
       status: bookReadStatus
     };
 
-    const { data, error } = await supabase.from("comicbooks").insert([
-      {
+    const { data, error } = await supabase
+      .from("comicbooks")
+      .update({
         ..._newBook
-      }
-    ]);
+      })
+      .match({ id: editingBook.id });
 
     closeModal();
   }
 
   function closeModal (): void {
-    changeModalState(false);
+    changeEditModalState(false);
   }
 
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-50 z-10">
       <div className="w-10/12 md:w-1/3 p-5 rounded-md bg-gray-100 z-30">
         <div className="flex justify-between items-center mb-5">
-          <h3 className="uppercase">Add a new comic book</h3>
+          <h3 className="uppercase">Edit</h3>
           <XIcon className="h-6 w-6 cursor-pointer" onClick={closeModal} />
         </div>
         <div className="form">
@@ -132,8 +139,8 @@ export default function Modal ({
             <button className="btn secondary" onClick={closeModal}>
               Cancel
             </button>
-            <button className="btn primary" onClick={() => addBook()}>
-              Submit
+            <button className="btn primary" onClick={() => saveBook()}>
+              Save Changes
             </button>
           </div>
         </div>
