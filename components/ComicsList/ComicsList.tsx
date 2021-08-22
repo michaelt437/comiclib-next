@@ -86,7 +86,7 @@ export default function ComicsList ({
                   </div>
                   <div className="text-center">
                     <PencilAltIcon
-                      className="h-6 w-6 cursor-pointer opacity-50 hover:opacity-100"
+                      className="inline h-6 w-6 cursor-pointer opacity-50 hover:opacity-100"
                       onClick={() => changeEditModalState(true, comic)}
                     />
                   </div>
