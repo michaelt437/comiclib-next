@@ -53,7 +53,7 @@ export default function ComicsList ({
         ) : null}
       </div>
       <div className="grid-table">
-        <div className="grid-table_thead sticky bg-gray-100 top-0">
+        <div className="grid-table_thead bg-gray-100">
           <div className="grid-table_row grid grid-cols-10">
             <div className="grid-table_col col-span-4">Title</div>
             <div className="grid-table_col col-span-2">Writer</div>
