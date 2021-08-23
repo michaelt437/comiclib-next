@@ -5,7 +5,7 @@ import { IComic, ITotalCounts } from "../../types";
 function PublisherBarGraph ({ data }: { data: IComic[] }) {
   let [barData, setBarData] = useState<any>();
   let [barOptions, setBarOptions] = useState({
-    aspectRatio: 5,
+    aspectRatio: 4,
     scales: {
       x: {
         grid: {
