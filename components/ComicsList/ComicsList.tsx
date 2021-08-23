@@ -58,8 +58,8 @@ export default function ComicsList ({
             <div className="grid-table_col col-span-4">Title</div>
             <div className="grid-table_col col-span-2">Writer</div>
             <div className="grid-table_col">Publisher</div>
-            <div className="grid-table_col text-center">Score</div>
             <div className="grid-table_col text-center">Status</div>
+            <div className="grid-table_col text-center">Score</div>
             <div></div>
           </div>
         </div>
@@ -78,11 +78,11 @@ export default function ComicsList ({
                     {comic.writer}
                   </div>
                   <div className="grid-table_col">{comic.publisher}</div>
-                  <div className="grid-table_col text-center text-sky-600">
-                    {comic.score}
-                  </div>
                   <div className="grid-table_col text-center text-green-400">
                     {comic.status ? "✔" : ""}
+                  </div>
+                  <div className="grid-table_col text-center text-sky-600">
+                    {comic.score}
                   </div>
                   <div className="text-center">
                     <PencilAltIcon
