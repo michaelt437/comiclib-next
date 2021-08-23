@@ -122,7 +122,7 @@ export default function Modal ({
                 </span>
               </label>
               <input
-                value={bookScore}
+                value={bookScore ? bookScore : 0}
                 className="form-field mb-5"
                 type="number"
                 id="score"
