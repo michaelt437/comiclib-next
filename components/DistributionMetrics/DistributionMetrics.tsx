@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IComic, ITotalCounts } from "../../types";
 
-function PublisherBarGraph ({ data }: { data: IComic[] }) {
+export default function PublisherBarGraph ({ data }: { data: IComic[] }) {
   const [totals, setTotals] = useState<ITotalCounts[]>();
 
   useEffect(() => {
@@ -44,5 +44,3 @@ function PublisherBarGraph ({ data }: { data: IComic[] }) {
     </div>
   );
 }
-
-export const MemoizedBar = React.memo(PublisherBarGraph);

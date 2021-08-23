@@ -5,7 +5,8 @@ import Layout from "../components/Layout";
 import Modal from "../components/Modal/Modal";
 import ModalEdit from "../components/Modal/ModalEdit";
 import ComicsList from "../components/ComicsList/ComicsList";
-import { MemoizedBar } from "../components/DistributionMetrics/DistributionMetrics";
+import DistributionMetrics from "../components/DistributionMetrics/DistributionMetrics";
+import { MemoizedBar } from "../components/Chart/PublisherBar";
 import { User } from "@supabase/gotrue-js";
 
 export default function Home () {
@@ -54,6 +55,7 @@ export default function Home () {
           setEditingBook(book);
         }}
       />
+      <DistributionMetrics data={library} />
       <MemoizedBar data={library} />
     </Layout>
   );
