@@ -25,6 +25,9 @@ function PublisherBarGraph ({ data }: { data: IComic[] }) {
     plugins: {
       legend: {
         display: false
+      },
+      tooltip: {
+        intersect: false
       }
     }
   });
