@@ -70,11 +70,7 @@ function PublisherBarGraph ({ data }: { data: IComic[] }) {
     extractLabelsAndData();
   }, [data]);
 
-  return (
-    <div className="col-span-full p-6">
-      <Bar data={barData} options={barOptions} />
-    </div>
-  );
+  return <Bar data={barData} options={barOptions} />;
 }
 
 export const MemoizedBar = React.memo(PublisherBarGraph);

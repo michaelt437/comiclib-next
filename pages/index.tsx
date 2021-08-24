@@ -56,7 +56,6 @@ export default function Home () {
         }}
       />
       <DistributionMetrics data={library} />
-      <MemoizedBar data={library} />
     </Layout>
   );
 }

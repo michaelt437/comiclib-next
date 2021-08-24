@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { IComic, ITotalCounts } from "../../types";
+import { MemoizedBar } from "../Chart/PublisherBar";
 
 export default function PublisherBarGraph ({ data }: { data: IComic[] }) {
   const [totals, setTotals] = useState<ITotalCounts[]>();
@@ -26,7 +27,7 @@ export default function PublisherBarGraph ({ data }: { data: IComic[] }) {
   return (
     <div className="col-span-full p-6">
       <h2 className="mb-4">Distribution</h2>
-      <div className="flex space-x-4">
+      <div className="flex space-x-4 mb-6">
         {totals?.map((publisher) => {
           return (
             <div
@@ -41,6 +42,7 @@ export default function PublisherBarGraph ({ data }: { data: IComic[] }) {
           );
         })}
       </div>
+      <MemoizedBar data={data} />
     </div>
   );
 }
