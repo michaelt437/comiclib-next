@@ -35,7 +35,7 @@ export default function Home () {
   return (
     <Layout layoutStyles="grid grid-cols-3 grid-rows-1 auto-cols-max gap-6">
       {openAddModal ? (
-        <Modal changeModalState={(val: boolean) => setOpenAddModal(val)} />
+        <Modal changeModalState={(val: boolean) => setOpenAddModal(val)} addNewBook={(book: IComic) => setLibrary([book, ...library]) }  />
       ) : null}
       {openEditModal ? (
         <ModalEdit

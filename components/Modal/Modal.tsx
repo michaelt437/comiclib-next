@@ -4,9 +4,11 @@ import supabase from "../../supabase";
 import { IComic, Publishers } from "../../types";
 
 export default function Modal ({
-  changeModalState
+  changeModalState,
+  addNewBook
 }: {
   changeModalState: Function;
+  addNewBook: Function;
 }) {
   const [bookTitle, setBookTitle] = useState<string>("");
   const [bookPublisher, setBookPublisher] = useState<Publishers | string>(
@@ -30,7 +32,7 @@ export default function Modal ({
         ..._newBook
       }
     ]);
-
+    addNewBook(_newBook);
     closeModal();
   }
 
