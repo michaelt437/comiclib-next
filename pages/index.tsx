@@ -44,6 +44,14 @@ export default function Home () {
             setEditingBook(null);
           }}
           editingBook={editingBook!}
+          saveChanges={(bookId: string, updatedBook: IComic) => {
+            setLibrary((prevState) => {
+              const newLibrary = [...prevState];
+              let saveBookIndex = newLibrary.findIndex(book => book.id === bookId);
+              newLibrary[saveBookIndex] = { id: newLibrary[saveBookIndex].id, ...updatedBook };
+              return newLibrary;
+            });
+          }}
         />
       ) : null}
       <ComicsList

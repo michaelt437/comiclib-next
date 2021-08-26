@@ -5,9 +5,11 @@ import { IComic, Publishers } from "../../types";
 
 export default function Modal ({
   changeEditModalState,
+  saveChanges,
   editingBook
 }: {
   changeEditModalState: Function;
+  saveChanges: Function;
   editingBook: IComic;
 }) {
   const [bookTitle, setBookTitle] = useState<string>(editingBook.title);
@@ -38,6 +40,7 @@ export default function Modal ({
       })
       .match({ id: editingBook.id });
 
+    saveChanges(editingBook.id, _newBook);
     closeModal();
   }
 
