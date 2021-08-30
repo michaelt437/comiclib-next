@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 import { IComic } from "../types";
+import { User } from "@supabase/gotrue-js";
 import supabase from "../supabase";
 import Layout from "../components/Layout";
 import Modal from "../components/Modal/Modal";
 import ModalEdit from "../components/Modal/ModalEdit";
 import ComicsList from "../components/ComicsList/ComicsList";
 import DistributionMetrics from "../components/DistributionMetrics/DistributionMetrics";
-import { MemoizedBar } from "../components/Chart/PublisherBar";
-import { ReadStatusPieMemo } from "../components/Chart/ReadStatusPie";
-import { User } from "@supabase/gotrue-js";
-import { BookOpenIcon } from "@heroicons/react/outline";
+import ReadingProgress from "../components/ReadingProgress";
 
 export default function Home () {
   const [library, setLibrary] = useState<IComic[]>([]);
@@ -45,46 +43,10 @@ export default function Home () {
           setEditingBook(book);
         }}
       />
-      {/* <DistributionMetrics data={library} /> */}
       <div className="col-span-full p-6">
         <h2 className="mb-4">Stats</h2>
         <div className="flex justify-between flex-wrap md:flex-nowrap space-x-4">
-          <div className="rounded-md border border-blueGray-300 p-4 flex-grow">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="flex-shrink-0">Progress</h3>
-              <span className="">
-                <span className="font-bold">74</span>/174
-              </span>
-            </div>
-            <div className="text-sky-400 flex justify-center">
-              <span className="text-7xl">45</span>
-              <span className="text-4xl">%</span>
-            </div>
-          </div>
-          <div className="rounded-md border border-blueGray-300 p-4 flex-grow">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="flex-shrink-0">Progress</h3>
-              <span className="">
-                <span className="font-bold">74</span>/174
-              </span>
-            </div>
-            <div className="text-sky-400 flex justify-center">
-              <span className="text-7xl">45</span>
-              <span className="text-4xl">%</span>
-            </div>
-          </div>
-          <div className="rounded-md border border-blueGray-300 p-4 flex-grow">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="flex-shrink-0">Progress</h3>
-              <span className="">
-                <span className="font-bold">74</span>/174
-              </span>
-            </div>
-            <div className="text-sky-400 flex justify-center">
-              <span className="text-7xl">45</span>
-              <span className="text-4xl">%</span>
-            </div>
-          </div>
+          <ReadingProgress data={library} />
         </div>
       </div>
       <DistributionMetrics data={library} />
