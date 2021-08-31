@@ -8,6 +8,8 @@ import ModalEdit from "../components/Modal/ModalEdit";
 import ComicsList from "../components/ComicsList/ComicsList";
 import DistributionMetrics from "../components/DistributionMetrics/DistributionMetrics";
 import ReadingProgress from "../components/ReadingProgress";
+import TotalBooks from "../components/TotalBooks";
+import MeanScore from "../components/MeanScore";
 
 export default function Home () {
   const [library, setLibrary] = useState<IComic[]>([]);
@@ -46,7 +48,9 @@ export default function Home () {
       <div className="col-span-full p-6">
         <h2 className="mb-4">Stats</h2>
         <div className="flex justify-between flex-wrap md:flex-nowrap space-x-4">
+          <TotalBooks data={library} />
           <ReadingProgress data={library} />
+          <MeanScore data={library} />
         </div>
       </div>
       <DistributionMetrics data={library} />

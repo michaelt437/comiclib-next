@@ -13,7 +13,7 @@ export default function ReadingProgress ({ data }: { data: IComic[] }) {
   }, [data]);
 
   return (
-    <div className="rounded-md border border-blueGray-300 p-4 flex-grow">
+    <div className="rounded-md border border-blueGray-300 p-4 flex-1">
       <div className="flex justify-between items-center mb-6">
         <h3 className="flex-shrink-0">Reading Progress</h3>
         <span className="">
