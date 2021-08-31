@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { IComic } from "../types";
 
-export default function MeanScore({ data }: { data: IComic[]}) {
+export default function MeanScore ({ data }: { data: IComic[]}) {
   const [meanScore, setMeanScore] = useState<number>(0);
 
   function getMean (numArr: number[]): number {
@@ -25,5 +25,5 @@ export default function MeanScore({ data }: { data: IComic[]}) {
         <div className="text-7xl">{meanScore}</div>
       </div>
     </div>
-  )
+  );
 }

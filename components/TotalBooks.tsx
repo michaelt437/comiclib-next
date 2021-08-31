@@ -8,5 +8,5 @@ export default function TotalBooks ({ data }: { data: IComic[] }) {
         <div className="text-7xl">{data.length}</div>
       </div>
     </div>
-  )
+  );
 }
