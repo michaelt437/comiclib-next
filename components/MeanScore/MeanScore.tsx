@@ -22,7 +22,7 @@ export default function MeanScore ({ data }: { data: Comicbook[]}) {
     <div className="rounded-md border border-blueGray-300 p-4 flex-1">
       <h3 className="mb-6">Mean Score</h3>
       <div className="text-sky-400 flex justify-center">
-        <div className="text-7xl">{meanScore}</div>
+        <div className="text-5xl">{meanScore}</div>
       </div>
     </div>
   );

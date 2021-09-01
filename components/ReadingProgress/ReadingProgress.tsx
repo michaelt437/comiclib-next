@@ -21,7 +21,7 @@ export default function ReadingProgress ({ data }: { data: Comicbook[] }) {
         </span>
       </div>
       <div className="text-sky-400 flex justify-center">
-        <span className="text-7xl">{percentRead}</span>
+        <span className="text-5xl">{percentRead}</span>
         <span className="text-4xl">%</span>
       </div>
     </div>
