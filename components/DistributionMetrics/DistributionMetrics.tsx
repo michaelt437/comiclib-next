@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { IComic, ITotalCounts } from "../../types";
+import { Comicbook, ITotalCounts } from "../../types";
 import { MemoizedBar } from "../Chart/PublisherBar";
 
-export default function PublisherBarGraph ({ data }: { data: IComic[] }) {
+export default function PublisherBarGraph ({ data }: { data: Comicbook[] }) {
   const [totals, setTotals] = useState<ITotalCounts[]>();
 
   useEffect(() => {

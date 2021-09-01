@@ -1,4 +1,4 @@
-import { IComic } from "./IComic";
+import { Comicbook } from "./Comicbook";
 import { ITotalCounts } from "./ITotalCounts";
 
-export type { IComic, ITotalCounts };
+export type { Comicbook, ITotalCounts };

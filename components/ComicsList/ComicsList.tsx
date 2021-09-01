@@ -1,4 +1,4 @@
-import { IComic } from "../../types";
+import { Comicbook } from "../../types";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import { PencilAltIcon } from "@heroicons/react/outline";
 import { useState } from "react";
@@ -9,14 +9,14 @@ export default function ComicsList ({
   changeEditModalState,
   auth
 }: {
-  items: IComic[];
+  items: Comicbook[];
   changeModalState: Function;
   changeEditModalState: Function;
   auth: boolean;
 }) {
   const [searchText, setSearchText] = useState<string>("");
 
-  function filteredItems (): IComic[] {
+  function filteredItems (): Comicbook[] {
     return items.filter((book) => {
       return (
         book.title.toLowerCase().indexOf(searchText.toLowerCase().trim()) >

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
-import { IComic, ITotalCounts } from "../../types";
+import { Comicbook, ITotalCounts } from "../../types";
 
-function PublisherBarGraph ({ data }: { data: IComic[] }) {
+function PublisherBarGraph ({ data }: { data: Comicbook[] }) {
   let [barData, setBarData] = useState<any>();
   let [barOptions, setBarOptions] = useState({
     aspectRatio: 4,

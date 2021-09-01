@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { XIcon } from "@heroicons/react/solid";
 import supabase from "../../supabase";
-import { IComic, Publishers } from "../../types";
+import { Comicbook, Publishers } from "../../types";
 
 export default function Modal ({
   changeModalState,
@@ -19,7 +19,7 @@ export default function Modal ({
   const [bookReadStatus, setBookReadStatus] = useState<boolean>(false);
 
   async function addBook (): Promise<void> {
-    const _newBook: IComic = {
+    const _newBook: Comicbook = {
       title: bookTitle,
       publisher: bookPublisher as Publishers,
       writer: bookWriters,

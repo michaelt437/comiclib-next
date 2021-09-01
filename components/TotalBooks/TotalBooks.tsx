@@ -1,6 +1,6 @@
-import { IComic } from "../../types";
+import { Comicbook } from "../../types";
 
-export default function TotalBooks ({ data }: { data: IComic[] }) {
+export default function TotalBooks ({ data }: { data: Comicbook[] }) {
   return (
     <div className="rounded-md border border-blueGray-300 p-4 flex-1">
       <h3 className="mb-6">Total Books</h3>

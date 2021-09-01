@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
-import { IComic } from "../../types";
+import { Comicbook } from "../../types";
 
-function ReadStatusPie ({ data }: { data: IComic[] }) {
+function ReadStatusPie ({ data }: { data: Comicbook[] }) {
   let [pieData, setPieData] = useState<any>();
   let [pieOptions, setPieOptions] = useState({
     responsive: true,

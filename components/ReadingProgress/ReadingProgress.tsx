@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { IComic } from "../../types";
+import { Comicbook } from "../../types";
 
-export default function ReadingProgress ({ data }: { data: IComic[] }) {
+export default function ReadingProgress ({ data }: { data: Comicbook[] }) {
   const [readCount, setReadCount] = useState<number>(0);
   const [percentRead, setPercentRead] = useState<number>(0);
   

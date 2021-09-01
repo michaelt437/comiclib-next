@@ -1,6 +1,6 @@
 import { Publishers } from "../enums";
 
-export interface IComic {
+export interface Comicbook {
   id?: string;
   publisher: Publishers;
   score: number | null;
