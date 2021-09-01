@@ -1,4 +1,4 @@
-import { IComic } from "../types";
+import { IComic } from "../../types";
 
 export default function TotalBooks ({ data }: { data: IComic[] }) {
   return (

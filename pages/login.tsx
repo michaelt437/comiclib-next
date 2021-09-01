@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import supabase from "../supabase";
-import Layout from "../components/Layout";
+import Layout from "../components/Layout/Layout";
 import { useRouter } from "next/dist/client/router";
 
 export default function Login () {

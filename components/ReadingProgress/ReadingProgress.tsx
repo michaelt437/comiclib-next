@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IComic } from "../types";
+import { IComic } from "../../types";
 
 export default function ReadingProgress ({ data }: { data: IComic[] }) {
   const [readCount, setReadCount] = useState<number>(0);

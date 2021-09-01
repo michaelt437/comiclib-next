@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { IComic } from "../types";
 import { User } from "@supabase/gotrue-js";
 import supabase from "../supabase";
-import Layout from "../components/Layout";
+import Layout from "../components/Layout/Layout";
 import Modal from "../components/Modal/Modal";
 import ModalEdit from "../components/Modal/ModalEdit";
 import ComicsList from "../components/ComicsList/ComicsList";
 import DistributionMetrics from "../components/DistributionMetrics/DistributionMetrics";
-import ReadingProgress from "../components/ReadingProgress";
-import TotalBooks from "../components/TotalBooks";
-import MeanScore from "../components/MeanScore";
+import ReadingProgress from "../components/ReadingProgress/ReadingProgress";
+import TotalBooks from "../components/TotalBooks/TotalBooks";
+import MeanScore from "../components/MeanScore/MeanScore";
 
 export default function Home () {
   const [library, setLibrary] = useState<IComic[]>([]);

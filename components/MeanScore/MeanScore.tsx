@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IComic } from "../types";
+import { IComic } from "../../types";
 
 export default function MeanScore ({ data }: { data: IComic[]}) {
   const [meanScore, setMeanScore] = useState<number>(0);
