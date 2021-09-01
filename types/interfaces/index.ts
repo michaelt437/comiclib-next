@@ -1,4 +1,4 @@
 import { Comicbook } from "./Comicbook";
-import { ITotalCounts } from "./ITotalCounts";
+import { TotalCounts } from "./TotalCounts";
 
-export type { Comicbook, ITotalCounts };
+export type { Comicbook, TotalCounts };

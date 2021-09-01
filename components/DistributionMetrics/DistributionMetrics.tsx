@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { Comicbook, ITotalCounts } from "../../types";
+import { Comicbook, TotalCounts } from "../../types";
 import { MemoizedBar } from "../Chart/PublisherBar";
 
 export default function PublisherBarGraph ({ data }: { data: Comicbook[] }) {
-  const [totals, setTotals] = useState<ITotalCounts[]>();
+  const [totals, setTotals] = useState<TotalCounts[]>();
 
   useEffect(() => {
-    function getTotals (): ITotalCounts[] {
-      const totals: ITotalCounts[] = [];
+    function getTotals (): TotalCounts[] {
+      const totals: TotalCounts[] = [];
       data.forEach((book) => {
         let _publisherTracker = totals.find(
           (tracker) => tracker.publisher === book.publisher

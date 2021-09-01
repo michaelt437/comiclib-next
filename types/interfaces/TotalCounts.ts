@@ -1,4 +1,4 @@
-export interface ITotalCounts {
+export interface TotalCounts {
   publisher: string;
   count: number;
 }

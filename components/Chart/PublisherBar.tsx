@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
-import { Comicbook, ITotalCounts } from "../../types";
+import { Comicbook, TotalCounts } from "../../types";
 
 function PublisherBarGraph ({ data }: { data: Comicbook[] }) {
   let [barData, setBarData] = useState<any>();
@@ -33,8 +33,8 @@ function PublisherBarGraph ({ data }: { data: Comicbook[] }) {
   });
 
   useEffect(() => {
-    async function getTotals (): Promise<ITotalCounts[]> {
-      const totals: ITotalCounts[] = [];
+    async function getTotals (): Promise<TotalCounts[]> {
+      const totals: TotalCounts[] = [];
       data.forEach((book) => {
         let _publisherTracker = totals.find(
           (tracker) => tracker.publisher === book.publisher
