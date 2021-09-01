@@ -3,7 +3,7 @@ import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import { PencilAltIcon } from "@heroicons/react/outline";
 import { useState } from "react";
 
-export default function ComicsList ({
+export default function ComicsList({
   items,
   changeModalState,
   changeEditModalState,
@@ -16,7 +16,7 @@ export default function ComicsList ({
 }) {
   const [searchText, setSearchText] = useState<string>("");
 
-  function filteredItems (): Comicbook[] {
+  function filteredItems(): Comicbook[] {
     return items.filter((book) => {
       return (
         book.title.toLowerCase().indexOf(searchText.toLowerCase().trim()) >
@@ -54,13 +54,17 @@ export default function ComicsList ({
       </div>
       <div className="grid-table">
         <div className="grid-table_thead bg-gray-100">
-          <div className="grid-table_row grid grid-cols-10">
+          <div
+            className={`grid-table_row grid ${
+              auth ? "grid-cols-10" : "grid-cols-9"
+            }`}
+          >
             <div className="grid-table_col col-span-4">Title</div>
             <div className="grid-table_col col-span-2">Writer</div>
             <div className="grid-table_col">Publisher</div>
             <div className="grid-table_col text-center">Status</div>
             <div className="grid-table_col text-center">Score</div>
-            <div></div>
+            {auth ? <div></div> : null}
           </div>
         </div>
         <OverlayScrollbarsComponent>
@@ -68,7 +72,9 @@ export default function ComicsList ({
             {filteredItems().map((comic) => {
               return (
                 <div
-                  className="grid-table_row grid grid-cols-10 hover:bg-blueGray-50"
+                  className={`grid-table_row grid hover:bg-blueGray-50 ${
+                    auth ? "grid-cols-10" : "grid-cols-9"
+                  }`}
                   key={comic.title}
                 >
                   <div className="grid-table_col col-span-4 text-sky-600 font-medium">
@@ -84,12 +90,14 @@ export default function ComicsList ({
                   <div className="grid-table_col text-center text-sky-600">
                     {comic.score}
                   </div>
-                  <div className="text-center">
-                    <PencilAltIcon
-                      className="inline h-6 w-6 cursor-pointer opacity-50 hover:opacity-100"
-                      onClick={() => changeEditModalState(true, comic)}
-                    />
-                  </div>
+                  {auth ? (
+                    <div className="text-center">
+                      <PencilAltIcon
+                        className="inline h-6 w-6 cursor-pointer opacity-50 hover:opacity-100"
+                        onClick={() => changeEditModalState(true, comic)}
+                      />
+                    </div>
+                  ) : null}
                 </div>
               );
             })}
