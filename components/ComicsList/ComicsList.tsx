@@ -3,7 +3,7 @@ import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import { PencilAltIcon } from "@heroicons/react/outline";
 import { useState } from "react";
 
-export default function ComicsList({
+export default function ComicsList ({
   items,
   changeModalState,
   changeEditModalState,
@@ -16,7 +16,7 @@ export default function ComicsList({
 }) {
   const [searchText, setSearchText] = useState<string>("");
 
-  function filteredItems(): Comicbook[] {
+  function filteredItems (): Comicbook[] {
     return items.filter((book) => {
       return (
         book.title.toLowerCase().indexOf(searchText.toLowerCase().trim()) >
