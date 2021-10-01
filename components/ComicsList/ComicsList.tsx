@@ -1,6 +1,6 @@
 import { Comicbook } from "../../types";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
-import { PencilAltIcon } from "@heroicons/react/outline";
+import { PencilAltIcon, XIcon } from "@heroicons/react/outline";
 import { useState } from "react";
 
 export default function ComicsList ({
@@ -35,13 +35,16 @@ export default function ComicsList ({
       <div className="flex items-center flex-wrap mb-5 md:flex-nowrap">
         <h2 className="flex-shrink-0">Book List</h2>
         <div className="flex-grow w-full rounded-md md:max-w-lg md:ml-auto md:mr-4">
-          <input
-            className="form-field w-full bg-gray-200 focus:bg-blueGray-50"
-            type="text"
-            placeholder="Search..."
-            value={searchText}
-            onChange={(event) => setSearchText(event.target.value)}
-          />
+          <div className="relative">
+            <input
+              className="form-field w-full bg-gray-200 focus:bg-blueGray-50"
+              type="text"
+              placeholder="Search..."
+              value={searchText}
+              onChange={(event) => setSearchText(event.target.value)}
+            />
+            <XIcon className={`absolute w-5 h-5 right-3 top-1/2 transform -translate-y-1/2 ${searchText ? "" : "hidden"}`}></XIcon>
+          </div>
         </div>
         {auth ? (
           <button
