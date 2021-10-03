@@ -4,12 +4,14 @@ import { Comicbook } from "../../types";
 export default function ReadingProgress ({ data }: { data: Comicbook[] }) {
   const [readCount, setReadCount] = useState<number>(0);
   const [percentRead, setPercentRead] = useState<number>(0);
-  
+
   useEffect(() => {
-    const _read = data.filter(comic => comic.status).length;
-    const _percent = Math.floor(100 * (_read/data.length));
-    setReadCount(_read);
-    setPercentRead(_percent);
+    if (data.length) {
+      const _read = data.filter((comic) => comic.status).length;
+      const _percent = Math.floor(100 * (_read / data.length));
+      setReadCount(_read);
+      setPercentRead(_percent);
+    }
   }, [data]);
 
   return (
