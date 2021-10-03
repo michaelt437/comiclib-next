@@ -43,7 +43,15 @@ export default function ComicsList ({
               value={searchText}
               onChange={(event) => setSearchText(event.target.value)}
             />
-            <XIcon className={`absolute w-5 h-5 right-3 top-1/2 transform -translate-y-1/2 ${searchText ? "" : "hidden"}`}></XIcon>
+            <div
+              className={`absolute w-5 h-5 right-3 top-1/2 transform -translate-y-1/2 cursor-pointer ${
+                searchText ? "" : "hidden"
+              }`}
+              title="Clear search"
+              onClick={() => setSearchText("")}
+            >
+              <XIcon></XIcon>
+            </div>
           </div>
         </div>
         {auth ? (
