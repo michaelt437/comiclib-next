@@ -32,7 +32,7 @@ h3,
   @apply text-lg;
 }
 
-.grid-table_thead .grid-table_col {
+.grid-table_thead {
   @apply font-normal text-gray-400;
 }
 

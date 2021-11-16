@@ -15,6 +15,11 @@ export default function ComicsList ({
   auth: boolean;
 }) {
   const [searchText, setSearchText] = useState<string>("");
+  const [titleActive, setTitleActive] = useState<boolean>(true);
+  const [writerActive, setWriterActive] = useState<boolean>(false);
+  const [publisherActive, setPublisherActive] = useState<boolean>(false);
+  const [statusActive, setStatusActive] = useState<boolean>(false);
+  const [scoreActive, setScoreActive] = useState<boolean>(false);
 
   function filteredItems (): Comicbook[] {
     return items.filter((book) => {
@@ -29,6 +34,38 @@ export default function ComicsList ({
       );
     });
   }
+
+function sortByColumn (column: string, fnc: Function): void {
+
+		setTitleActive(false);
+
+		setWriterActive(false);
+
+	setPublisherActive(false);
+
+	setStatusActive(false);
+
+	setScoreActive(false);
+switch (column) {
+	case "Title":
+		setTitleActive(!titleActive);
+		break;
+	case "Writer":
+		setWriterActive(!writerActive);
+		break;
+	case "Publisher":
+	setPublisherActive(!publisherActive);
+	break;
+	case "Status":
+	setStatusActive(!statusActive);
+	break;
+	case "Score":
+	setScoreActive(!scoreActive);
+	break;
+	default:
+return;
+}
+}
 
   return (
     <div className="rounded-md p-6 row-start-1 col-span-full">
@@ -70,11 +107,11 @@ export default function ComicsList ({
               auth ? "grid-cols-10" : "grid-cols-9"
             }`}
           >
-            <div className="grid-table_col col-span-4">Title</div>
-            <div className="grid-table_col col-span-2">Writer</div>
-            <div className="grid-table_col">Publisher</div>
-            <div className="grid-table_col text-center">Status</div>
-            <div className="grid-table_col text-center">Score</div>
+            <div className={`grid-table_col col-span-4 cursor-pointer ${ titleActive ? "font-bold text-indigo-500" : "" }`} onClick={() => sortByColumn("Title", setTitleActive)}>Title</div>
+            <div className={`grid-table_col col-span-2 cursor-pointer ${ writerActive ? "font-bold text-indigo-500" : "" }`} onClick={() => sortByColumn("Writer", setWriterActive)}>Writer</div>
+            <div className={`grid-table_col cursor-pointer ${publisherActive ? "font-bold text-indigo-500" : "" }`} onClick={() => sortByColumn("Publisher", setPublisherActive)}>Publisher</div>
+            <div className={`grid-table_col text-center cursor-pointer ${statusActive ? "font-bold text-indigo-500" : "" }`} onClick={() => sortByColumn("Status", setStatusActive)}>Status</div>
+            <div className={`grid-table_col text-center cursor-pointer ${scoreActive ? "font-bold text-indigo-500" : "" }`} onClick={() => sortByColumn("Score", setScoreActive)}>Score</div>
             {auth ? <div></div> : null}
           </div>
         </div>
