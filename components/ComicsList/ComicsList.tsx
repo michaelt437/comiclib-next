@@ -1,7 +1,12 @@
-import { Comicbook } from "../../types";
+import { Comicbook, SortOrder } from "../../types";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
-import { PencilAltIcon, XIcon } from "@heroicons/react/outline";
-import { useState } from "react";
+import {
+  ArrowNarrowUpIcon,
+  ArrowNarrowDownIcon,
+  PencilAltIcon,
+  XIcon
+} from "@heroicons/react/outline";
+import { useState, useReducer } from "react";
 
 export default function ComicsList ({
   items,
@@ -15,6 +20,12 @@ export default function ComicsList ({
   auth: boolean;
 }) {
   const [searchText, setSearchText] = useState<string>("");
+  const initialSortState = {
+    sortBy: "title",
+    order: SortOrder.DESCENDING
+  };
+
+  const [sortState, dispatch] = useReducer(execSort, initialSortState);
 
   function filteredItems (): Comicbook[] {
     return items.filter((book) => {
@@ -28,6 +39,16 @@ export default function ComicsList ({
           -1
       );
     });
+  }
+
+  function execSort (state, { sortColumn }) {
+    return {
+      sortBy: sortColumn,
+      order:
+        state.order === SortOrder.ASCENDING
+          ? SortOrder.DESCENDING
+          : SortOrder.ASCENDING
+    };
   }
 
   return (
@@ -70,11 +91,56 @@ export default function ComicsList ({
               auth ? "grid-cols-10" : "grid-cols-9"
             }`}
           >
-            <div className="grid-table_col col-span-4">Title</div>
-            <div className="grid-table_col col-span-2">Writer</div>
-            <div className="grid-table_col">Publisher</div>
-            <div className="grid-table_col text-center">Status</div>
-            <div className="grid-table_col text-center">Score</div>
+            <div
+              className={`grid-table_col col-span-4 ${
+                sortState.sortBy === "title" && "font-bold text-sky-800"
+              }`}
+              onClick={() => dispatch({ sortColumn: "title" })}
+            >
+              Title
+              {sortState.order === SortOrder.DESCENDING ? (
+                <ArrowNarrowDownIcon className="inline h-3 w-3" />
+              ) : (
+                <ArrowNarrowUpIcon className="inline h-3 w-3" />
+              )}
+            </div>
+            <div
+              className={`grid-table_col col-span-2 ${
+                sortState.sortBy === "writer" && "font-bold text-sky-800"
+              }`}
+              onClick={() => setSort("writer")}
+            >
+              Writer
+              {sortState.sortBy === "writer" ? (
+                <ArrowNarrowDownIcon className="inline h-3 w-3" />
+              ) : (
+                <ArrowNarrowUpIcon className="inline h-3 w-3" />
+              )}
+            </div>
+            <div
+              className={`grid-table_col ${
+                sortState.sortBy === "publisher" && "font-bold text-sky-800"
+              }`}
+              onClick={() => setSort("publisher")}
+            >
+              Publisher
+            </div>
+            <div
+              className={`grid-table_col text-center ${
+                sortState.sortBy === "status" && "font-bold text-sky-800"
+              }`}
+              onClick={() => setSort("status")}
+            >
+              Status
+            </div>
+            <div
+              className={`grid-table_col text-center ${
+                sortState.sortBy === "score" && "font-bold text-sky-800"
+              }`}
+              onClick={() => setSort("score")}
+            >
+              Score
+            </div>
             {auth ? <div></div> : null}
           </div>
         </div>
