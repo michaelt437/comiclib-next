@@ -4,7 +4,8 @@ import {
   ArrowNarrowUpIcon,
   ArrowNarrowDownIcon,
   PencilAltIcon,
-  XIcon
+  XIcon,
+  ArrowUpIcon
 } from "@heroicons/react/outline";
 import { useState, useReducer } from "react";
 
@@ -45,9 +46,11 @@ export default function ComicsList ({
     return {
       sortBy: sortColumn,
       order:
-        state.order === SortOrder.ASCENDING
-          ? SortOrder.DESCENDING
-          : SortOrder.ASCENDING
+        state.sortBy === sortColumn
+          ? state.order === SortOrder.DESCENDING
+            ? SortOrder.ASCENDING
+            : SortOrder.DESCENDING
+          : SortOrder.DESCENDING
     };
   }
 
@@ -98,48 +101,68 @@ export default function ComicsList ({
               onClick={() => dispatch({ sortColumn: "title" })}
             >
               Title
-              {sortState.order === SortOrder.DESCENDING ? (
-                <ArrowNarrowDownIcon className="inline h-3 w-3" />
-              ) : (
-                <ArrowNarrowUpIcon className="inline h-3 w-3" />
-              )}
+              {sortState.sortBy === "title" &&
+                (sortState.order === SortOrder.DESCENDING ? (
+                  <ArrowNarrowDownIcon className="inline h-3 w-3" />
+                ) : (
+                  <ArrowNarrowUpIcon className="inline h-3 w-3" />
+                ))}
             </div>
             <div
               className={`grid-table_col col-span-2 ${
                 sortState.sortBy === "writer" && "font-bold text-sky-800"
               }`}
-              onClick={() => setSort("writer")}
+              onClick={() => dispatch({ sortColumn: "writer" })}
             >
               Writer
-              {sortState.sortBy === "writer" ? (
-                <ArrowNarrowDownIcon className="inline h-3 w-3" />
-              ) : (
-                <ArrowNarrowUpIcon className="inline h-3 w-3" />
-              )}
+              {sortState.sortBy === "writer" &&
+                (sortState.order === SortOrder.DESCENDING ? (
+                  <ArrowNarrowDownIcon className="inline h-3 w-3" />
+                ) : (
+                  <ArrowNarrowUpIcon className="inline h-3 w-3" />
+                ))}
             </div>
             <div
               className={`grid-table_col ${
                 sortState.sortBy === "publisher" && "font-bold text-sky-800"
               }`}
-              onClick={() => setSort("publisher")}
+              onClick={() => dispatch({ sortColumn: "publisher" })}
             >
               Publisher
+              {sortState.sortBy === "publisher" &&
+                (sortState.order === SortOrder.DESCENDING ? (
+                  <ArrowNarrowDownIcon className="inline h-3 w-3" />
+                ) : (
+                  <ArrowUpIcon className="inline h-3 w-3" />
+                ))}
             </div>
             <div
               className={`grid-table_col text-center ${
                 sortState.sortBy === "status" && "font-bold text-sky-800"
               }`}
-              onClick={() => setSort("status")}
+              onClick={() => dispatch({ sortColumn: "status" })}
             >
               Status
+              {sortState.sortBy === "status" &&
+                (sortState.order === SortOrder.DESCENDING ? (
+                  <ArrowNarrowDownIcon className="inline h-3 w-3" />
+                ) : (
+                  <ArrowNarrowUpIcon className="inline h-3 w-3" />
+                ))}
             </div>
             <div
               className={`grid-table_col text-center ${
                 sortState.sortBy === "score" && "font-bold text-sky-800"
               }`}
-              onClick={() => setSort("score")}
+              onClick={() => dispatch({ sortColumn: "score" })}
             >
               Score
+              {sortState.sortBy === "score" &&
+                (sortState.order === SortOrder.DESCENDING ? (
+                  <ArrowNarrowDownIcon className="inline h-3 h-4" />
+                ) : (
+                  <ArrowNarrowUpIcon className="inline h-3 w-3" />
+                ))}
             </div>
             {auth ? <div></div> : null}
           </div>
