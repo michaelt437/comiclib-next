@@ -43,9 +43,9 @@ export default function ComicsList ({
           case "writer":
           case "publisher":
           case "score":
-            if (book1[sortState.sortBy] > book2[sortState.sortBy]) {
+            if (book1[sortState.sortBy]! > book2[sortState.sortBy]!) {
               return sortState.order === SortOrder.DESCENDING ? -1 : 1;
-            } else if (book2[sortState.sortBy] > book1[sortState.sortBy]) {
+            } else if (book2[sortState.sortBy]! > book1[sortState.sortBy]!) {
               return sortState.order === SortOrder.DESCENDING ? 1 : -1;
             } else {
               return 0;
@@ -55,12 +55,12 @@ export default function ComicsList ({
               ? Number(book1.status) - Number(book2.status)
               : Number(book2.status) - Number(book1.status);
           default:
-            return;
+            return 0;
         }
       });
   }
 
-  function execSort (state, { sortColumn }) {
+  function execSort (state: any, { sortColumn }: { sortColumn: string }) {
     return {
       sortBy: sortColumn,
       order:
