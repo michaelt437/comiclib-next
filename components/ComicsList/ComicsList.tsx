@@ -18,7 +18,7 @@ export default function ComicsList ({
   const [searchText, setSearchText] = useState<string>("");
   const initialSortState = {
     sortBy: "title",
-    order: SortOrder.DESCENDING
+    order: SortOrder.ASCENDING
   };
 
   const [sortState, dispatch] = useReducer(execSort, initialSortState);
