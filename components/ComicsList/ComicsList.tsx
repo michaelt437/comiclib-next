@@ -1,12 +1,7 @@
 import { Comicbook, SortOrder } from "../../types";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
-import {
-  ArrowNarrowUpIcon,
-  ArrowNarrowDownIcon,
-  PencilAltIcon,
-  XIcon,
-  ArrowUpIcon
-} from "@heroicons/react/outline";
+import { ArrowUpIcon, PencilAltIcon, XIcon } from "@heroicons/react/outline";
+import { SortAscendingIcon, SortDescendingIcon } from "@heroicons/react/solid";
 import { useState, useReducer } from "react";
 
 export default function ComicsList ({
@@ -49,12 +44,16 @@ export default function ComicsList ({
           case "publisher":
           case "score":
             if (book1[sortState.sortBy] > book2[sortState.sortBy]) {
-              return sortState.order === SortOrder.DESCENDING ? 1 : -1;
-            } else if (book2[sortState.sortBy] > book1[sortState.sortBy]) {
               return sortState.order === SortOrder.DESCENDING ? -1 : 1;
+            } else if (book2[sortState.sortBy] > book1[sortState.sortBy]) {
+              return sortState.order === SortOrder.DESCENDING ? 1 : -1;
             } else {
               return 0;
             }
+          case "status":
+            return sortState.order === SortOrder.DESCENDING
+              ? Number(book1.status) - Number(book2.status)
+              : Number(book2.status) - Number(book1.status);
           default:
             return;
         }
@@ -69,7 +68,7 @@ export default function ComicsList ({
           ? state.order === SortOrder.DESCENDING
             ? SortOrder.ASCENDING
             : SortOrder.DESCENDING
-          : SortOrder.DESCENDING
+          : SortOrder.ASCENDING
     };
   }
 
@@ -122,9 +121,9 @@ export default function ComicsList ({
               Title
               {sortState.sortBy === "title" &&
                 (sortState.order === SortOrder.DESCENDING ? (
-                  <ArrowNarrowDownIcon className="inline h-3 w-3" />
+                  <SortDescendingIcon className="inline h-4 w-4 ml-1" />
                 ) : (
-                  <ArrowNarrowUpIcon className="inline h-3 w-3" />
+                  <SortAscendingIcon className="inline h-4 w-4 ml-1" />
                 ))}
             </div>
             <div
@@ -136,9 +135,9 @@ export default function ComicsList ({
               Writer
               {sortState.sortBy === "writer" &&
                 (sortState.order === SortOrder.DESCENDING ? (
-                  <ArrowNarrowDownIcon className="inline h-3 w-3" />
+                  <SortDescendingIcon className="inline h-4 w-4 ml-1" />
                 ) : (
-                  <ArrowNarrowUpIcon className="inline h-3 w-3" />
+                  <SortAscendingIcon className="inline h-4 w-4 ml-1" />
                 ))}
             </div>
             <div
@@ -150,9 +149,9 @@ export default function ComicsList ({
               Publisher
               {sortState.sortBy === "publisher" &&
                 (sortState.order === SortOrder.DESCENDING ? (
-                  <ArrowNarrowDownIcon className="inline h-3 w-3" />
+                  <SortDescendingIcon className="inline h-4 w-4 ml-1" />
                 ) : (
-                  <ArrowUpIcon className="inline h-3 w-3" />
+                  <SortAscendingIcon className="inline h-4 w-4 ml-1" />
                 ))}
             </div>
             <div
@@ -164,9 +163,9 @@ export default function ComicsList ({
               Status
               {sortState.sortBy === "status" &&
                 (sortState.order === SortOrder.DESCENDING ? (
-                  <ArrowNarrowDownIcon className="inline h-3 w-3" />
+                  <SortDescendingIcon className="inline h-4 w-4 ml-1" />
                 ) : (
-                  <ArrowNarrowUpIcon className="inline h-3 w-3" />
+                  <SortAscendingIcon className="inline h-4 w-4 ml-1" />
                 ))}
             </div>
             <div
@@ -178,9 +177,9 @@ export default function ComicsList ({
               Score
               {sortState.sortBy === "score" &&
                 (sortState.order === SortOrder.DESCENDING ? (
-                  <ArrowNarrowDownIcon className="inline h-3 h-4" />
+                  <SortDescendingIcon className="inline h-4 h-4 ml-1" />
                 ) : (
-                  <ArrowNarrowUpIcon className="inline h-3 w-3" />
+                  <SortAscendingIcon className="inline h-4 w-4 ml-1" />
                 ))}
             </div>
             {auth ? <div></div> : null}
