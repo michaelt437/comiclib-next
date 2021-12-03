@@ -29,17 +29,33 @@ export default function ComicsList ({
   const [sortState, dispatch] = useReducer(execSort, initialSortState);
 
   function filteredItems (): Comicbook[] {
-    return items.filter((book) => {
-      return (
-        book.title.toLowerCase().indexOf(searchText.toLowerCase().trim()) >
-          -1 ||
-        (book.writer &&
-          book.writer.toLowerCase().indexOf(searchText.toLowerCase().trim()) >
-            -1) ||
-        book.publisher.toLowerCase().indexOf(searchText.toLowerCase().trim()) >
-          -1
-      );
-    });
+    return items
+      .filter((book) => {
+        return (
+          book.title.toLowerCase().indexOf(searchText.toLowerCase().trim()) >
+            -1 ||
+          (book.writer &&
+            book.writer.toLowerCase().indexOf(searchText.toLowerCase().trim()) >
+              -1) ||
+          book.publisher
+            .toLowerCase()
+            .indexOf(searchText.toLowerCase().trim()) > -1
+        );
+      })
+      .sort((book1: Comicbook, book2: Comicbook) => {
+        switch (sortState.sortBy) {
+          case "title":
+            if (book1.title > book2.title) {
+              return sortState.order === SortOrder.DESCENDING ? 1 : -1;
+            } else if (book2.title > book1.title) {
+              return sortState.order === SortOrder.DESCENDING ? -1 : 1;
+            } else {
+              return 0;
+            }
+          default:
+            return;
+        }
+      });
   }
 
   function execSort (state, { sortColumn }) {
