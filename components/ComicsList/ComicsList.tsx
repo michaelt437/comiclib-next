@@ -45,9 +45,12 @@ export default function ComicsList ({
       .sort((book1: Comicbook, book2: Comicbook) => {
         switch (sortState.sortBy) {
           case "title":
-            if (book1.title > book2.title) {
+          case "writer":
+          case "publisher":
+          case "score":
+            if (book1[sortState.sortBy] > book2[sortState.sortBy]) {
               return sortState.order === SortOrder.DESCENDING ? 1 : -1;
-            } else if (book2.title > book1.title) {
+            } else if (book2[sortState.sortBy] > book1[sortState.sortBy]) {
               return sortState.order === SortOrder.DESCENDING ? -1 : 1;
             } else {
               return 0;
