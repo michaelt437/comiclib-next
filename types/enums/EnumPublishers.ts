@@ -1,5 +1,3 @@
-import { string } from "prop-types";
-
 export enum Publishers {
   MARVEL = "Marvel",
   DC = "DC",

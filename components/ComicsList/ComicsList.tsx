@@ -1,7 +1,8 @@
-import { Comicbook } from "../../types";
+import { Comicbook, SortOrder } from "../../types";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
-import { PencilAltIcon, XIcon } from "@heroicons/react/outline";
-import { useState } from "react";
+import { ArrowUpIcon, PencilAltIcon, XIcon } from "@heroicons/react/outline";
+import { SortAscendingIcon, SortDescendingIcon } from "@heroicons/react/solid";
+import { useState, useReducer } from "react";
 
 export default function ComicsList ({
   items,
@@ -15,19 +16,60 @@ export default function ComicsList ({
   auth: boolean;
 }) {
   const [searchText, setSearchText] = useState<string>("");
+  const initialSortState = {
+    sortBy: "title",
+    order: SortOrder.ASCENDING
+  };
+
+  const [sortState, dispatch] = useReducer(execSort, initialSortState);
 
   function filteredItems (): Comicbook[] {
-    return items.filter((book) => {
-      return (
-        book.title.toLowerCase().indexOf(searchText.toLowerCase().trim()) >
-          -1 ||
-        (book.writer &&
-          book.writer.toLowerCase().indexOf(searchText.toLowerCase().trim()) >
-            -1) ||
-        book.publisher.toLowerCase().indexOf(searchText.toLowerCase().trim()) >
-          -1
-      );
-    });
+    return items
+      .filter((book) => {
+        return (
+          book.title.toLowerCase().indexOf(searchText.toLowerCase().trim()) >
+            -1 ||
+          (book.writer &&
+            book.writer.toLowerCase().indexOf(searchText.toLowerCase().trim()) >
+              -1) ||
+          book.publisher
+            .toLowerCase()
+            .indexOf(searchText.toLowerCase().trim()) > -1
+        );
+      })
+      .sort((book1: Comicbook, book2: Comicbook) => {
+        switch (sortState.sortBy) {
+          case "title":
+          case "writer":
+          case "publisher":
+          case "score":
+            if (book1[sortState.sortBy]! > book2[sortState.sortBy]!) {
+              return sortState.order === SortOrder.DESCENDING ? -1 : 1;
+            } else if (book2[sortState.sortBy]! > book1[sortState.sortBy]!) {
+              return sortState.order === SortOrder.DESCENDING ? 1 : -1;
+            } else {
+              return 0;
+            }
+          case "status":
+            return sortState.order === SortOrder.DESCENDING
+              ? Number(book1.status) - Number(book2.status)
+              : Number(book2.status) - Number(book1.status);
+          default:
+            return 0;
+        }
+      });
+  }
+
+  function execSort (state: any, { sortColumn }: { sortColumn: string }) {
+    return {
+      sortBy: sortColumn,
+      order:
+        state.sortBy === sortColumn
+          ? state.order === SortOrder.DESCENDING
+            ? SortOrder.ASCENDING
+            : SortOrder.DESCENDING
+          : SortOrder.ASCENDING
+    };
   }
 
   return (
@@ -70,11 +112,76 @@ export default function ComicsList ({
               auth ? "grid-cols-10" : "grid-cols-9"
             }`}
           >
-            <div className="grid-table_col col-span-4">Title</div>
-            <div className="grid-table_col col-span-2">Writer</div>
-            <div className="grid-table_col">Publisher</div>
-            <div className="grid-table_col text-center">Status</div>
-            <div className="grid-table_col text-center">Score</div>
+            <div
+              className={`grid-table_col col-span-4 ${
+                sortState.sortBy === "title" && "font-bold text-sky-800"
+              }`}
+              onClick={() => dispatch({ sortColumn: "title" })}
+            >
+              Title
+              {sortState.sortBy === "title" &&
+                (sortState.order === SortOrder.DESCENDING ? (
+                  <SortDescendingIcon className="inline h-4 w-4 ml-1" />
+                ) : (
+                  <SortAscendingIcon className="inline h-4 w-4 ml-1" />
+                ))}
+            </div>
+            <div
+              className={`grid-table_col col-span-2 ${
+                sortState.sortBy === "writer" && "font-bold text-sky-800"
+              }`}
+              onClick={() => dispatch({ sortColumn: "writer" })}
+            >
+              Writer
+              {sortState.sortBy === "writer" &&
+                (sortState.order === SortOrder.DESCENDING ? (
+                  <SortDescendingIcon className="inline h-4 w-4 ml-1" />
+                ) : (
+                  <SortAscendingIcon className="inline h-4 w-4 ml-1" />
+                ))}
+            </div>
+            <div
+              className={`grid-table_col ${
+                sortState.sortBy === "publisher" && "font-bold text-sky-800"
+              }`}
+              onClick={() => dispatch({ sortColumn: "publisher" })}
+            >
+              Publisher
+              {sortState.sortBy === "publisher" &&
+                (sortState.order === SortOrder.DESCENDING ? (
+                  <SortDescendingIcon className="inline h-4 w-4 ml-1" />
+                ) : (
+                  <SortAscendingIcon className="inline h-4 w-4 ml-1" />
+                ))}
+            </div>
+            <div
+              className={`grid-table_col text-center ${
+                sortState.sortBy === "status" && "font-bold text-sky-800"
+              }`}
+              onClick={() => dispatch({ sortColumn: "status" })}
+            >
+              Status
+              {sortState.sortBy === "status" &&
+                (sortState.order === SortOrder.DESCENDING ? (
+                  <SortDescendingIcon className="inline h-4 w-4 ml-1" />
+                ) : (
+                  <SortAscendingIcon className="inline h-4 w-4 ml-1" />
+                ))}
+            </div>
+            <div
+              className={`grid-table_col text-center ${
+                sortState.sortBy === "score" && "font-bold text-sky-800"
+              }`}
+              onClick={() => dispatch({ sortColumn: "score" })}
+            >
+              Score
+              {sortState.sortBy === "score" &&
+                (sortState.order === SortOrder.DESCENDING ? (
+                  <SortDescendingIcon className="inline h-4 h-4 ml-1" />
+                ) : (
+                  <SortAscendingIcon className="inline h-4 w-4 ml-1" />
+                ))}
+            </div>
             {auth ? <div></div> : null}
           </div>
         </div>

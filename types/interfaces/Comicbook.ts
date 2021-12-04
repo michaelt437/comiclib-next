@@ -1,6 +1,7 @@
 import { Publishers } from "../enums";
 
 export interface Comicbook {
+  [key: string]: any;
   id?: string;
   publisher: Publishers;
   score: number | null;
