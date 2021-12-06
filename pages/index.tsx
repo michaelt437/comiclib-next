@@ -1,3 +1,4 @@
+import { GetStaticProps } from "next";
 import { useEffect, useState } from "react";
 import { Comicbook } from "../types";
 import { User } from "@supabase/gotrue-js";
@@ -11,7 +12,20 @@ import ReadingProgress from "../components/ReadingProgress/ReadingProgress";
 import TotalBooks from "../components/TotalBooks/TotalBooks";
 import MeanScore from "../components/MeanScore/MeanScore";
 
-export default function Home () {
+export const getStaticProps: GetStaticProps = async () => {
+  const { data, error } = await supabase
+    .from("comicbooks")
+    .select("*")
+    .order("title", { ascending: true });
+  console.log("getStaticProps", data);
+  return {
+    props: {
+      libraryData: data
+    }
+  };
+};
+
+export default function Home ({ libraryData }: { libraryData: Comicbook[] }) {
   const [library, setLibrary] = useState<Comicbook[]>([]);
   const [openAddModal, setOpenAddModal] = useState<boolean>(false);
   const [openEditModal, setOpenEditModal] = useState<boolean>(false);
