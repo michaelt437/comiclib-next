@@ -17,7 +17,6 @@ export const getStaticProps: GetStaticProps = async () => {
     .from("comicbooks")
     .select("*")
     .order("title", { ascending: true });
-  console.log("getStaticProps", data);
   return {
     props: {
       libraryData: data
