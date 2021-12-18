@@ -195,7 +195,7 @@ export default function ComicsList ({
                   }`}
                   key={comic.title}
                 >
-                  <div className="grid-table_col col-span-4 text-slate-600 font-medium">
+                  <div className="grid-table_col col-span-4 text-sky-600 font-medium">
                     {comic.title}
                   </div>
                   <div className="grid-table_col col-span-2">
