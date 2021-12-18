@@ -75,11 +75,11 @@ export default function ComicsList ({
   return (
     <div className="rounded-md p-6 row-start-1 col-span-full">
       <div className="flex items-center flex-wrap mb-5 md:flex-nowrap">
-        <h2 className="flex-shrink-0">Book List</h2>
+        <h2 className="shrink-0">Book List</h2>
         <div className="flex-grow w-full rounded-md md:max-w-lg md:ml-auto md:mr-4">
           <div className="relative">
             <input
-              className="form-field w-full bg-gray-200 focus:bg-blueGray-50"
+              className="form-field w-full bg-gray-200 focus:bg-slate-50"
               type="text"
               placeholder="Search..."
               value={searchText}
@@ -190,7 +190,7 @@ export default function ComicsList ({
             {filteredItems().map((comic) => {
               return (
                 <div
-                  className={`grid-table_row grid hover:bg-blueGray-50 ${
+                  className={`grid-table_row grid hover:bg-slate-50 ${
                     auth ? "grid-cols-10" : "grid-cols-9"
                   }`}
                   key={comic.title}
@@ -202,7 +202,7 @@ export default function ComicsList ({
                     {comic.writer}
                   </div>
                   <div className="grid-table_col">{comic.publisher}</div>
-                  <div className="grid-table_col flex justify-center text-green-400">
+                  <div className="grid-table_col flex justify-center text-emerald-400">
 										{comic.status ? <CheckIcon className="h5 w-5" /> : ""}
                   </div>
                   <div className="grid-table_col text-center text-sky-600">

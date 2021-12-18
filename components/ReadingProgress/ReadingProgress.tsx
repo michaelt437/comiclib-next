@@ -15,9 +15,9 @@ export default function ReadingProgress ({ data }: { data: Comicbook[] }) {
   }, [data]);
 
   return (
-    <div className="rounded-md border border-blueGray-300 p-4 flex-1">
+    <div className="rounded-md border border-slate-300 p-4 flex-1">
       <div className="flex justify-between items-center mb-6">
-        <h3 className="flex-shrink-0">Reading Progress</h3>
+        <h3 className="shrink-0">Reading Progress</h3>
         <span className="">
           <span className="font-bold">{readCount}</span>/{data.length}
         </span>
