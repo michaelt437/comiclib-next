@@ -79,7 +79,7 @@ export default function ComicsList ({
         <div className="flex-grow w-full rounded-md md:max-w-lg md:ml-auto md:mr-4">
           <div className="relative">
             <input
-              className="form-field w-full bg-gray-200 focus:bg-blueGray-50"
+              className="form-field w-full bg-gray-200 focus:bg-slate-50"
               type="text"
               placeholder="Search..."
               value={searchText}
@@ -190,12 +190,12 @@ export default function ComicsList ({
             {filteredItems().map((comic) => {
               return (
                 <div
-                  className={`grid-table_row grid hover:bg-blueGray-50 ${
+                  className={`grid-table_row grid hover:bg-slate-50 ${
                     auth ? "grid-cols-10" : "grid-cols-9"
                   }`}
                   key={comic.title}
                 >
-                  <div className="grid-table_col col-span-4 text-sky-600 font-medium">
+                  <div className="grid-table_col col-span-4 text-slate-600 font-medium">
                     {comic.title}
                   </div>
                   <div className="grid-table_col col-span-2">
