@@ -1,6 +1,6 @@
 import { Comicbook, SortOrder } from "../../types";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
-import { ArrowUpIcon, PencilAltIcon, XIcon } from "@heroicons/react/outline";
+import { CheckIcon, PencilAltIcon, XIcon } from "@heroicons/react/outline";
 import { SortAscendingIcon, SortDescendingIcon } from "@heroicons/react/solid";
 import { useState, useReducer } from "react";
 
@@ -202,8 +202,8 @@ export default function ComicsList ({
                     {comic.writer}
                   </div>
                   <div className="grid-table_col">{comic.publisher}</div>
-                  <div className="grid-table_col text-center text-green-400">
-                    {comic.status ? "✔" : ""}
+                  <div className="grid-table_col flex justify-center text-green-400">
+										{comic.status ? <CheckIcon className="h5 w-5" /> : ""}
                   </div>
                   <div className="grid-table_col text-center text-sky-600">
                     {comic.score}
