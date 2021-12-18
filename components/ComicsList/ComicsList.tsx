@@ -202,7 +202,7 @@ export default function ComicsList ({
                     {comic.writer}
                   </div>
                   <div className="grid-table_col">{comic.publisher}</div>
-                  <div className="grid-table_col flex justify-center text-green-400">
+                  <div className="grid-table_col flex justify-center text-emerald-400">
 										{comic.status ? <CheckIcon className="h5 w-5" /> : ""}
                   </div>
                   <div className="grid-table_col text-center text-sky-600">
