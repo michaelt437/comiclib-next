@@ -28,10 +28,10 @@ export default function ComicsList ({
       .filter((book) => {
         return (
           book.title.toLowerCase().indexOf(searchText.toLowerCase().trim()) >
-            -1 ||
+          -1 ||
           (book.writer &&
             book.writer.toLowerCase().indexOf(searchText.toLowerCase().trim()) >
-              -1) ||
+            -1) ||
           book.publisher
             .toLowerCase()
             .indexOf(searchText.toLowerCase().trim()) > -1
@@ -86,9 +86,8 @@ export default function ComicsList ({
               onChange={(event) => setSearchText(event.target.value)}
             />
             <div
-              className={`absolute w-5 h-5 right-3 top-1/2 transform -translate-y-1/2 cursor-pointer ${
-                searchText ? "" : "hidden"
-              }`}
+              className={`absolute w-5 h-5 right-3 top-1/2 transform -translate-y-1/2 cursor-pointer ${searchText ? "" : "hidden"
+                }`}
               title="Clear search"
               onClick={() => setSearchText("")}
             >
@@ -106,16 +105,14 @@ export default function ComicsList ({
         ) : null}
       </div>
       <div className="grid-table">
-        <div className="grid-table_thead bg-gray-100">
+        <div className="grid-table_thead bg-gray-100 hidden lg:block">
           <div
-            className={`grid-table_row grid ${
-              auth ? "grid-cols-10" : "grid-cols-9"
-            }`}
+            className={`grid-table_row grid ${auth ? "grid-cols-10" : "grid-cols-9"
+              }`}
           >
             <div
-              className={`grid-table_col col-span-4 ${
-                sortState.sortBy === "title" && "font-bold text-sky-800"
-              }`}
+              className={`grid-table_col col-span-4 ${sortState.sortBy === "title" && "font-bold text-sky-800"
+                }`}
               onClick={() => dispatch({ sortColumn: "title" })}
             >
               Title
@@ -127,9 +124,8 @@ export default function ComicsList ({
                 ))}
             </div>
             <div
-              className={`grid-table_col col-span-2 ${
-                sortState.sortBy === "writer" && "font-bold text-sky-800"
-              }`}
+              className={`grid-table_col col-span-2 ${sortState.sortBy === "writer" && "font-bold text-sky-800"
+                }`}
               onClick={() => dispatch({ sortColumn: "writer" })}
             >
               Writer
@@ -141,9 +137,8 @@ export default function ComicsList ({
                 ))}
             </div>
             <div
-              className={`grid-table_col ${
-                sortState.sortBy === "publisher" && "font-bold text-sky-800"
-              }`}
+              className={`grid-table_col ${sortState.sortBy === "publisher" && "font-bold text-sky-800"
+                }`}
               onClick={() => dispatch({ sortColumn: "publisher" })}
             >
               Publisher
@@ -155,9 +150,8 @@ export default function ComicsList ({
                 ))}
             </div>
             <div
-              className={`grid-table_col text-center ${
-                sortState.sortBy === "status" && "font-bold text-sky-800"
-              }`}
+              className={`grid-table_col text-center ${sortState.sortBy === "status" && "font-bold text-sky-800"
+                }`}
               onClick={() => dispatch({ sortColumn: "status" })}
             >
               Status
@@ -169,9 +163,8 @@ export default function ComicsList ({
                 ))}
             </div>
             <div
-              className={`grid-table_col text-center ${
-                sortState.sortBy === "score" && "font-bold text-sky-800"
-              }`}
+              className={`grid-table_col text-center ${sortState.sortBy === "score" && "font-bold text-sky-800"
+                }`}
               onClick={() => dispatch({ sortColumn: "score" })}
             >
               Score
@@ -189,34 +182,40 @@ export default function ComicsList ({
           <div className="grid-table_tbody max-h-96">
             {filteredItems().map((comic) => {
               return (
-                <div
-                  className={`grid-table_row grid hover:bg-blueGray-50 ${
-                    auth ? "grid-cols-10" : "grid-cols-9"
-                  }`}
-                  key={comic.title}
-                >
-                  <div className="grid-table_col col-span-4 text-sky-600 font-medium">
-                    {comic.title}
-                  </div>
-                  <div className="grid-table_col col-span-2">
-                    {comic.writer}
-                  </div>
-                  <div className="grid-table_col">{comic.publisher}</div>
-                  <div className="grid-table_col flex justify-center text-green-400">
-										{comic.status ? <CheckIcon className="h5 w-5" /> : ""}
-                  </div>
-                  <div className="grid-table_col text-center text-sky-600">
-                    {comic.score}
-                  </div>
-                  {auth ? (
-                    <div className="text-center">
-                      <PencilAltIcon
-                        className="inline h-6 w-6 cursor-pointer opacity-50 hover:opacity-100"
-                        onClick={() => changeEditModalState(true, comic)}
-                      />
+                <>
+                  <div
+                    className={`grid-table_row grid hover:bg-blueGray-50 hidden lg:grid ${auth ? "grid-cols-10" : "grid-cols-9"
+                      }`}
+                    key={comic.title}
+                  >
+                    <div className="grid-table_col col-span-4 text-sky-600 font-medium">
+                      {comic.title}
                     </div>
-                  ) : null}
-                </div>
+                    <div className="grid-table_col col-span-2">
+                      {comic.writer}
+                    </div>
+                    <div className="grid-table_col">{comic.publisher}</div>
+                    <div className="grid-table_col flex justify-center text-green-400">
+                      {comic.status ? <CheckIcon className="h5 w-5" /> : ""}
+                    </div>
+                    <div className="grid-table_col text-center text-sky-600">
+                      {comic.score}
+                    </div>
+                    {auth ? (
+                      <div className="text-center">
+                        <PencilAltIcon
+                          className="inline h-6 w-6 cursor-pointer opacity-50 hover:opacity-100"
+                          onClick={() => changeEditModalState(true, comic)}
+                        />
+                      </div>
+                    ) : null}
+                  </div>
+                  <div className="block lg:hidden p-3 mb-2 bg-white rounded-sm">
+                    <p className="text-sky-600 font-medium">{comic.title}</p>
+                    <p>{comic.writer}</p>
+                    <p>{comic.publisher}</p>
+                  </div>
+                </>
               );
             })}
           </div>
