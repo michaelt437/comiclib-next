@@ -34,9 +34,9 @@ export default function PublisherBarGraph ({ data }: { data: Comicbook[] }) {
               className="p-6 w-full lg:w-1/5 rounded-md border border-slate-300"
               key={publisher.publisher}
             >
-              <div className="flex justify-between items-center">
-                <p className="mb-0 lg:text-gray-400">{publisher.publisher}</p>
-                <p className="h4 lg:h2">{publisher.count}</p>
+              <div className="flex justify-between items-center lg:block">
+                <p className="mb-0 text-gray-400">{publisher.publisher}</p>
+                <p className="h4 lg:text-xl">{publisher.count}</p>
               </div>
             </div>
           );
