@@ -33,7 +33,7 @@ export default function Login () {
   }
   return (
     <Layout layoutStyles="flex flex-col justify-center items-center">
-      <div className="border border-gray-200 rounded-md w-2/5 p-6">
+      <div className="border border-gray-200 rounded-md lg:w-2/5 p-6">
         <h2 className="mb-5">Log In</h2>
         <label htmlFor="email" className="block font-medium mb-1">
           Email
