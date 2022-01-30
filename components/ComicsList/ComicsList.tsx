@@ -80,7 +80,7 @@ export default function ComicsList ({
           <div className={`flex-grow w-full rounded-md lg:max-w-lg sm:max-w-xs sm:ml-auto ${auth && "mr-4"}`}>
             <div className="relative">
               <input
-              className="form-field w-full bg-gray-200 focus:bg-slate-50"
+                className="form-field w-full bg-gray-200 focus:bg-slate-50"
                 type="text"
                 placeholder="Search..."
                 value={searchText}
@@ -92,8 +92,8 @@ export default function ComicsList ({
                 title="Clear search"
                 onClick={() => setSearchText("")}
               >
-              </div>
                 <XIcon></XIcon>
+              </div>
             </div>
           </div>
           {auth ? (
@@ -186,7 +186,7 @@ export default function ComicsList ({
               return (
                 <>
                   <div
-                    className={`grid-table_row grid hover:bg-blueGray-50 hidden lg:grid ${auth ? "grid-cols-10" : "grid-cols-9"
+                    className={`grid-table_row grid hover:bg-slate-50 hidden lg:grid ${auth ? "grid-cols-10" : "grid-cols-9"
                       }`}
                     key={comic.title}
                   >
@@ -197,7 +197,7 @@ export default function ComicsList ({
                       {comic.writer}
                     </div>
                     <div className="grid-table_col">{comic.publisher}</div>
-                    <div className="grid-table_col flex justify-center text-green-400">
+                    <div className="grid-table_col flex justify-center text-emerald-400">
                       {comic.status ? <CheckIcon className="h5 w-5" /> : ""}
                     </div>
                     <div className="grid-table_col text-center text-sky-600">
