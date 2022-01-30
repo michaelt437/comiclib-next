@@ -73,36 +73,38 @@ export default function ComicsList ({
   }
 
   return (
-    <div className="rounded-md p-6 row-start-1 col-span-full">
+    <div className="rounded-md lg:p-6 row-start-1 col-span-full">
       <div className="flex items-center flex-wrap mb-5 md:flex-nowrap">
         <h2 className="flex-shrink-0">Book List</h2>
-        <div className="flex-grow w-full rounded-md lg:max-w-lg sm:max-w-xs sm:ml-auto sm:mr-4">
-          <div className="relative">
-            <input
-              className="form-field w-full bg-gray-200 focus:bg-blueGray-50"
-              type="text"
-              placeholder="Search..."
-              value={searchText}
-              onChange={(event) => setSearchText(event.target.value)}
-            />
-            <div
-              className={`absolute w-5 h-5 right-3 top-1/2 transform -translate-y-1/2 cursor-pointer ${searchText ? "" : "hidden"
-                }`}
-              title="Clear search"
-              onClick={() => setSearchText("")}
-            >
-              <XIcon></XIcon>
+        <div className="flex flex-grow justify-space-between items-center mt-2 sm:mt-0">
+          <div className={`flex-grow w-full rounded-md lg:max-w-lg sm:max-w-xs sm:ml-auto ${auth && "mr-4"}`}>
+            <div className="relative">
+              <input
+                className="form-field w-full bg-gray-200 focus:bg-blueGray-50"
+                type="text"
+                placeholder="Search..."
+                value={searchText}
+                onChange={(event) => setSearchText(event.target.value)}
+              />
+              <div
+                className={`absolute w-5 h-5 right-3 top-1/2 transform -translate-y-1/2 cursor-pointer ${searchText ? "" : "hidden"
+                  }`}
+                title="Clear search"
+                onClick={() => setSearchText("")}
+              >
+                <XIcon></XIcon>
+              </div>
             </div>
           </div>
+          {auth ? (
+            <button
+              className="btn primary flex-shrink-0"
+              onClick={() => changeModalState(true)}
+            >
+              Add Book
+            </button>
+          ) : null}
         </div>
-        {auth ? (
-          <button
-            className="btn primary"
-            onClick={() => changeModalState(true)}
-          >
-            Add Book
-          </button>
-        ) : null}
       </div>
       <div className="grid-table">
         <div className="grid-table_thead bg-gray-100 hidden lg:block">
@@ -210,9 +212,8 @@ export default function ComicsList ({
                       </div>
                     ) : null}
                   </div>
-                  <div className="block lg:hidden p-3 mb-2 bg-white rounded-sm">
+                  <div className="block lg:hidden p-3 mb-2 bg-white rounded-lg">
                     <p className="text-sky-600 font-medium">{comic.title}</p>
-                    <p>{comic.writer}</p>
                     <p>{comic.publisher}</p>
                   </div>
                 </>
