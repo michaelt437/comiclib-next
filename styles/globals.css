@@ -10,12 +10,12 @@ body {
   font-size: 14px;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5
+h6, .h6 {
   @apply text-sky-900 font-bold;
 }
 
@@ -90,14 +90,8 @@ h3,
   }
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
+@media (max-width: 991px) {
   .container {
     max-width: 720px;
-  }
-}
-
-@media (min-width: 576px) and (max-width: 767px) {
-  .container {
-    max-width: 540px;
   }
 }

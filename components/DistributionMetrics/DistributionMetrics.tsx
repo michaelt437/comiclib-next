@@ -25,24 +25,26 @@ export default function PublisherBarGraph ({ data }: { data: Comicbook[] }) {
   }, [data]);
 
   return (
-    <div className="col-span-full p-6">
+    <div className="col-span-full lg:p-6">
       <h2 className="mb-4">Distribution</h2>
-      <div className="flex space-x-4 mb-6">
+      <div className="flex justify-between space-y-2 lg:space-y-0 lg:space-x-4 mb-6 flex-wrap lg:flex-nowrap">
         {totals?.map((publisher) => {
           return (
             <div
-              className="p-6 w-1/5 rounded-md border border-slate-300"
+              className="p-6 w-full lg:w-1/5 rounded-md border border-slate-300"
               key={publisher.publisher}
             >
-              <>
-                <p className="mb-0 text-gray-400">{publisher.publisher}</p>
-                <h2>{publisher.count}</h2>
-              </>
+              <div className="flex justify-between items-center">
+                <p className="mb-0 lg:text-gray-400">{publisher.publisher}</p>
+                <p className="h4 lg:h2">{publisher.count}</p>
+              </div>
             </div>
           );
         })}
       </div>
-      <MemoizedBar data={data} />
+      <span className="hidden lg:block">
+        <MemoizedBar data={data} />
+      </span>
     </div>
   );
 }

@@ -58,7 +58,7 @@ export default function Home ({ libraryData }: { libraryData: Comicbook[] }) {
           setEditingBook(book);
         }}
       />
-      <div className="col-span-full p-6">
+      <div className="col-span-full lg:p-6">
         <h2 className="mb-4">Stats</h2>
         <div className="flex justify-between flex-wrap md:flex-nowrap space-x-4">
           <TotalBooks data={library} />

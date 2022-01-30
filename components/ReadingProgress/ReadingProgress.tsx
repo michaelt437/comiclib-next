@@ -17,14 +17,14 @@ export default function ReadingProgress ({ data }: { data: Comicbook[] }) {
   return (
     <div className="rounded-md border border-slate-300 p-4 flex-1">
       <div className="flex justify-between items-center mb-6">
-        <h3 className="shrink-0">Reading Progress</h3>
-        <span className="">
+        <p className="h4 sm:h3 sm:shrink-0"><span className="hidden sm:inline-block">Reading</span> Progress</p>
+        <span className="hidden sm:inline-block">
           <span className="font-bold">{readCount}</span>/{data.length}
         </span>
       </div>
       <div className="text-sky-400 flex justify-center">
-        <span className="text-5xl">{percentRead}</span>
-        <span className="text-4xl">%</span>
+        <span className="text-2xl sm:text-5xl">{percentRead}</span>
+        <span className="text-lg sm:text-4xl">%</span>
       </div>
     </div>
   );
