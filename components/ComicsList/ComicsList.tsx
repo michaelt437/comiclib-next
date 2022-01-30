@@ -213,7 +213,7 @@ export default function ComicsList ({
                     ) : null}
                   </div>
                   <div className="block lg:hidden p-3 mb-2 bg-white rounded-lg">
-                    <p className="text-sky-600 font-medium">{comic.title}</p>
+                    <p className="text-sky-600 font-medium">{comic.title} {comic.status && <CheckIcon className="h4 w-4 inline" />}</p>
                     <p>{comic.publisher}</p>
                   </div>
                 </>
