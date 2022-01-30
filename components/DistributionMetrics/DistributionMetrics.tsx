@@ -31,7 +31,7 @@ export default function PublisherBarGraph ({ data }: { data: Comicbook[] }) {
         {totals?.map((publisher) => {
           return (
             <div
-              className="p-6 w-1/5 rounded-md border border-blueGray-300"
+              className="p-6 w-1/5 rounded-md border border-slate-300"
               key={publisher.publisher}
             >
               <>

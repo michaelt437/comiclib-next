@@ -75,12 +75,12 @@ export default function ComicsList ({
   return (
     <div className="rounded-md lg:p-6 row-start-1 col-span-full">
       <div className="flex items-center flex-wrap mb-5 md:flex-nowrap">
-        <h2 className="flex-shrink-0">Book List</h2>
+        <h2 className="shrink-0">Book List</h2>
         <div className="flex flex-grow justify-space-between items-center mt-2 sm:mt-0">
           <div className={`flex-grow w-full rounded-md lg:max-w-lg sm:max-w-xs sm:ml-auto ${auth && "mr-4"}`}>
             <div className="relative">
               <input
-                className="form-field w-full bg-gray-200 focus:bg-blueGray-50"
+              className="form-field w-full bg-gray-200 focus:bg-slate-50"
                 type="text"
                 placeholder="Search..."
                 value={searchText}
@@ -92,8 +92,8 @@ export default function ComicsList ({
                 title="Clear search"
                 onClick={() => setSearchText("")}
               >
-                <XIcon></XIcon>
               </div>
+                <XIcon></XIcon>
             </div>
           </div>
           {auth ? (
