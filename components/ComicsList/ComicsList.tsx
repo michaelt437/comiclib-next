@@ -2,7 +2,7 @@ import { Comicbook, SortOrder } from "../../types";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import { CheckIcon, PencilAltIcon, XIcon } from "@heroicons/react/outline";
 import { SortAscendingIcon, SortDescendingIcon } from "@heroicons/react/solid";
-import { useState, useReducer } from "react";
+import { Fragment, useState, useReducer } from "react";
 
 export default function ComicsList ({
   items,
@@ -28,10 +28,10 @@ export default function ComicsList ({
       .filter((book) => {
         return (
           book.title.toLowerCase().indexOf(searchText.toLowerCase().trim()) >
-          -1 ||
+            -1 ||
           (book.writer &&
             book.writer.toLowerCase().indexOf(searchText.toLowerCase().trim()) >
-            -1) ||
+              -1) ||
           book.publisher
             .toLowerCase()
             .indexOf(searchText.toLowerCase().trim()) > -1
@@ -77,7 +77,11 @@ export default function ComicsList ({
       <div className="flex items-center flex-wrap mb-5 md:flex-nowrap">
         <h2 className="shrink-0">Book List</h2>
         <div className="flex flex-grow justify-space-between items-center mt-2 sm:mt-0">
-          <div className={`flex-grow w-full rounded-md lg:max-w-lg sm:max-w-xs sm:ml-auto ${auth && "mr-4"}`}>
+          <div
+            className={`flex-grow w-full rounded-md lg:max-w-lg sm:max-w-xs sm:ml-auto ${
+              auth && "mr-4"
+            }`}
+          >
             <div className="relative">
               <input
                 className="form-field w-full bg-gray-200 focus:bg-slate-50"
@@ -87,8 +91,9 @@ export default function ComicsList ({
                 onChange={(event) => setSearchText(event.target.value)}
               />
               <div
-                className={`absolute w-5 h-5 right-3 top-1/2 transform -translate-y-1/2 cursor-pointer ${searchText ? "" : "hidden"
-                  }`}
+                className={`absolute w-5 h-5 right-3 top-1/2 transform -translate-y-1/2 cursor-pointer ${
+                  searchText ? "" : "hidden"
+                }`}
                 title="Clear search"
                 onClick={() => setSearchText("")}
               >
@@ -109,12 +114,14 @@ export default function ComicsList ({
       <div className="grid-table">
         <div className="grid-table_thead bg-gray-100 hidden lg:block">
           <div
-            className={`grid-table_row grid ${auth ? "grid-cols-10" : "grid-cols-9"
-              }`}
+            className={`grid-table_row grid ${
+              auth ? "grid-cols-10" : "grid-cols-9"
+            }`}
           >
             <div
-              className={`grid-table_col col-span-4 ${sortState.sortBy === "title" && "font-bold text-sky-800"
-                }`}
+              className={`grid-table_col col-span-4 ${
+                sortState.sortBy === "title" && "font-bold text-sky-800"
+              }`}
               onClick={() => dispatch({ sortColumn: "title" })}
             >
               Title
@@ -126,8 +133,9 @@ export default function ComicsList ({
                 ))}
             </div>
             <div
-              className={`grid-table_col col-span-2 ${sortState.sortBy === "writer" && "font-bold text-sky-800"
-                }`}
+              className={`grid-table_col col-span-2 ${
+                sortState.sortBy === "writer" && "font-bold text-sky-800"
+              }`}
               onClick={() => dispatch({ sortColumn: "writer" })}
             >
               Writer
@@ -139,8 +147,9 @@ export default function ComicsList ({
                 ))}
             </div>
             <div
-              className={`grid-table_col ${sortState.sortBy === "publisher" && "font-bold text-sky-800"
-                }`}
+              className={`grid-table_col ${
+                sortState.sortBy === "publisher" && "font-bold text-sky-800"
+              }`}
               onClick={() => dispatch({ sortColumn: "publisher" })}
             >
               Publisher
@@ -152,8 +161,9 @@ export default function ComicsList ({
                 ))}
             </div>
             <div
-              className={`grid-table_col text-center ${sortState.sortBy === "status" && "font-bold text-sky-800"
-                }`}
+              className={`grid-table_col text-center ${
+                sortState.sortBy === "status" && "font-bold text-sky-800"
+              }`}
               onClick={() => dispatch({ sortColumn: "status" })}
             >
               Status
@@ -165,8 +175,9 @@ export default function ComicsList ({
                 ))}
             </div>
             <div
-              className={`grid-table_col text-center ${sortState.sortBy === "score" && "font-bold text-sky-800"
-                }`}
+              className={`grid-table_col text-center ${
+                sortState.sortBy === "score" && "font-bold text-sky-800"
+              }`}
               onClick={() => dispatch({ sortColumn: "score" })}
             >
               Score
@@ -184,10 +195,11 @@ export default function ComicsList ({
           <div className="grid-table_tbody max-h-96">
             {filteredItems().map((comic) => {
               return (
-                <>
+                <Fragment key={comic.title}>
                   <div
-                    className={`grid-table_row grid hover:bg-slate-50 hidden lg:grid ${auth ? "grid-cols-10" : "grid-cols-9"
-                      }`}
+                    className={`grid-table_row grid hover:bg-slate-50 hidden lg:grid ${
+                      auth ? "grid-cols-10" : "grid-cols-9"
+                    }`}
                     key={comic.title}
                   >
                     <div className="grid-table_col col-span-4 text-sky-600 font-medium">
@@ -213,10 +225,13 @@ export default function ComicsList ({
                     ) : null}
                   </div>
                   <div className="block lg:hidden p-3 mb-2 bg-white rounded-lg">
-                    <p className="text-sky-600 font-medium">{comic.title} {comic.status && <CheckIcon className="h4 w-4 inline" />}</p>
+                    <p className="text-sky-600 font-medium">
+                      {comic.title}{" "}
+                      {comic.status && <CheckIcon className="h4 w-4 inline" />}
+                    </p>
                     <p>{comic.publisher}</p>
                   </div>
-                </>
+                </Fragment>
               );
             })}
           </div>
