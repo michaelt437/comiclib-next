@@ -70,14 +70,14 @@ export default function Wishlist ({
             setOpenEditModal(val);
             setEditingBook(null);
           }}
-          editingBook={editingBook}
+          editingBook={editingBook!}
           saveChanges={(bookId: string, updatedBook: Comicbook) => {
             setWishlist((prevState) => {
               const newWishlist = [...prevState];
               let saveBookIndex = newWishlist.findIndex(
                 (book) => book.id === bookId
               );
-              newWishlist[saveBookIdex] = {
+              newWishlist[saveBookIndex] = {
                 id: newWishlist[saveBookIndex].id,
                 ...updatedBook
               };

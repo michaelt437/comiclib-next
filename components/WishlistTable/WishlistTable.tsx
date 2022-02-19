@@ -85,7 +85,7 @@ export default function WishlistTable ({
             {auth ? <div></div> : null}
           </div>
         </div>
-        <div className="grid-table_tbody max-h-96">
+        <div className="grid-table_tbody">
           {items.map((comic) => {
             return (
               <Fragment key={comic.title}>
