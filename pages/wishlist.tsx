@@ -29,7 +29,7 @@ export default function Wishlist ({
   const [authenticated, setAuthenticated] = useState<boolean>(false);
   const [openAddModal, setOpenAddModal] = useState<boolean>(false);
   const [openEditModal, setOpenEditModal] = useState<boolean>(false);
-  const [editinBook, setEditingBook] = useState<Comicbook | null>(null);
+  const [editingBook, setEditingBook] = useState<Comicbook | null>(null);
 
   useEffect(() => {
     async function fetchWishlist (): Promise<void> {
@@ -53,11 +53,37 @@ export default function Wishlist ({
         items={wishlist}
         auth={authenticated}
         changeModalState={(val: boolean) => setOpenAddModal(val)}
+        changeEditModalState={(val: boolean, book: Comicbook) => {
+          setOpenEditModal(val);
+          setEditingBook(book);
+        }}
       />
       {openAddModal ? (
         <Modal
           changeModalState={(val: boolean) => setOpenAddModal(val)}
           addNewBook={(book: Comicbook) => setWishlist([book, ...wishlist])}
+        />
+      ) : null}
+      {openEditModal ? (
+        <ModalEdit
+          changeEditModalState={(val: boolean) => {
+            setOpenEditModal(val);
+            setEditingBook(null);
+          }}
+          editingBook={editingBook}
+          saveChanges={(bookId: string, updatedBook: Comicbook) => {
+            setWishlist((prevState) => {
+              const newWishlist = [...prevState];
+              let saveBookIndex = newWishlist.findIndex(
+                (book) => book.id === bookId
+              );
+              newWishlist[saveBookIdex] = {
+                id: newWishlist[saveBookIndex].id,
+                ...updatedBook
+              };
+              return newWishlist;
+            });
+          }}
         />
       ) : null}
     </Layout>

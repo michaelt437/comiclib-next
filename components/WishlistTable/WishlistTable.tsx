@@ -5,11 +5,13 @@ import { Fragment, useState } from "react";
 export default function WishlistTable ({
   items,
   auth,
-  changeModalState
+  changeModalState,
+  changeEditModalState
 }: {
   items: Comicbook[];
   auth: boolean;
   changeModalState: Function;
+  changeEditModalState: Function;
 }) {
   const [searchText, setSearchText] = useState<string>("");
   function filteredItems (): Comicbook[] {
@@ -102,7 +104,10 @@ export default function WishlistTable ({
                   <div className="grid-table_col">{comic.publisher}</div>
                   {auth ? (
                     <div className="text-center">
-                      <PencilAltIcon className="inline h-6 w-6 cursor-pointer opacity-50 hover:opacity-100" />
+                      <PencilAltIcon
+                        className="inline h-6 w-6 cursor-pointer opacity-50 hover:opacity-100"
+                        onClick={() => changeEditModalState(true, comic)}
+                      />
                     </div>
                   ) : null}
                 </div>
