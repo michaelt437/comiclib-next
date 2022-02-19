@@ -55,14 +55,14 @@ export default function WishlistTable ({
               </div>
             </div>
           </div>
-          {/* auth ? (
+          {auth ? (
             <button
               className="btn primary flex-shrink-0"
               onClick={() => changeModalState(true)}
             >
               Add Book
             </button>
-					) : null */}
+          ) : null}
         </div>
       </div>
       <div className="grid-table">
