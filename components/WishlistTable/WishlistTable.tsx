@@ -1,6 +1,7 @@
-import { Comicbook } from "../../types";
+import { Comicbook, SortOrder } from "../../types";
 import { PencilAltIcon, XIcon } from "@heroicons/react/outline";
-import { Fragment, useState } from "react";
+import { SortAscendingIcon, SortDescendingIcon } from "@heroicons/react/solid";
+import { Fragment, useState, useReducer } from "react";
 
 export default function WishlistTable ({
   items,
@@ -14,18 +15,54 @@ export default function WishlistTable ({
   changeEditModalState: Function;
 }) {
   const [searchText, setSearchText] = useState<string>("");
+  const initialSortState = {
+    sortBy: "title",
+    order: SortOrder.ASCENDING
+  };
+  const [sortState, dispatch] = useReducer(execSort, initialSortState);
+
+  function execSort (state: any, { sortColumn }: { sortColumn: string }) {
+    return {
+      sortBy: sortColumn,
+      order:
+        state.sortBy === sortColumn
+          ? state.order === SortOrder.DESCENDING
+            ? SortOrder.ASCENDING
+            : SortOrder.DESCENDING
+          : SortOrder.ASCENDING
+    };
+  }
+
   function filteredItems (): Comicbook[] {
-    return items.filter((book) => {
-      return (
-        book.title.toLowerCase().indexOf(searchText.toLowerCase().trim()) >
-          -1 ||
-        (book.writer &&
-          book.writer.toLowerCase().indexOf(searchText.toLowerCase().trim()) >
-            -1) ||
-        book.publisher.toLowerCase().indexOf(searchText.toLowerCase().trim()) >
-          -1
-      );
-    });
+    return items
+      .filter((book) => {
+        return (
+          book.title.toLowerCase().indexOf(searchText.toLowerCase().trim()) >
+            -1 ||
+          (book.writer &&
+            book.writer.toLowerCase().indexOf(searchText.toLowerCase().trim()) >
+              -1) ||
+          book.publisher
+            .toLowerCase()
+            .indexOf(searchText.toLowerCase().trim()) > -1
+        );
+      })
+      .sort((book1: Comicbook, book2: Comicbook) => {
+        switch (sortState.sortBy) {
+          case "title":
+          case "writer":
+          case "publisher":
+            if (book1[sortState.sortBy]! > book2[sortState.sortBy]!) {
+              return sortState.order === SortOrder.DESCENDING ? -1 : 1;
+            } else if (book2[sortState.sortBy]! > book1[sortState.sortBy]!) {
+              return sortState.order === SortOrder.DESCENDING ? 1 : -1;
+            } else {
+              return 0;
+            }
+          default:
+            return 0;
+        }
+      });
   }
 
   return (
@@ -74,19 +111,53 @@ export default function WishlistTable ({
               auth ? "grid-cols-7" : "grid-cols-6"
             }`}
           >
-            <div className="grid-table_col col-span-3">Title</div>
-            <div className="grid-table_col col-span-2">Writer</div>
             <div
-              className={`grid-table_col
-              `}
+              className={`grid-table_col col-span-3 ${
+                sortState.sortBy === "title" && "font-bold text-sky-800"
+              }`}
+              onClick={() => dispatch({ sortColumn: "title" })}
+            >
+              Title
+              {sortState.sortBy === "title" &&
+                (sortState.order === SortOrder.DESCENDING ? (
+                  <SortDescendingIcon className="inline h-4 w-4 ml-1" />
+                ) : (
+                  <SortAscendingIcon className="inline h-4 w-4 ml-1" />
+                ))}
+            </div>
+            <div
+              className={`grid-table_col col-span-2 ${
+                sortState.sortBy === "writer" && "font-bold text-sky-800"
+              }`}
+              onClick={() => dispatch({ sortColumn: "writer" })}
+            >
+              Writer
+              {sortState.sortBy === "writer" &&
+                (sortState.order === SortOrder.DESCENDING ? (
+                  <SortDescendingIcon className="inline h-4 w-4 ml-1" />
+                ) : (
+                  <SortAscendingIcon className="inline h-4 w-4 ml-1" />
+                ))}
+            </div>
+            <div
+              className={`grid-table_col ${
+                sortState.sortBy === "publisher" && "font-bold text-sky-800"
+              }`}
+              onClick={() => dispatch({ sortColumn: "publisher" })}
             >
               Publisher
+              {sortState.sortBy === "publisher" &&
+                (sortState.order === SortOrder.DESCENDING ? (
+                  <SortDescendingIcon className="inline h-4 w-4 ml-1" />
+                ) : (
+                  <SortAscendingIcon className="inline h-4 w-4 ml-1" />
+                ))}
             </div>
             {auth ? <div></div> : null}
           </div>
         </div>
         <div className="grid-table_tbody">
-          {items.map((comic) => {
+          {filteredItems().map((comic) => {
             return (
               <Fragment key={comic.title}>
                 <div
