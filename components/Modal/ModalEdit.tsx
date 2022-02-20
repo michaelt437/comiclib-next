@@ -116,41 +116,43 @@ export default function Modal ({
             placeholder="Enter the writer(s)"
             onChange={(event) => setBookWriters(event.target.value)}
           />
-          <div className="flex">
-            <div className="mr-10">
-              <label htmlFor="readStatus" className="block font-medium mb-1">
+          {router.pathname === "/" ? (
+            <div className="flex">
+              <div className="mr-10">
+                <label htmlFor="readStatus" className="block font-medium mb-1">
+                  <input
+                    type="checkbox"
+                    id="readStatus"
+                    name="readStatus"
+                    checked={bookReadStatus}
+                    className="mr-2 mb-2"
+                    onChange={() => setBookReadStatus(!bookReadStatus)}
+                  />
+                  I have read this book
+                </label>
+              </div>
+              <div className={bookReadStatus ? "" : "opacity-50"}>
+                <label htmlFor="score" className="block font-medium mb-1">
+                  Score{" "}
+                  <span className="text-gray-400 font-normal">
+                    (0 is no score)
+                  </span>
+                </label>
                 <input
-                  type="checkbox"
-                  id="readStatus"
-                  name="readStatus"
-                  checked={bookReadStatus}
-                  className="mr-2 mb-2"
-                  onChange={() => setBookReadStatus(!bookReadStatus)}
+                  value={bookScore ? bookScore : 0}
+                  className="form-field mb-5"
+                  type="number"
+                  id="score"
+                  name="score"
+                  min="0"
+                  max="10"
+                  placeholder="0"
+                  disabled={!bookReadStatus}
+                  onChange={(event) => setBookScore(event.target.value)}
                 />
-                I have read this book
-              </label>
+              </div>
             </div>
-            <div className={bookReadStatus ? "" : "opacity-50"}>
-              <label htmlFor="score" className="block font-medium mb-1">
-                Score{" "}
-                <span className="text-gray-400 font-normal">
-                  (0 is no score)
-                </span>
-              </label>
-              <input
-                value={bookScore ? bookScore : 0}
-                className="form-field mb-5"
-                type="number"
-                id="score"
-                name="score"
-                min="0"
-                max="10"
-                placeholder="0"
-                disabled={!bookReadStatus}
-                onChange={(event) => setBookScore(event.target.value)}
-              />
-            </div>
-          </div>
+          ) : null}
           <div className="flex justify-end">
             <button className="btn secondary" onClick={closeModal}>
               Cancel
