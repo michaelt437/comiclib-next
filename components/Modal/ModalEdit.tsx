@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { XIcon } from "@heroicons/react/solid";
 import supabase from "../../supabase";
 import { Comicbook, Publishers } from "../../types";
@@ -12,6 +13,7 @@ export default function Modal ({
   saveChanges: Function;
   editingBook: Comicbook;
 }) {
+  const router = useRouter();
   const [bookTitle, setBookTitle] = useState<string>(editingBook.title);
   const [bookPublisher, setBookPublisher] = useState<Publishers | string>(
     editingBook.publisher
@@ -21,20 +23,27 @@ export default function Modal ({
     editingBook.score ? String(editingBook.score) : null
   );
   const [bookReadStatus, setBookReadStatus] = useState<boolean>(
-    editingBook.status
+    !!editingBook.status
   );
+  const [dbName, setDbName] = useState<string>("/");
 
   async function saveBook (): Promise<void> {
-    const _newBook: Comicbook = {
+    let _newBook: Comicbook = {
       title: bookTitle,
       publisher: bookPublisher as Publishers,
-      writer: bookWriters,
-      score: Number(bookScore) > 0 ? Number(bookScore) : null,
-      status: bookReadStatus
+      writer: bookWriters
     };
 
+    if (router.pathname === "/") {
+      _newBook = {
+        ..._newBook,
+        score: Number(bookScore) > 0 ? Number(bookScore) : null,
+        status: bookReadStatus
+      };
+    }
+
     const { data, error } = await supabase
-      .from("comicbooks")
+      .from(dbName)
       .update({
         ..._newBook
       })
@@ -47,6 +56,10 @@ export default function Modal ({
   function closeModal (): void {
     changeEditModalState(false);
   }
+
+  useEffect(() => {
+    setDbName(router.pathname === "/" ? "comicbooks" : "wishlist");
+  }, [router]);
 
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-50 z-10">
