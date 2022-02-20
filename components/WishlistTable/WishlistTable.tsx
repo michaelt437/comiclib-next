@@ -96,7 +96,15 @@ export default function WishlistTable ({
                   key={comic.title}
                 >
                   <div className="grid-table_col col-span-3 text-sky-600 font-medium">
-                    {comic.title}
+                    <a
+                      href={`https://www.amazon.com/s?k=${encodeURIComponent(
+                        comic.title
+                      )}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {comic.title}
+                    </a>
                   </div>
                   <div className="grid-table_col col-span-2">
                     {comic.writer}
