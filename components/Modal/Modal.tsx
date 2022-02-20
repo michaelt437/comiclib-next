@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { XIcon } from "@heroicons/react/solid";
 import supabase from "../../supabase";
 import { Comicbook, Publishers } from "../../types";
@@ -10,6 +11,7 @@ export default function Modal ({
   changeModalState: Function;
   addNewBook: Function;
 }) {
+  const router = useRouter();
   const [bookTitle, setBookTitle] = useState<string>("");
   const [bookPublisher, setBookPublisher] = useState<Publishers | string>(
     "default"
@@ -17,28 +19,39 @@ export default function Modal ({
   const [bookWriters, setBookWriters] = useState<string>("");
   const [bookScore, setBookScore] = useState<string>("0");
   const [bookReadStatus, setBookReadStatus] = useState<boolean>(false);
+  const [dbName, setDbName] = useState<string>("/");
 
   async function addBook (): Promise<void> {
-    const _newBook: Comicbook = {
+    let _newBook: Comicbook = {
       title: bookTitle,
       publisher: bookPublisher as Publishers,
-      writer: bookWriters,
-      score: Number(bookScore) > 0 ? Number(bookScore) : null,
-      status: bookReadStatus
+      writer: bookWriters
     };
 
-    const { data, error } = await supabase.from("comicbooks").insert([
+    if (router.pathname === "/") {
+      _newBook = {
+        ..._newBook,
+        score: Number(bookScore) > 0 ? Number(bookScore) : null,
+        status: bookReadStatus
+      };
+    }
+
+    const { data, error } = await supabase.from(dbName).insert([
       {
         ..._newBook
       }
     ]);
-    addNewBook(_newBook);
+    addNewBook(data![0]);
     closeModal();
   }
 
   function closeModal (): void {
     changeModalState(false);
   }
+
+  useEffect(() => {
+    setDbName(router.pathname === "/" ? "comicbooks" : "wishlist");
+  }, [router]);
 
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-50 z-10">
@@ -95,41 +108,43 @@ export default function Modal ({
             placeholder="Enter the writer(s)"
             onChange={(event) => setBookWriters(event.target.value)}
           />
-          <div className="flex">
-            <div className="mr-10">
-              <label htmlFor="readStatus" className="block font-medium mb-1">
+          {router.pathname === "/" ? (
+            <div className="flex">
+              <div className="mr-10">
+                <label htmlFor="readStatus" className="block font-medium mb-1">
+                  <input
+                    type="checkbox"
+                    id="readStatus"
+                    name="readStatus"
+                    checked={bookReadStatus}
+                    className="mr-2 mb-2"
+                    onChange={() => setBookReadStatus(!bookReadStatus)}
+                  />
+                  I have read this book
+                </label>
+              </div>
+              <div className={bookReadStatus ? "" : "opacity-50"}>
+                <label htmlFor="score" className="block font-medium mb-1">
+                  Score{" "}
+                  <span className="text-gray-400 font-normal">
+                    (0 is no score)
+                  </span>
+                </label>
                 <input
-                  type="checkbox"
-                  id="readStatus"
-                  name="readStatus"
-                  checked={bookReadStatus}
-                  className="mr-2 mb-2"
-                  onChange={() => setBookReadStatus(!bookReadStatus)}
+                  value={bookScore}
+                  className="form-field mb-5"
+                  type="number"
+                  id="score"
+                  name="score"
+                  min="0"
+                  max="10"
+                  placeholder="0"
+                  disabled={!bookReadStatus}
+                  onChange={(event) => setBookScore(event.target.value)}
                 />
-                I have read this book
-              </label>
+              </div>
             </div>
-            <div className={bookReadStatus ? "" : "opacity-50"}>
-              <label htmlFor="score" className="block font-medium mb-1">
-                Score{" "}
-                <span className="text-gray-400 font-normal">
-                  (0 is no score)
-                </span>
-              </label>
-              <input
-                value={bookScore}
-                className="form-field mb-5"
-                type="number"
-                id="score"
-                name="score"
-                min="0"
-                max="10"
-                placeholder="0"
-                disabled={!bookReadStatus}
-                onChange={(event) => setBookScore(event.target.value)}
-              />
-            </div>
-          </div>
+          ) : null}
           <div className="flex justify-end">
             <button className="btn secondary" onClick={closeModal}>
               Cancel
