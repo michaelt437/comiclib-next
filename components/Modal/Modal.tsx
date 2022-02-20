@@ -41,7 +41,7 @@ export default function Modal ({
         ..._newBook
       }
     ]);
-    addNewBook(_newBook);
+    addNewBook(data![0]);
     closeModal();
   }
 
