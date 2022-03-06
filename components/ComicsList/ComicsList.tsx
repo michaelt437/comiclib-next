@@ -1,6 +1,11 @@
 import { Comicbook, SortOrder } from "../../types";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
-import { CheckIcon, PencilAltIcon, XIcon } from "@heroicons/react/outline";
+import {
+  CheckIcon,
+  PencilAltIcon,
+  TrashIcon,
+  XIcon
+} from "@heroicons/react/outline";
 import { SortAscendingIcon, SortDescendingIcon } from "@heroicons/react/solid";
 import { Fragment, useState, useReducer } from "react";
 
@@ -216,11 +221,12 @@ export default function ComicsList ({
                       {comic.score}
                     </div>
                     {auth ? (
-                      <div className="text-center">
+                      <div className="flex items-center justify-center">
                         <PencilAltIcon
                           className="inline h-6 w-6 cursor-pointer opacity-50 hover:opacity-100"
                           onClick={() => changeEditModalState(true, comic)}
                         />
+                        <TrashIcon className="inline h-6 w-6 ml-3 cursor-pointer opacity-50 hover:opacity-100" />
                       </div>
                     ) : null}
                   </div>
