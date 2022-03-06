@@ -3,7 +3,7 @@ import { PencilAltIcon, TrashIcon, XIcon } from "@heroicons/react/outline";
 import { SortAscendingIcon, SortDescendingIcon } from "@heroicons/react/solid";
 import { Fragment, useState, useReducer } from "react";
 
-export default function WishlistTable({
+export default function WishlistTable ({
   items,
   auth,
   changeModalState,
@@ -21,7 +21,7 @@ export default function WishlistTable({
   };
   const [sortState, dispatch] = useReducer(execSort, initialSortState);
 
-  function execSort(state: any, { sortColumn }: { sortColumn: string }) {
+  function execSort (state: any, { sortColumn }: { sortColumn: string }) {
     return {
       sortBy: sortColumn,
       order:
@@ -33,7 +33,7 @@ export default function WishlistTable({
     };
   }
 
-  function filteredItems(): Comicbook[] {
+  function filteredItems (): Comicbook[] {
     return items
       .filter((book) => {
         return (
