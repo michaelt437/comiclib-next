@@ -1,9 +1,9 @@
 import { Comicbook, SortOrder } from "../../types";
-import { PencilAltIcon, XIcon } from "@heroicons/react/outline";
+import { PencilAltIcon, TrashIcon, XIcon } from "@heroicons/react/outline";
 import { SortAscendingIcon, SortDescendingIcon } from "@heroicons/react/solid";
 import { Fragment, useState, useReducer } from "react";
 
-export default function WishlistTable ({
+export default function WishlistTable({
   items,
   auth,
   changeModalState,
@@ -21,7 +21,7 @@ export default function WishlistTable ({
   };
   const [sortState, dispatch] = useReducer(execSort, initialSortState);
 
-  function execSort (state: any, { sortColumn }: { sortColumn: string }) {
+  function execSort(state: any, { sortColumn }: { sortColumn: string }) {
     return {
       sortBy: sortColumn,
       order:
@@ -33,7 +33,7 @@ export default function WishlistTable ({
     };
   }
 
-  function filteredItems (): Comicbook[] {
+  function filteredItems(): Comicbook[] {
     return items
       .filter((book) => {
         return (
@@ -182,11 +182,12 @@ export default function WishlistTable ({
                   </div>
                   <div className="grid-table_col">{comic.publisher}</div>
                   {auth ? (
-                    <div className="text-center">
+                    <div className="flex items-center justify-center">
                       <PencilAltIcon
                         className="inline h-6 w-6 cursor-pointer opacity-50 hover:opacity-100"
                         onClick={() => changeEditModalState(true, comic)}
                       />
+                      <TrashIcon className="inline h-6 w-6 ml-3 cursor-pointer opacity-50 hover:opacity-100" />
                     </div>
                   ) : null}
                 </div>
