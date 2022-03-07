@@ -13,11 +13,13 @@ export default function ComicsList ({
   items,
   changeModalState,
   changeEditModalState,
+  changeDeleteModalState,
   auth
 }: {
   items: Comicbook[];
   changeModalState: Function;
   changeEditModalState: Function;
+  changeDeleteModalState: Function;
   auth: boolean;
 }) {
   const [searchText, setSearchText] = useState<string>("");
@@ -226,7 +228,10 @@ export default function ComicsList ({
                           className="inline h-6 w-6 cursor-pointer opacity-50 hover:opacity-100"
                           onClick={() => changeEditModalState(true, comic)}
                         />
-                        <TrashIcon className="inline h-6 w-6 ml-3 cursor-pointer opacity-50 hover:opacity-100" />
+                        <TrashIcon
+                          className="inline h-6 w-6 ml-3 cursor-pointer opacity-50 hover:opacity-100"
+                          onClick={() => changeDeleteModalState(true, comic)}
+                        />
                       </div>
                     ) : null}
                   </div>

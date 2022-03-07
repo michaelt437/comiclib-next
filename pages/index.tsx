@@ -6,6 +6,7 @@ import supabase from "../supabase";
 import Layout from "../components/Layout/Layout";
 import Modal from "../components/Modal/Modal";
 import ModalEdit from "../components/Modal/ModalEdit";
+import ModalDelete from "../components/Modal/ModalDelete";
 import ComicsList from "../components/ComicsList/ComicsList";
 import DistributionMetrics from "../components/DistributionMetrics/DistributionMetrics";
 import ReadingProgress from "../components/ReadingProgress/ReadingProgress";
@@ -28,8 +29,10 @@ export default function Home ({ libraryData }: { libraryData: Comicbook[] }) {
   const [library, setLibrary] = useState<Comicbook[]>([]);
   const [openAddModal, setOpenAddModal] = useState<boolean>(false);
   const [openEditModal, setOpenEditModal] = useState<boolean>(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
   const [authenticated, setAuthenticated] = useState<boolean>(false);
   const [editingBook, setEditingBook] = useState<Comicbook | null>(null);
+  const [bookToDelete, setBookToDelete] = useState<Comicbook | null>(null);
 
   useEffect(() => {
     async function fetchBooks (): Promise<void> {
@@ -56,6 +59,10 @@ export default function Home ({ libraryData }: { libraryData: Comicbook[] }) {
         changeEditModalState={(val: boolean, book: Comicbook) => {
           setOpenEditModal(val);
           setEditingBook(book);
+        }}
+        changeDeleteModalState={(val: boolean, book: Comicbook) => {
+          setOpenDeleteModal(val);
+          setBookToDelete(book);
         }}
       />
       <div className="col-span-full lg:p-6">
@@ -93,6 +100,12 @@ export default function Home ({ libraryData }: { libraryData: Comicbook[] }) {
               return newLibrary;
             });
           }}
+        />
+      ) : null}
+      {openDeleteModal ? (
+        <ModalDelete
+          changeDeleteModalState={(val: boolean) => setOpenDeleteModal(val)}
+          bookToDelete={bookToDelete!}
         />
       ) : null}
     </Layout>
