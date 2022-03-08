@@ -1,4 +1,6 @@
 import { XIcon } from "@heroicons/react/solid";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import supabase from "../../supabase";
 import { Comicbook } from "../../types";
 
@@ -11,8 +13,11 @@ export default function ModalDelete ({
   bookToDelete: Comicbook;
   deleteBook: Function;
 }) {
+  const router = useRouter();
+  const [dbName, setDbName] = useState<string>("/");
+
   async function execDeleteBook () {
-    await supabase.from("comicbooks").delete().match({ id: bookToDelete.id });
+    await supabase.from(dbName).delete().match({ id: bookToDelete.id });
     deleteBook(bookToDelete.id);
     closeModal();
   }
@@ -20,6 +25,10 @@ export default function ModalDelete ({
   function closeModal (): void {
     changeDeleteModalState(false);
   }
+
+  useEffect(() => {
+    setDbName(router.pathname === "/" ? "comicbooks" : "wishlist");
+  }, [router]);
 
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-50 z-10">
