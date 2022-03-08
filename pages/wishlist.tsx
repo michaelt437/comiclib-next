@@ -6,6 +6,7 @@ import supabase from "../supabase";
 import Layout from "../components/Layout/Layout";
 import Modal from "../components/Modal/Modal";
 import ModalEdit from "../components/Modal/ModalEdit";
+import ModalDelete from "../components/Modal/ModalDelete";
 import WishlistTable from "../components/WishlistTable/WishlistTable";
 
 export const getStatisProps: GetStaticProps = async () => {
@@ -29,7 +30,9 @@ export default function Wishlist ({
   const [authenticated, setAuthenticated] = useState<boolean>(false);
   const [openAddModal, setOpenAddModal] = useState<boolean>(false);
   const [openEditModal, setOpenEditModal] = useState<boolean>(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
   const [editingBook, setEditingBook] = useState<Comicbook | null>(null);
+  const [bookToDelete, setBookToDelete] = useState<Comicbook | null>(null);
 
   useEffect(() => {
     async function fetchWishlist (): Promise<void> {
@@ -57,6 +60,10 @@ export default function Wishlist ({
           setOpenEditModal(val);
           setEditingBook(book);
         }}
+        changeDeleteModalState={(val: boolean, book: Comicbook) => {
+          setOpenDeleteModal(val);
+          setBookToDelete(book);
+        }}
       />
       {openAddModal ? (
         <Modal
@@ -82,6 +89,22 @@ export default function Wishlist ({
                 ...updatedBook
               };
               return newWishlist;
+            });
+          }}
+        />
+      ) : null}
+      {openDeleteModal ? (
+        <ModalDelete
+          changeDeleteModalState={(val: boolean) => setOpenDeleteModal(val)}
+          bookToDelete={bookToDelete!}
+          deleteBook={(bookId: string) => {
+            setWishlist((prevState) => {
+              const _library = [...prevState];
+              const bookToDeleteIndex = _library.findIndex(
+                (book) => book.id === bookId
+              );
+              _library.splice(bookToDeleteIndex, 1);
+              return _library;
             });
           }}
         />

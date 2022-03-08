@@ -1,5 +1,5 @@
 import { Comicbook, SortOrder } from "../../types";
-import { PencilAltIcon, XIcon } from "@heroicons/react/outline";
+import { PencilAltIcon, TrashIcon, XIcon } from "@heroicons/react/outline";
 import { SortAscendingIcon, SortDescendingIcon } from "@heroicons/react/solid";
 import { Fragment, useState, useReducer } from "react";
 
@@ -7,12 +7,14 @@ export default function WishlistTable ({
   items,
   auth,
   changeModalState,
-  changeEditModalState
+  changeEditModalState,
+  changeDeleteModalState
 }: {
   items: Comicbook[];
   auth: boolean;
   changeModalState: Function;
   changeEditModalState: Function;
+  changeDeleteModalState: Function;
 }) {
   const [searchText, setSearchText] = useState<string>("");
   const initialSortState = {
@@ -182,10 +184,14 @@ export default function WishlistTable ({
                   </div>
                   <div className="grid-table_col">{comic.publisher}</div>
                   {auth ? (
-                    <div className="text-center">
+                    <div className="flex items-center justify-center">
                       <PencilAltIcon
                         className="inline h-6 w-6 cursor-pointer opacity-50 hover:opacity-100"
                         onClick={() => changeEditModalState(true, comic)}
+                      />
+                      <TrashIcon
+                        className="inline h-6 w-6 ml-3 cursor-pointer opacity-50 hover:opacity-100"
+                        onClick={() => changeDeleteModalState(true, comic)}
                       />
                     </div>
                   ) : null}
