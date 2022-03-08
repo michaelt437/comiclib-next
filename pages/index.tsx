@@ -106,6 +106,16 @@ export default function Home ({ libraryData }: { libraryData: Comicbook[] }) {
         <ModalDelete
           changeDeleteModalState={(val: boolean) => setOpenDeleteModal(val)}
           bookToDelete={bookToDelete!}
+          deleteBook={(bookId: string) => {
+            setLibrary((prevState) => {
+              const _library = [...prevState];
+              const bookToDeleteIndex = _library.findIndex(
+                (book) => book.id === bookId
+              );
+              _library.splice(bookToDeleteIndex, 1);
+              return _library;
+            });
+          }}
         />
       ) : null}
     </Layout>
