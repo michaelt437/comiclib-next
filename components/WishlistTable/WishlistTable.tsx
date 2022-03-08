@@ -7,12 +7,14 @@ export default function WishlistTable ({
   items,
   auth,
   changeModalState,
-  changeEditModalState
+  changeEditModalState,
+  changeDeleteModalState
 }: {
   items: Comicbook[];
   auth: boolean;
   changeModalState: Function;
   changeEditModalState: Function;
+  changeDeleteModalState: Function;
 }) {
   const [searchText, setSearchText] = useState<string>("");
   const initialSortState = {
@@ -187,7 +189,10 @@ export default function WishlistTable ({
                         className="inline h-6 w-6 cursor-pointer opacity-50 hover:opacity-100"
                         onClick={() => changeEditModalState(true, comic)}
                       />
-                      <TrashIcon className="inline h-6 w-6 ml-3 cursor-pointer opacity-50 hover:opacity-100" />
+                      <TrashIcon
+                        className="inline h-6 w-6 ml-3 cursor-pointer opacity-50 hover:opacity-100"
+                        onClick={() => changeDeleteModalState(true, comic)}
+                      />
                     </div>
                   ) : null}
                 </div>
