@@ -42,16 +42,13 @@ export default function ModalDelete ({
         </div>
         <p className="my-10">
           Are you sure you want to delete{" "}
-          <span className="italic">{bookToDelete.title}</span>?
+          <span className="italic font-bold">{bookToDelete.title}</span>?
         </p>
         <div className="flex justify-end">
           <button className="btn secondary" onClick={closeModal}>
             Cancel
           </button>
-          <button
-            className="btn primary"
-            onClick={() => execDeleteBook(bookToDelete.id)}
-          >
+          <button className="btn primary" onClick={() => execDeleteBook()}>
             Delete
           </button>
         </div>
