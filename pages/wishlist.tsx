@@ -48,7 +48,7 @@ export default function Wishlist ({
     }
     setWishlist(wishlistData);
     checkAuth();
-  }, []);
+  }, [wishlistData]);
 
   return (
     <Layout>

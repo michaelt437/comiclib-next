@@ -48,7 +48,7 @@ export default function Home ({ libraryData }: { libraryData: Comicbook[] }) {
     }
     setLibrary(libraryData);
     checkAuth();
-  }, []);
+  }, [libraryData]);
 
   return (
     <Layout layoutStyles="grid grid-cols-3 grid-rows-1 auto-cols-max gap-6">
