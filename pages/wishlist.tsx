@@ -26,7 +26,7 @@ export default function Wishlist ({
 }: {
   wishlistData: Partial<Comicbook>[];
 }) {
-  const [wishlist, setWishlist] = useState<Partial<Comicbook>[]>([]);
+  const [wishlist, setWishlist] = useState<Comicbook[]>([]);
   const [authenticated, setAuthenticated] = useState<boolean>(false);
   const [openAddModal, setOpenAddModal] = useState<boolean>(false);
   const [openEditModal, setOpenEditModal] = useState<boolean>(false);
