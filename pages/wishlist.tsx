@@ -24,7 +24,7 @@ export const getStaticProps: GetStaticProps = async () => {
 export default function Wishlist ({
   wishlistData
 }: {
-  wishlistData: Partial<Comicbook>[];
+  wishlistData: Comicbook[];
 }) {
   const [wishlist, setWishlist] = useState<Comicbook[]>([]);
   const [authenticated, setAuthenticated] = useState<boolean>(false);
