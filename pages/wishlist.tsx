@@ -9,7 +9,7 @@ import ModalEdit from "../components/Modal/ModalEdit";
 import ModalDelete from "../components/Modal/ModalDelete";
 import WishlistTable from "../components/WishlistTable/WishlistTable";
 
-export const getStatisProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const { data, error } = await supabase
     .from("wishlist")
     .select("*")
@@ -26,7 +26,7 @@ export default function Wishlist ({
 }: {
   wishlistData: Partial<Comicbook>[];
 }) {
-  const [wishlist, setWishlist] = useState<Comicbook[]>([]);
+  const [wishlist, setWishlist] = useState<Partial<Comicbook>[]>([]);
   const [authenticated, setAuthenticated] = useState<boolean>(false);
   const [openAddModal, setOpenAddModal] = useState<boolean>(false);
   const [openEditModal, setOpenEditModal] = useState<boolean>(false);
@@ -46,7 +46,7 @@ export default function Wishlist ({
       const user = (await supabase.auth.user()) as User;
       if (user?.role) setAuthenticated(user.role === "authenticated");
     }
-    fetchWishlist();
+    setWishlist(wishlistData);
     checkAuth();
   }, []);
 
