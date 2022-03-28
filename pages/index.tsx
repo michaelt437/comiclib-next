@@ -46,6 +46,7 @@ export default function Home ({ libraryData }: { libraryData: Comicbook[] }) {
       const user = (await supabase.auth.user()) as User;
       if (user && user.role) setAuthenticated(user.role === "authenticated");
     }
+    setLibrary(libraryData);
     checkAuth();
   }, []);
 
