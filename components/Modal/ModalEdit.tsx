@@ -57,6 +57,11 @@ export default function Modal ({
     changeEditModalState(false);
   }
 
+  function toggleStatus (): void {
+    if (bookReadStatus) setBookScore(null);
+    setBookReadStatus(!bookReadStatus);
+  }
+
   useEffect(() => {
     setDbName(router.pathname === "/" ? "comicbooks" : "wishlist");
   }, [router]);
@@ -126,7 +131,7 @@ export default function Modal ({
                     name="readStatus"
                     checked={bookReadStatus}
                     className="mr-2 mb-2"
-                    onChange={() => setBookReadStatus(!bookReadStatus)}
+                    onChange={() => toggleStatus()}
                   />
                   I have read this book
                 </label>
