@@ -17,7 +17,7 @@ export default function Modal ({
     "default"
   );
   const [bookWriters, setBookWriters] = useState<string>("");
-  const [bookScore, setBookScore] = useState<string>("0");
+  const [bookScore, setBookScore] = useState<string | null>("0");
   const [bookReadStatus, setBookReadStatus] = useState<boolean>(false);
   const [dbName, setDbName] = useState<string>("/");
 
@@ -47,6 +47,12 @@ export default function Modal ({
 
   function closeModal (): void {
     changeModalState(false);
+  }
+
+  function toggleStatus (): void {
+    if (bookReadStatus) setBookScore(null);
+    console.log("toggle status", bookReadStatus, bookScore);
+    setBookReadStatus(!bookReadStatus);
   }
 
   useEffect(() => {
@@ -118,7 +124,7 @@ export default function Modal ({
                     name="readStatus"
                     checked={bookReadStatus}
                     className="mr-2 mb-2"
-                    onChange={() => setBookReadStatus(!bookReadStatus)}
+                    onChange={() => toggleStatus()}
                   />
                   I have read this book
                 </label>
@@ -131,7 +137,7 @@ export default function Modal ({
                   </span>
                 </label>
                 <input
-                  value={bookScore}
+                  value={bookScore ? bookScore : 0}
                   className="form-field mb-5"
                   type="number"
                   id="score"
