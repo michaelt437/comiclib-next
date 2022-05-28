@@ -1,20 +1,30 @@
 import { Comicbook, SortOrder } from "../../types";
-import { PencilAltIcon, TrashIcon, XIcon } from "@heroicons/react/outline";
+import {
+  PencilAltIcon,
+  PlusCircleIcon,
+  TrashIcon,
+  XIcon
+} from "@heroicons/react/outline";
 import { SortAscendingIcon, SortDescendingIcon } from "@heroicons/react/solid";
 import { Fragment, useState, useReducer } from "react";
+import supabase from "../../supabase";
 
 export default function WishlistTable ({
   items,
   auth,
   changeModalState,
   changeEditModalState,
-  changeDeleteModalState
+  changeDeleteModalState,
+  addBookToLibrary,
+  deleteBook
 }: {
   items: Comicbook[];
   auth: boolean;
   changeModalState: Function;
   changeEditModalState: Function;
   changeDeleteModalState: Function;
+  addBookToLibrary: Function;
+  deleteBook: Function;
 }) {
   const [searchText, setSearchText] = useState<string>("");
   const initialSortState = {
@@ -185,12 +195,19 @@ export default function WishlistTable ({
                   <div className="grid-table_col">{comic.publisher}</div>
                   {auth ? (
                     <div className="flex items-center justify-center">
-                      <PencilAltIcon
+                      <PlusCircleIcon
                         className="inline h-6 w-6 cursor-pointer opacity-50 hover:opacity-100"
+                        onClick={() => {
+                          addBookToLibrary(comic);
+                          deleteBook(comic.id);
+                        }}
+                      />
+                      <PencilAltIcon
+                        className="inline h-6 w-6 mx-3 cursor-pointer opacity-50 hover:opacity-100"
                         onClick={() => changeEditModalState(true, comic)}
                       />
                       <TrashIcon
-                        className="inline h-6 w-6 ml-3 cursor-pointer opacity-50 hover:opacity-100"
+                        className="inline h-6 w-6 cursor-pointer opacity-50 hover:opacity-100"
                         onClick={() => changeDeleteModalState(true, comic)}
                       />
                     </div>

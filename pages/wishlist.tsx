@@ -34,6 +34,32 @@ export default function Wishlist ({
   const [editingBook, setEditingBook] = useState<Comicbook | null>(null);
   const [bookToDelete, setBookToDelete] = useState<Comicbook | null>(null);
 
+  async function deleteBook (bookId: string): Promise<void> {
+    await supabase.from("wishlist").delete().match({ id: bookId });
+    setWishlist((prevState) => {
+      const _library = [...prevState];
+      const bookToDeleteIndex = _library.findIndex(
+        (book) => book.id === bookId
+      );
+      _library.splice(bookToDeleteIndex, 1);
+      return _library;
+    });
+  }
+
+  async function addBookToLibrary (comic: Comicbook): Promise<void> {
+    let _newBook: Comicbook = {
+      title: comic.title,
+      publisher: comic.publisher,
+      writer: comic.writer,
+      score: 0,
+      status: false
+    };
+
+    const { data, error } = await supabase
+      .from("comicbooks")
+      .insert([{ ..._newBook }]);
+  }
+
   useEffect(() => {
     async function fetchWishlist (): Promise<void> {
       const { data, error } = await supabase
@@ -46,6 +72,7 @@ export default function Wishlist ({
       const user = (await supabase.auth.user()) as User;
       if (user?.role) setAuthenticated(user.role === "authenticated");
     }
+
     setWishlist(wishlistData);
     checkAuth();
   }, [wishlistData]);
@@ -64,6 +91,8 @@ export default function Wishlist ({
           setOpenDeleteModal(val);
           setBookToDelete(book);
         }}
+        addBookToLibrary={(comic: Comicbook) => addBookToLibrary(comic)}
+        deleteBook={(bookId: string) => deleteBook(bookId)}
       />
       {openAddModal ? (
         <Modal
@@ -97,16 +126,7 @@ export default function Wishlist ({
         <ModalDelete
           changeDeleteModalState={(val: boolean) => setOpenDeleteModal(val)}
           bookToDelete={bookToDelete!}
-          deleteBook={(bookId: string) => {
-            setWishlist((prevState) => {
-              const _library = [...prevState];
-              const bookToDeleteIndex = _library.findIndex(
-                (book) => book.id === bookId
-              );
-              _library.splice(bookToDeleteIndex, 1);
-              return _library;
-            });
-          }}
+          deleteBook={(bookId: string) => deleteBook(bookId)}
         />
       ) : null}
     </Layout>
