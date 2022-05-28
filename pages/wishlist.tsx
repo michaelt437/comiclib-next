@@ -126,7 +126,7 @@ export default function Wishlist ({
         <ModalDelete
           changeDeleteModalState={(val: boolean) => setOpenDeleteModal(val)}
           bookToDelete={bookToDelete!}
-          deleteBook={(bookId: string) => {}}
+          deleteBook={(bookId: string) => deleteBook(bookId)}
         />
       ) : null}
     </Layout>
