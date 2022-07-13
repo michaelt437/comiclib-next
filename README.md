@@ -2,7 +2,7 @@
 
 Moving away from Google Sheets to keep track of my comics. The goal was to include CRUD functions and display some simple metrics.
 
-Site is live here: [comicslib.netlify.app](https://comiclib.netlify.app)
+Site is live here: [comicslib.netlify.app](https://comicslib.netlify.app)
 
 **Stack**
 - [Next.js](https://nextjs.org)
