@@ -1,9 +1,15 @@
-export enum Publishers {
-  MARVEL = "Marvel",
-  DC = "DC",
-  VERTIGO = "Vertigo",
-  IMAGE = "Image",
-  DARKHORSE = "Dark Horse",
-  IDW = "IDW",
-  BOOMSTUDIOS = "Boom Studios"
-}
+export type Publishers =
+  | "Marvel"
+  | "DC"
+  | "Image"
+  | "Dark Horse"
+  | "IDW"
+  | "Boom! Studios"
+  | "Magnetic Press"
+  | "Aftershock"
+  | "Behemoth";
+
+export type Publisher = {
+  id: number;
+  name: Publishers;
+};

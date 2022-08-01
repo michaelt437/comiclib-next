@@ -1,4 +1,4 @@
-import { Publishers } from "./EnumPublishers";
+import { Publisher, Publishers } from "./EnumPublishers";
 import { SortOrder } from "./SortOrder";
 
-export { Publishers, SortOrder };
+export { Publisher, Publishers, SortOrder };
