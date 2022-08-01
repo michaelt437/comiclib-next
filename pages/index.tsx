@@ -33,7 +33,7 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-export default function Home({
+export default function Home ({
   libraryData,
   publishersData
 }: {
@@ -49,7 +49,7 @@ export default function Home({
   const [bookToDelete, setBookToDelete] = useState<Comicbook | null>(null);
 
   useEffect(() => {
-    async function checkAuth(): Promise<void> {
+    async function checkAuth (): Promise<void> {
       const user = (await supabase.auth.user()) as User;
       if (user && user.role) setAuthenticated(user.role === "authenticated");
     }

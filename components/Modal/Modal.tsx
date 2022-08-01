@@ -4,7 +4,7 @@ import { XIcon } from "@heroicons/react/solid";
 import supabase from "../../supabase";
 import { Comicbook, Publishers, Publisher } from "../../types";
 
-export default function Modal({
+export default function Modal ({
   publishers,
   changeModalState,
   addNewBook
@@ -23,7 +23,7 @@ export default function Modal({
   const [bookReadStatus, setBookReadStatus] = useState<boolean>(false);
   const [dbName, setDbName] = useState<string>("/");
 
-  async function addBook(): Promise<void> {
+  async function addBook (): Promise<void> {
     let _newBook: Comicbook = {
       title: bookTitle,
       publisher: bookPublisher as Publishers,
@@ -47,11 +47,11 @@ export default function Modal({
     closeModal();
   }
 
-  function closeModal(): void {
+  function closeModal (): void {
     changeModalState(false);
   }
 
-  function toggleStatus(): void {
+  function toggleStatus (): void {
     if (bookReadStatus) setBookScore(null);
     console.log("toggle status", bookReadStatus, bookScore);
     setBookReadStatus(!bookReadStatus);
