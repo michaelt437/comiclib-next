@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { XIcon } from "@heroicons/react/solid";
 import supabase from "../../supabase";
-import { Comicbook, Publishers } from "../../types";
+import { Comicbook, Publishers, Publisher } from "../../types";
 
-export default function Modal ({
+export default function Modal({
+  publishers,
   changeModalState,
   addNewBook
 }: {
+  publishers: Publisher[];
   changeModalState: Function;
   addNewBook: Function;
 }) {
@@ -21,7 +23,7 @@ export default function Modal ({
   const [bookReadStatus, setBookReadStatus] = useState<boolean>(false);
   const [dbName, setDbName] = useState<string>("/");
 
-  async function addBook (): Promise<void> {
+  async function addBook(): Promise<void> {
     let _newBook: Comicbook = {
       title: bookTitle,
       publisher: bookPublisher as Publishers,
@@ -45,11 +47,11 @@ export default function Modal ({
     closeModal();
   }
 
-  function closeModal (): void {
+  function closeModal(): void {
     changeModalState(false);
   }
 
-  function toggleStatus (): void {
+  function toggleStatus(): void {
     if (bookReadStatus) setBookScore(null);
     console.log("toggle status", bookReadStatus, bookScore);
     setBookReadStatus(!bookReadStatus);
@@ -94,13 +96,13 @@ export default function Modal ({
             <option value="default" disabled hidden>
               Select a publisher
             </option>
-            <option value="Marvel">Marvel</option>
-            <option value="DC">DC</option>
-            <option value="Vertigo">Vertigo</option>
-            <option value="Image">Image</option>
-            <option value="Dark Horse">Dark Horse</option>
-            <option value="IDW">IDW</option>
-            <option value="Boom Studios">Boom Studios</option>
+            {publishers.map((publisher: Publisher) => {
+              return (
+                <option value={publisher.name} key={publisher.id}>
+                  {publisher.name}
+                </option>
+              );
+            })}
           </select>
           <label htmlFor="writer" className="block font-medium mb-1">
             Writer
