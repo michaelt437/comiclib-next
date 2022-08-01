@@ -2,13 +2,15 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { XIcon } from "@heroicons/react/solid";
 import supabase from "../../supabase";
-import { Comicbook, Publishers } from "../../types";
+import { Comicbook, Publishers, Publisher } from "../../types";
 
-export default function Modal ({
+export default function Modal({
+  publishers,
   changeEditModalState,
   saveChanges,
   editingBook
 }: {
+  publishers: Publisher[];
   changeEditModalState: Function;
   saveChanges: Function;
   editingBook: Comicbook;
@@ -27,7 +29,7 @@ export default function Modal ({
   );
   const [dbName, setDbName] = useState<string>("/");
 
-  async function saveBook (): Promise<void> {
+  async function saveBook(): Promise<void> {
     let _newBook: Comicbook = {
       title: bookTitle,
       publisher: bookPublisher as Publishers,
@@ -53,11 +55,11 @@ export default function Modal ({
     closeModal();
   }
 
-  function closeModal (): void {
+  function closeModal(): void {
     changeEditModalState(false);
   }
 
-  function toggleStatus (): void {
+  function toggleStatus(): void {
     if (bookReadStatus) setBookScore(null);
     setBookReadStatus(!bookReadStatus);
   }
@@ -101,13 +103,13 @@ export default function Modal ({
             <option value="default" disabled hidden>
               Select a publisher
             </option>
-            <option value="Marvel">Marvel</option>
-            <option value="DC">DC</option>
-            <option value="Vertigo">Vertigo</option>
-            <option value="Image">Image</option>
-            <option value="Dark Horse">Dark Horse</option>
-            <option value="IDW">IDW</option>
-            <option value="Boom Studios">Boom Studios</option>
+            {publishers.map((publisher: Publisher) => {
+              return (
+                <option key={publisher.id} value={publisher.name}>
+                  {publisher.name}
+                </option>
+              );
+            })}
           </select>
           <label htmlFor="writer" className="block font-medium mb-1">
             Writer

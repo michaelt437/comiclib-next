@@ -90,6 +90,7 @@ export default function Home({
       ) : null}
       {openEditModal ? (
         <ModalEdit
+          publishers={publishersData}
           changeEditModalState={(val: boolean) => {
             setOpenEditModal(val);
             setEditingBook(null);
