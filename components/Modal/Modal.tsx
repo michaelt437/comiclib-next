@@ -3,8 +3,9 @@ import { useRouter } from "next/router";
 import { XIcon } from "@heroicons/react/solid";
 import supabase from "../../supabase";
 import { Comicbook, Publishers, Publisher } from "../../types";
+import Combobox from "../Combobox/Combobox";
 
-export default function Modal ({
+export default function Modal({
   publishers,
   changeModalState,
   addNewBook
@@ -15,15 +16,13 @@ export default function Modal ({
 }) {
   const router = useRouter();
   const [bookTitle, setBookTitle] = useState<string>("");
-  const [bookPublisher, setBookPublisher] = useState<Publishers | string>(
-    "default"
-  );
+  const [bookPublisher, setBookPublisher] = useState<Publishers | string>("");
   const [bookWriters, setBookWriters] = useState<string>("");
   const [bookScore, setBookScore] = useState<string | null>("0");
   const [bookReadStatus, setBookReadStatus] = useState<boolean>(false);
   const [dbName, setDbName] = useState<string>("/");
 
-  async function addBook (): Promise<void> {
+  async function addBook(): Promise<void> {
     let _newBook: Comicbook = {
       title: bookTitle,
       publisher: bookPublisher as Publishers,
@@ -47,11 +46,11 @@ export default function Modal ({
     closeModal();
   }
 
-  function closeModal (): void {
+  function closeModal(): void {
     changeModalState(false);
   }
 
-  function toggleStatus (): void {
+  function toggleStatus(): void {
     if (bookReadStatus) setBookScore(null);
     console.log("toggle status", bookReadStatus, bookScore);
     setBookReadStatus(!bookReadStatus);
@@ -81,29 +80,7 @@ export default function Modal ({
             placeholder="Enter the title"
             onChange={(event) => setBookTitle(event.target.value)}
           />
-          <label htmlFor="publisher" className="block font-medium mb-1">
-            Publisher*
-          </label>
-          <select
-            value={bookPublisher}
-            className="form-field w-full mb-5"
-            id="publisher"
-            name="publisher"
-            onChange={(event) =>
-              setBookPublisher(event.target.value as Publishers)
-            }
-          >
-            <option value="default" disabled hidden>
-              Select a publisher
-            </option>
-            {publishers.map((publisher: Publisher) => {
-              return (
-                <option value={publisher.name} key={publisher.id}>
-                  {publisher.name}
-                </option>
-              );
-            })}
-          </select>
+          <Combobox publisherValue={bookPublisher} publishers={publishers} updatePublisher={setBookPublisher} />
           <label htmlFor="writer" className="block font-medium mb-1">
             Writer
           </label>
