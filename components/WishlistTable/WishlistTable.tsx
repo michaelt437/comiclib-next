@@ -182,6 +182,8 @@ export default function WishlistTable ({
                     <a
                       href={`https://www.amazon.com/s?k=${encodeURIComponent(
                         comic.title
+                      )} ${encodeURIComponent(
+                        comic.writer
                       )}`}
                       target="_blank"
                       rel="noreferrer"
