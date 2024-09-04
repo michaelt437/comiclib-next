@@ -202,12 +202,12 @@ export default function ComicsList ({
           <div className="grid-table_tbody max-h-96">
             {filteredItems().map((comic) => {
               return (
-                <Fragment key={comic.title}>
+                <Fragment key={comic.id}>
                   <div
                     className={`grid-table_row grid hover:bg-slate-50 hidden lg:grid ${
                       auth ? "grid-cols-10" : "grid-cols-9"
                     }`}
-                    key={comic.title}
+                    key={comic.id}
                   >
                     <div className="grid-table_col col-span-4 text-sky-600 font-medium">
                       {comic.title}
