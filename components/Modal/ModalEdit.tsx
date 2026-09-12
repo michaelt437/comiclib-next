@@ -138,23 +138,14 @@ export default function Modal ({
               </div>
               <div className={bookReadStatus ? "" : "opacity-50"}>
                 <label htmlFor="score" className="block font-medium mb-1">
-                  Score{" "}
-                  <span className="text-gray-400 font-normal">
-                    (0 is no score)
-                  </span>
+                  Rating
                 </label>
-                <input
-                  value={bookScore ? bookScore : 0}
-                  className="form-field mb-5"
-                  type="number"
-                  id="score"
-                  name="score"
-                  min="0"
-                  max="10"
-                  placeholder="0"
-                  disabled={!bookReadStatus}
-                  onChange={(event) => setBookScore(event.target.value)}
-                />
+                <select name="score" id="score" onChange={(event) => setBookScore(event.target.value)} value={bookScore}>
+                  <option selected value="">---</option>
+                  <option value="3">Good</option>
+                  <option value="2">Mid</option>
+                  <option value="1">Bad</option>
+                </select>
               </div>
             </div>
           ) : null}

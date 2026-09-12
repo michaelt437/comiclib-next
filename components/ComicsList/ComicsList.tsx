@@ -1,11 +1,11 @@
 import { Comicbook, SortOrder } from "../../types";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import {
-  CheckIcon,
   PencilAltIcon,
   TrashIcon,
   XIcon
 } from "@heroicons/react/outline";
+import { CheckCircleIcon } from "@heroicons/react/solid";
 import { SortAscendingIcon, SortDescendingIcon } from "@heroicons/react/solid";
 import { Fragment, useState, useReducer } from "react";
 
@@ -20,7 +20,7 @@ export default function ComicsList ({
   changeModalState: Function;
   changeEditModalState: Function;
   changeDeleteModalState: Function;
-  auth: boolean;
+  auth: boolean
 }) {
   const [searchText, setSearchText] = useState<string>("");
   const initialSortState = {
@@ -86,7 +86,7 @@ export default function ComicsList ({
         <div className="flex flex-grow justify-space-between items-center mt-2 sm:mt-0">
           <div
             className={`flex-grow w-full rounded-md lg:max-w-lg sm:max-w-xs sm:ml-auto ${
-              auth && "mr-4"
+              (auth || process.env.NEXT_PUBLIC_ENV == "dev") && "mr-4"
             }`}
           >
             <div className="relative">
@@ -108,7 +108,7 @@ export default function ComicsList ({
               </div>
             </div>
           </div>
-          {auth ? (
+          {(auth || process.env.NEXT_PUBLIC_ENV == "dev") ? (
             <button
               className="btn primary flex-shrink-0"
               onClick={() => changeModalState(true)}
@@ -122,11 +122,11 @@ export default function ComicsList ({
         <div className="grid-table_thead bg-gray-100 hidden lg:block">
           <div
             className={`grid-table_row grid ${
-              auth ? "grid-cols-10" : "grid-cols-9"
+              (auth || process.env.NEXT_PUBLIC_ENV == "dev") ? "grid-cols-10" : "grid-cols-9"
             }`}
           >
             <div
-              className={`grid-table_col col-span-4 ${
+              className={`grid-table_col col-span-5 ${
                 sortState.sortBy === "title" && "font-bold text-sky-800"
               }`}
               onClick={() => dispatch({ sortColumn: "title" })}
@@ -181,21 +181,7 @@ export default function ComicsList ({
                   <SortAscendingIcon className="inline h-4 w-4 ml-1" />
                 ))}
             </div>
-            <div
-              className={`grid-table_col text-center ${
-                sortState.sortBy === "score" && "font-bold text-sky-800"
-              }`}
-              onClick={() => dispatch({ sortColumn: "score" })}
-            >
-              Score
-              {sortState.sortBy === "score" &&
-                (sortState.order === SortOrder.DESCENDING ? (
-                  <SortDescendingIcon className="inline h-4 h-4 ml-1" />
-                ) : (
-                  <SortAscendingIcon className="inline h-4 w-4 ml-1" />
-                ))}
-            </div>
-            {auth ? <div></div> : null}
+            {(auth || process.env.NEXT_PUBLIC_ENV == "dev") ? <div></div> : null}
           </div>
         </div>
         <OverlayScrollbarsComponent>
@@ -205,24 +191,32 @@ export default function ComicsList ({
                 <Fragment key={comic.id}>
                   <div
                     className={`grid-table_row grid hover:bg-slate-50 hidden lg:grid ${
-                      auth ? "grid-cols-10" : "grid-cols-9"
+                      (auth || process.env.NEXT_PUBLIC_ENV == "dev") ? "grid-cols-10" : "grid-cols-9"
                     }`}
                     key={comic.id}
                   >
-                    <div className="grid-table_col col-span-4 text-sky-600 font-medium">
+                    <div className="grid-table_col col-span-5 text-sky-600 font-medium">
                       {comic.title}
                     </div>
                     <div className="grid-table_col col-span-2">
                       {comic.writer}
                     </div>
                     <div className="grid-table_col">{comic.publisher}</div>
-                    <div className="grid-table_col flex justify-center text-emerald-400">
-                      {comic.status ? <CheckIcon className="h5 w-5" /> : ""}
+                    <div className="grid-table_col flex justify-center">
+                      {comic.status 
+                      ? <CheckCircleIcon 
+                          className={
+                          `h5 w-5 
+                          ${comic.score == 4 && "text-cyan-500"}
+                          ${comic.score == 3 && "text-emerald-400"}
+                          ${comic.score == 2 && "text-amber-400"}
+                          ${comic.score == 1 && "text-red-400"}
+                          `
+                          } 
+                        /> 
+                      : ""}
                     </div>
-                    <div className="grid-table_col text-center text-sky-600">
-                      {comic.score}
-                    </div>
-                    {auth ? (
+                    {(auth || process.env.NEXT_PUBLIC_ENV == "dev") ? (
                       <div className="flex items-center justify-center">
                         <PencilAltIcon
                           className="inline h-6 w-6 cursor-pointer opacity-50 hover:opacity-100"
@@ -238,7 +232,7 @@ export default function ComicsList ({
                   <div className="block lg:hidden p-3 mb-2 bg-white rounded-lg">
                     <p className="text-sky-600 font-medium">
                       {comic.title}{" "}
-                      {comic.status && <CheckIcon className="h4 w-4 inline" />}
+                      {comic.status && <CheckCircleIcon className="h4 w-4 inline" />}
                     </p>
                     <p>{comic.publisher}</p>
                   </div>
