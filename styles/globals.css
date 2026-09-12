@@ -79,6 +79,10 @@ li a, /* React Link elements */
   @apply ml-3;
 }
 
+.score--good {
+  @apply text-emerald-400;
+}
+
 :focus-visible {
   outline: none;
 }
