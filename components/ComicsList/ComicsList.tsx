@@ -14,13 +14,13 @@ export default function ComicsList ({
   changeModalState,
   changeEditModalState,
   changeDeleteModalState,
-  auth 
+  auth
 }: {
   items: Comicbook[];
   changeModalState: Function;
   changeEditModalState: Function;
   changeDeleteModalState: Function;
-  auth
+  auth: boolean
 }) {
   const [searchText, setSearchText] = useState<string>("");
   const initialSortState = {
