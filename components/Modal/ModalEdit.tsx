@@ -140,7 +140,7 @@ export default function Modal ({
                 <label htmlFor="score" className="block font-medium mb-1">
                   Rating
                 </label>
-                <select name="score" id="score" onChange={(event) => setBookScore(event.target.value)} value={bookScore}>
+                <select name="score" id="score" onChange={(event) => setBookScore(String(event.target.value))} value={String(bookScore)}>
                   <option selected value="">---</option>
                   <option value="3">Good</option>
                   <option value="2">Mid</option>
