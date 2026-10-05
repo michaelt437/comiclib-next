@@ -53,6 +53,13 @@ h3,
   @apply px-2;
 }
 
+.empty-table {
+  @apply bg-slate-200;
+  @apply text-slate-50;
+  width: 100%;
+  height: 300px;
+}
+
 .container {
   @apply mx-auto p-4;
 }

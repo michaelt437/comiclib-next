@@ -5,8 +5,7 @@ import {
   TrashIcon,
   XIcon
 } from "@heroicons/react/outline";
-import { CheckCircleIcon } from "@heroicons/react/solid";
-import { SortAscendingIcon, SortDescendingIcon } from "@heroicons/react/solid";
+import { ExclamationCircleIcon, CheckCircleIcon, SortAscendingIcon, SortDescendingIcon } from "@heroicons/react/solid";
 import { Fragment, useState, useReducer } from "react";
 
 export default function ComicsList ({
@@ -118,6 +117,7 @@ export default function ComicsList ({
           ) : null}
         </div>
       </div>
+      { filteredItems().length < 1 ? (<div className="empty-table flex justify-center"><ExclamationCircleIcon /></div>) : (
       <div className="grid-table">
         <div className="grid-table_thead bg-gray-100 hidden lg:block">
           <div
@@ -242,6 +242,7 @@ export default function ComicsList ({
           </div>
         </OverlayScrollbarsComponent>
       </div>
+      )}
     </div>
   );
 }
